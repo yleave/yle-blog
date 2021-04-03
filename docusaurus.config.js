@@ -3,7 +3,7 @@ module.exports = {
   title: 'Yle',
   tagline: '人生苦短，至少该让咖啡☕甜点~',
   url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/yle-blog/',
+  baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'https://gitee.com/ylea/imagehost/raw/master/img/logo1.png',

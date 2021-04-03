@@ -1,5 +1,30 @@
 ---
-title: Markdown Features
+title: Awesome MDX
+---
+
+搭建博客的过程中遇到了一个新格式：`.mdx`，它太 awesome 了，结合了 markdown 和 jsx 语法，这样页面内容就可以变得更加丰富多彩了！话虽如此，不过目前就单独的 markdown 基本够应付日常的博客笔记了...
+
+不过仍值得学习，有备无患~
+
+另外发现了一个新的语法：代码中的变化标记，可能用得上~
+
+写法： `代码段的开头为 ```diff，然后再需要标记的代码前加上 + 或 - 字符即可`
+
+```diff title="sidebars.js"
+module.exports = {
+  docs: [
+    {
+      type: 'category',
+      label: 'Docusaurus Tutorial',
+-     items: ['getting-started', 'create-a-doc', ...],
++     items: ['getting-started', 'create-a-doc', 'hello', ...],
+    },
+  ],
+};
+```
+
+下面是官方的介绍
+
 ---
 
 Docusaurus supports the [Markdown](https://daringfireball.net/projects/markdown/syntax) syntax and has some additional features.

@@ -9,7 +9,7 @@ import styles from './styles.module.css';
 const features = [
   {
     title: '努力工作',
-    imageUrl: 'img/undraw_docusaurus_mountain.svg',
+    imageUrl: 'img/undraw_docusaurus_react.svg',
     description: (
       <>
         
@@ -27,7 +27,7 @@ const features = [
   },
   {
     title: '用心生活',
-    imageUrl: 'img/undraw_docusaurus_react.svg',
+    imageUrl: 'img/undraw_docusaurus_mountain.svg',
     description: (
       <>
         

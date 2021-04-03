@@ -10,6 +10,7 @@ module.exports = {
   organizationName: 'facebook', // Usually your GitHub org/user name.
   projectName: 'docusaurus', // Usually your repo name.
   themeConfig: {
+    hideableSidebar: true,
     navbar: {
       title: 'Yle',
       logo: {
@@ -34,39 +35,28 @@ module.exports = {
             },
           ],
         },
-        {
-          to: 'timeline',
-          label: '时间线',
-          position: 'right',
-        },
-        {
-          to: 'about',
-          label: '关于',
-          position: 'right',
-        },
         // {
-        //   label: "学习",
-        //   position: "right",
-        //   items: [
-        //     {
-        //       label: "B 站配套文本",
-        //       to: "docs/videos/videos-intro",
-        //     },
-        //     {
-        //       label: "CSS 教程",
-        //       to: "docs/css/box-model/box-model",
-        //     },
-        //     {
-        //       label: "资源导航",
-        //       // position: "right",
-        //       to: "docs/resources/resources-intro",
-        //     },
-        //   ],
+        //   to: 'timeline',
+        //   label: '时间线',
+        //   position: 'right',
         // },
         {
-          href: 'https://github.com/facebook/docusaurus',
-          label: 'GitHub',
+          label: '关于',
           position: 'right',
+          items: [
+            {
+              label: '关于我',
+              to: 'about'
+            },
+            {
+              label: 'github',
+              href: 'https://github.com/yleave'
+            },
+            {
+              label: 'CSDN',
+              href: 'https://blog.csdn.net/qq_38701868'
+            },
+          ],
         },
       ],
     },
@@ -74,7 +64,7 @@ module.exports = {
       style: 'dark',
       links: [
         {
-          title: '等等🙈',
+          title: '待填充🙈',
           items: [
             {
               label: 'Get Started',
@@ -83,32 +73,36 @@ module.exports = {
           ],
         },
         {
-          title: '这里🙉',
+          title: '待填充🙉',
           items: [
             {
-              label: 'CSDN',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              label: '肉体',
+              href: 'https://yleave.top/',
             },
             {
-              label: 'GitHub',
-              href: 'https://discordapp.com/invite/docusaurus',
+              label: '灵魂',
+              href: 'https://yleave.top/',
             },
             {
-              label: 'WeChat',
-              href: 'https://twitter.com/docusaurus',
+              label: '总有一个该在路上',
+              href: 'https://yleave.top/',
             },
           ],
         },
         {
-          title: '还是空的！🙊',
+          title: '友链',
           items: [
             {
-              label: 'Blog',
-              to: 'blog',
+              label: '坑位1',
+              href: 'https://yleave.top/',
             },
             {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              label: '坑位2',
+              href: 'https://yleave.top/',
+            },
+            {
+              label: '坑位3',
+              href: 'https://yleave.top/',
             },
           ],
         },

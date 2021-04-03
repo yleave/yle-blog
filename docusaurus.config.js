@@ -24,7 +24,7 @@ module.exports = {
         //   label: 'Docs',
         //   position: 'right',
         // },
-        {to: 'blog', label: '文章', position: 'right'},
+        // {to: 'blog', label: '文章', position: 'right'},
         {
           label: '分类',
           position: 'right',

@@ -46,7 +46,7 @@ module.exports = {
           items: [
             {
               label: '关于我',
-              to: 'about'
+              to: 'docs/about/about'
             },
             {
               label: 'github',

@@ -8,7 +8,15 @@ module.exports = {
         '杂谈/awesome-mdx',
       ],
     },
-    // {  不显示 sidebar 的链接
+
+    // {
+    //   type: 'category',
+    //   label: 'CSS',
+    //   items: [
+    //     'CSS/2021-04-02-前言',
+    //   ],
+    // },
+    // {  不显示 sidebar 的链接，也即根据这个 id 跳转到 blog 中的对应页面
     //   type: 'ref',
     //   id: 'thank-you', // Document id (string).
     // }

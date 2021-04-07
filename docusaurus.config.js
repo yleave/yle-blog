@@ -35,6 +35,16 @@ module.exports = {
             },
           ],
         },
+        {
+          label: '奇里奇怪',
+          position: 'right',
+          items: [
+            {
+              label: '来一碗毒鸡汤如何',
+              href: 'http://www.cxyxiaowu.com/soup.html'
+            },
+          ],
+        },
         // {
         //   to: 'timeline',
         //   label: '时间线',
@@ -55,6 +65,10 @@ module.exports = {
             {
               label: 'CSDN',
               href: 'https://blog.csdn.net/qq_38701868'
+            },
+            {
+              label: '旧版',
+              href: 'https://yleave.github.io/'
             },
           ],
         },
@@ -127,4 +141,5 @@ module.exports = {
       },
     ],
   ],
+  themes: ['@docusaurus/theme-live-codeblock'],
 };

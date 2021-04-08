@@ -121,7 +121,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.<p><a href="http://beian.miit.gov.cn/">闽ICP备2021004814号-1<a></p>`,
     },
   },
   presets: [

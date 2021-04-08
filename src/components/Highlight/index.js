@@ -1,5 +1,7 @@
-export const Highlight = ({children, color}) => (
-    <span
+import React from "react";
+
+function Highlight({children, color}) {
+    return (<span
         style={{
             backgroundColor: color || '#0099CC',
             borderRadius: '4px',
@@ -7,5 +9,7 @@ export const Highlight = ({children, color}) => (
             padding: '0.2rem',
         }}>
         {children}
-    </span>
-);
+    </span>)
+};
+
+export default Highlight;

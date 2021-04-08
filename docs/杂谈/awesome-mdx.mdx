@@ -4,7 +4,7 @@ title: Awesome MDX
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-
+import Highlight from '@site/src/components/Highlight';
 
 搭建博客的过程中遇到了一个新格式：`.mdx`，它太 awesome 了，结合了 markdown 和 jsx 语法，这样页面内容就可以变得更加丰富多彩了！话虽如此，不过目前就单独的 markdown 基本够应付日常的博客笔记了...
 
@@ -47,16 +47,17 @@ Let's see how to [Link](./前言.md).
 Let's see how to [Link](https://yleave.top/docs/).
 ```
 
-import Highlight from '@site/src/components/fontStyle/Highlight'
 
-<Highlight> 页面内跳转：</Highlight>
+
+<Highlight>页面内跳转：</Highlight>
 
 Let's see how to [Link](./2021-04-02-前言.md).
 
-新页面跳转：
+<Highlight>新页面跳转：</Highlight>
+
 Let's see how to [Link](https://yleave.top/docs/%E6%9D%82%E8%B0%88/awesome-mdx).
 
-## 图片显示
+<Highlight>图片链接：</Highlight>
 
 可以使用相对路径来使用 `static` 路径下的图片： `static/img/docusaurus.png` ，当然也能使用绝对路径使用网络上的图片。
 
@@ -220,7 +221,7 @@ import TabItem from '@theme/TabItem';
 ### 基本设置
 
 
-使用 ` ``` ` 来创建代码块，使用 `title` 字段定义代码标题：
+使用 ` ``` ` 来创建代码块， <Highlight>使用 title 字段定义代码标题：</Highlight>
 
     ```jsx title="src/components/HelloDocusaurus.js"
     function HelloDocusaurus() {
@@ -236,7 +237,9 @@ function HelloDocusaurus() {
 }
 ```
 
-代码中的变化标记 `diff` ：
+. <Highlight>代码中的变化标记 diff： </Highlight>
+
+
 
     ```diff title="sidebars.js"
     module.exports = {
@@ -264,9 +267,23 @@ module.exports = {
 };
 ```
 
-设置某行高亮：
+<Highlight>设置某行高亮：</Highlight>
 
 如设置第一行、设置第 4 ~ 6 行和第 11 行代码高亮，[更多行号设置](https://www.npmjs.com/package/parse-numeric-range)：
+
+    ```jsx {1,4-6,11}
+    import React from 'react';
+
+    function MyComponent(props) {
+      if (props.isBar) {
+        return <div>Bar</div>;
+      }
+
+      return <div>Foo</div>;
+    }
+
+    export default MyComponent;
+    ```
 
 ```jsx {1,4-6,11}
 import React from 'react';
@@ -422,7 +439,7 @@ function Clock(props) {
   function tick() {
     setDate(new Date());
   }
-
+  
   return (
     <div>
       <h2>It is {date.toLocaleTimeString()}.</h2>

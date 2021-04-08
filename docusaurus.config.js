@@ -123,7 +123,21 @@ module.exports = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.<p><a href="http://beian.miit.gov.cn/">闽ICP备2021004814号-1<a></p>`,
     },
+    gtag: {
+      trackingID: 'G-B66H1HYDXT',
+      // Optional fields.
+      anonymizeIP: true, // Should IPs be anonymized?
+    },
+    googleAnalytics: {
+      trackingID: 'G-B66H1HYDXT',
+      // Optional fields.
+      anonymizeIP: true, // Should IPs be anonymized?
+    },
   },
+  plugins: [
+    ['@docusaurus/plugin-google-analytics'],
+    ['@docusaurus/plugin-google-gtag'],
+  ],
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -137,6 +151,10 @@ module.exports = {
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
+        },
+        sitemap: {
+          changefreq: "daily",
+          priority: 0.5,
         },
       },
     ],

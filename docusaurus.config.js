@@ -134,10 +134,10 @@ module.exports = {
       anonymizeIP: true, // Should IPs be anonymized?
     },
   },
-  plugins: [
-    ['@docusaurus/plugin-google-analytics'],
-    ['@docusaurus/plugin-google-gtag'],
-  ],
+  // plugins: [ 安装了 calssic 就不用再安装这两个插件了
+  //   ['@docusaurus/plugin-google-gtag'],
+  //   ['@docusaurus/plugin-google-analytics'], 
+  // ],
   presets: [
     [
       '@docusaurus/preset-classic',

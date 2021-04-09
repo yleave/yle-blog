@@ -31,7 +31,7 @@ module.exports = {
           items: [
             {
               label: '杂谈',
-              to: 'docs'
+              to: 'docs/杂谈/前言'
             },
             {
               label: '博客建设',

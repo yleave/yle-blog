@@ -5,7 +5,13 @@ module.exports = {
       label: '杂谈',
       items: [
         '杂谈/2021-04-02-前言',
-        '杂谈/awesome-mdx',
+      ],
+    },
+    {
+      type: 'category',
+      label: '博客建设',
+      items: [
+        '博客建设/awesome-mdx',
       ],
     },
 

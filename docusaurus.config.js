@@ -33,6 +33,10 @@ module.exports = {
               label: '杂谈',
               to: 'docs'
             },
+            {
+              label: '博客建设',
+              to: 'docs/博客建设/awesome-mdx'
+            },
           ],
         },
         {

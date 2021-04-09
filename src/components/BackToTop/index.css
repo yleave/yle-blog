@@ -1,0 +1,45 @@
+/* 点击置顶图标的 css 样式 */
+.back-to-top {
+    background-image: url("https://cdn.jsdelivr.net/gh/cetr/cdn@master/blog/img/space-to-top.png");
+    width: 62px;
+    height: 88px;
+    position: fixed;
+    bottom: 80px;
+    right: 30px;
+    visibility: hidden;
+  }
+  
+  .back-to-top:hover {
+    cursor: pointer;
+    animation: to-top-fly .4s steps(1) infinite;
+  }
+  
+  @keyframes to-top-fly {
+    0% {
+      background-position-x: -142.5px;
+    }
+  
+    16.5% {
+      background-position-x: -284.5px;
+    }
+  
+    33% {
+      background-position-x: -429.5px;
+    }
+  
+    49.5% {
+      background-position-x: -570.5px;
+    }
+  
+    66% {
+      background-position-x: -714.5px;
+    }
+  
+    82.5% {
+      background-position-x: -856.5px;
+    }
+  
+    100% {
+      background-position-x: 0px;
+    }
+  }

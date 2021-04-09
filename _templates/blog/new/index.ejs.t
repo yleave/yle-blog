@@ -12,4 +12,9 @@ tags: [前端, React]
 draft: true
 ---
 
+import BackToTop from '@site/src/components/BackToTop';
+
+
+<BackToTop />
+
 <!-- truncate -->

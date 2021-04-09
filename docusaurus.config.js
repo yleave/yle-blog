@@ -86,7 +86,7 @@ module.exports = {
           items: [
             {
               label: 'Get Started',
-              to: 'docs/',
+              to: 'docs/杂谈/前言',
             },
           ],
         },

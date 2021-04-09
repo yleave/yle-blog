@@ -68,7 +68,7 @@ export default function Home() {
                 'button button--outline button--secondary button--lg',
                 styles.getStarted,
               )}
-              to={useBaseUrl('docs/')}>
+              to={useBaseUrl('docs/杂谈/前言')}>
               点击进入我的生活
             </Link>
           </div>

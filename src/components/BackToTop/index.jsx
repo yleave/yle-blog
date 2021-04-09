@@ -11,7 +11,6 @@ function toTop(e) {
 }
 
 function onScroll(e) {
-    console.log('toggle');
     let ele = document.getElementsByClassName('back-to-top')[0];
     if (document.documentElement.scrollTop === 0) {
         ele.style.visibility = 'hidden';

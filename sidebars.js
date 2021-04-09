@@ -12,6 +12,7 @@ module.exports = {
       label: '博客建设',
       items: [
         '博客建设/awesome-mdx',
+        '博客建设/2021-04-09-博客样式优化',
       ],
     },
 

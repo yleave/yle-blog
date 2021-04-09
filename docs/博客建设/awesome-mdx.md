@@ -15,6 +15,13 @@ import BackToTop from '@site/src/components/BackToTop';
 
 不过仍值得学习，有备无患~
 
+> 2021.4.9 记
+> 
+> 虽然 mdx 很香，不过支持 Docusaurus 的 mdx 语法的工具不太好找 😢，原本写博客使用 typora + PicGo 非常方便，但是 typora 貌似并不支持 mdx 语法，在 typora 中写的话排版会很难受 ，而且还有部分语法解析规则不相同，总之就是丧失了一大利器
+> 
+> 所以看来今后写博客只能在 VSCODE 上写了？？更难受的是在 VSCODE 上下载了一个 MDX 文件的预览插件，但是这个插件并不能解析 Docusaurus 的路径解析 ：`@site` 语法，因此无法同步预览了，要查看效果只能在浏览器里查看，难受 😫
+> 
+> 这就是鱼和熊掌不可兼得吗，获得了更加丰富的表现能力却失去了文章编辑效率 😩
 
 ---
 

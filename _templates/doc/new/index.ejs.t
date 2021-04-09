@@ -1,5 +1,5 @@
 ---
-to: docs/<%= h.date() %>-<%= name %>.mdx
+to: docs/<%= h.date() %>-<%= name %>.md
 ---
 ---
 slug: <%= name %>

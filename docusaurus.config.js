@@ -63,8 +63,12 @@ module.exports = {
           position: 'right',
           items: [
             {
-              label: '关于我',
+              label: '关于我👀',
               to: 'docs/about/about'
+            },
+            {
+              label: '邮箱📮',
+              href: 'mailto:yleavesw@gmail.com'
             },
             {
               label: 'github',

@@ -37,6 +37,10 @@ module.exports = {
               label: '博客建设',
               to: 'docs/博客建设/awesome-mdx'
             },
+            {
+              label: 'CSS',
+              to: 'docs/CSS/CSS-demo'
+            },
           ],
         },
         {

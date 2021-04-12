@@ -69,7 +69,7 @@ export default function Home() {
                 styles.getStarted,
               )}
               to={useBaseUrl('docs/杂谈/前言')}>
-              点击进入我的生活
+              点击开启新世界大门（bushi
             </Link>
           </div>
         </div>

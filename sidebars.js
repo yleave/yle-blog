@@ -16,6 +16,13 @@ module.exports = {
         `博客建设/2021-04-10-hygen`,
       ],
     },
+    {
+      type: 'category',
+      label: 'CSS',
+      items: [
+        'CSS/2021-04-11-CSS-demo',
+      ],
+    },
 
     // {
     //   type: 'category',

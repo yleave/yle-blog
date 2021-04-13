@@ -1,0 +1,44 @@
+.header-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /* margin-bottom: calc(var(--ifm-leading-desktop) * var(--ifm-leading)); */
+    margin-bottom: 4.5em;
+}
+
+#busuanzi_container_page_pv {
+    font-size: 0.9em;
+    color: rgba(10, 194, 93, 0.986);
+}
+
+.iconlabel-01 {
+    color: rgb(5, 231, 220);
+    font-size: 1.3em;
+}
+
+.iconfont {
+    margin-right: 5px;
+}
+
+.vertical-gap {
+    margin: 0 10px;
+}
+
+.tags-container {
+    margin-top: 10px;
+}
+
+.blog-tag {
+    border: rgba(5, 231, 220, 0.911) solid 1px;
+    color: rgb(0, 0, 0);
+    font-size: 0.9em;
+    margin-left: 12px;
+    padding: 4px 9px;
+    border-radius: 8px;
+    transition: background-color, 0.2s ease-in, color 0.2s ease-in;
+}
+
+.blog-tag:hover {
+    background-color: rgba(5, 231, 220, 0.911);
+    color: white;
+}

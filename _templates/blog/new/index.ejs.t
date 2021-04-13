@@ -12,9 +12,10 @@ tags: [前端, React]
 draft: true
 ---
 
-import BackToTop from '@site/src/components/BackToTop';
 import Highlight from '@site/src/components/Highlight';
+import CustomComponent from '@site/src/components/CustomComponent';
 
-<BackToTop />
+<CustomComponent tags={[]} time="<%= h.date() %>" />
+
 
 <!-- truncate -->

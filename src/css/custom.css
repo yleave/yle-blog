@@ -105,3 +105,8 @@ body::-webkit-scrollbar-thumb {
   border-radius: 3px;
 }
 
+/* 文章标题居中 */
+
+header {
+  text-align: center;
+}

@@ -24,7 +24,7 @@ module.exports = {
         //   label: 'Docs',
         //   position: 'right',
         // },
-        // {to: 'blog', label: '文章', position: 'right'},
+        {to: 'blog', label: '文章', position: 'right'},
         {
           label: '分类',
           position: 'right',
@@ -133,7 +133,10 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.<p><a href="http://beian.miit.gov.cn/">闽ICP备2021004814号-1<a></p>`,
+      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.
+        <p><span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
+        <p><a href="http://beian.miit.gov.cn/">闽ICP备2021004814号-1<a></p>
+        `,
     },
     gtag: {
       trackingID: 'G-B66H1HYDXT',
@@ -172,4 +175,13 @@ module.exports = {
     ],
   ],
   themes: ['@docusaurus/theme-live-codeblock'],
+  scripts: [
+    {
+      src: '//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js',
+      async: true,
+    },
+  ],
+  stylesheets: [
+    '//at.alicdn.com/t/font_2138234_za37n86uvwo.css',
+  ],
 };

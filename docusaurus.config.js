@@ -134,7 +134,7 @@ module.exports = {
         },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.
-        <p><span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
+        <p><span id="busuanzi_container_site_pv">本站总访问量：<span id="busuanzi_value_site_pv"></span>次</span></p>
         <p><a href="http://beian.miit.gov.cn/">闽ICP备2021004814号-1<a></p>
         `,
     },
@@ -183,5 +183,6 @@ module.exports = {
   ],
   stylesheets: [
     '//at.alicdn.com/t/font_2138234_za37n86uvwo.css',
+    'https://use.fontawesome.com/releases/v5.3.1/css/all.css'
   ],
 };

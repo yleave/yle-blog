@@ -14,7 +14,8 @@ module.exports = {
         '博客建设/awesome-mdx',
         '博客建设/2021-04-09-博客样式优化',
         `博客建设/2021-04-10-hygen`,
-        '博客建设/2021-04-13-blog-header-component'
+        '博客建设/2021-04-13-blog-header-component',
+        '博客建设/2021-04-14-toTopbutton',
       ],
     },
     {

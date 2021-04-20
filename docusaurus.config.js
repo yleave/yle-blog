@@ -42,7 +42,7 @@ module.exports = {
               to: 'docs/CSS/CSS-demo'
             },
             {
-              label: 'CSS',
+              label: 'JS',
               to: 'docs/JS/dom-drag'
             },
           ],

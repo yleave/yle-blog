@@ -83,7 +83,7 @@ function onDragLeave(e) {
 function onDrop(e) {
     // 阻止一些默认操作，如拖拽超链接会默认打开页面
     e.preventDefault();
-    resetElement();
+    resetElement(false);
 
     dropbox.classList.remove('html-dropover');
     dropbox.classList.add('html-dropped');
@@ -116,12 +116,13 @@ function createPreview(imageFile) {
     dropbox.appendChild(image);
 }
 
-function resetElement() {
+function resetElement(clear=true) {
     if (dropbox.classList.contains('html-dropped')) {
         dropbox.classList.remove('html-dropped')
     }
     boxcontainer.appendChild(dragbox);
-    imgcontainer.appendChild(dragimg)
+    imgcontainer.appendChild(dragimg);
+    if (clear) dropbox.innerHTML = ""; // 清空所有子节点
 }
 
 function HTMLDragContainer() {
@@ -160,7 +161,7 @@ function HTMLDragContainer() {
                 <div class="html-drag-box" draggable="true"></div>
             </div>
             <div id="html-drag-img-container">
-                <img class="html-drag-img" src="../../../static/img/cat.png"></img>
+                <img class="html-drag-img" src="https://gitee.com/ylea/imagehost1/raw/master/img/cat.png"></img>
             </div>
             
             <div class="html-drop-box"></div>

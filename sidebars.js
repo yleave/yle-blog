@@ -25,6 +25,13 @@ module.exports = {
         'CSS/2021-04-11-CSS-demo',
       ],
     },
+    {
+      type: 'category',
+      label: 'JS',
+      items: [
+        'JS/2021-04-18-dom-drag',
+      ],
+    },
 
     // {
     //   type: 'category',

@@ -164,14 +164,14 @@ module.exports = {
         hashed: true,
         language: ["en", "zh"],
         translations: {
-          "search_placeholder": "Search 🔍",
-          "see_all_results": "See all results",
+          "search_placeholder": "Search",
+          "see_all_results": "查看所有相关结果👀",
           "no_results": "抱歉，暂时没有这方面的文章😣.",
-          "search_results_for": "Search results for \"{{ keyword }}\"",
-          "search_the_documentation": "Search the documentation",
+          "search_results_for": "关于 \"{{ keyword }}\" 的所有文章",
+          "search_the_documentation": "从当前站点中查找关键字",
           "count_documents_found": "一共找到了 {{ count }} 篇相关文章👀",
-          "count_documents_found_plural": "{{ count }} documents found",
-          "no_documents_were_found": "No documents were found"
+          "count_documents_found_plural": "一共找到了 {{ count }} 篇相关文章👀",
+          "no_documents_were_found": "啥也没找到，换一个关键词吧😵"
         },
       },
     ],

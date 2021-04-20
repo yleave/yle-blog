@@ -36,17 +36,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "babel": {
-      "plugins":[
-          [
-              "import",
-              {
-                  "libraryName":"antd",
-                  "libraryDirectory":"es",
-                  "style":"css"
-              }
-          ]
-      ]
   }
 }

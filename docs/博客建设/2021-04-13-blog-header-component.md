@@ -396,3 +396,6 @@ export default Header;
 
 
 
+import Comment from '@site/src/components/Comment';
+
+<Comment />

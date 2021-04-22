@@ -42,7 +42,7 @@ function Header(props) {
                 <span className="vertical-gap">|</span>
 
                 <i className="iconfont iconyanjing"></i>
-                <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>
+                <span id="busuanzi_value_page_pv"><i className="fa fa-spinner fa-spin"></i></span>
             </span>
 
             <div className="tags-container">

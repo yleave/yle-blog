@@ -206,6 +206,7 @@ module.exports = {
   ],
   stylesheets: [
     '//at.alicdn.com/t/font_2138234_za37n86uvwo.css',
-    'https://use.fontawesome.com/releases/v5.3.1/css/all.css'
+    'https://use.fontawesome.com/releases/v5.3.1/css/all.css',
+    'https://unpkg.com/gitalk/dist/gitalk.css'
   ],
 };

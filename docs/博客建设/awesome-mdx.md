@@ -473,3 +473,8 @@ import TOCInline from '@theme/TOCInline';
 
 <TOCInline toc={toc} />;
 ```
+
+
+import Comment from '@site/src/components/Comment';
+
+<Comment />

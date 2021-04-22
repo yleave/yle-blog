@@ -10,6 +10,7 @@ import Highlight from '@site/src/components/Highlight';
 import CustomComponent from '@site/src/components/CustomComponent';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import Comment from '@site/src/components/Comment';
 
 <Tabs
   defaultValue="apple"
@@ -25,3 +26,7 @@ import TabItem from '@theme/TabItem';
 
 <CustomComponent tags={[]} time="<%= h.date() %>" />
 
+
+
+
+<Comment />

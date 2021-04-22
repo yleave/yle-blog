@@ -203,3 +203,8 @@ function BackToTop() {
 
 export default BackToTop;
 ```
+
+
+import Comment from '@site/src/components/Comment';
+
+<Comment />

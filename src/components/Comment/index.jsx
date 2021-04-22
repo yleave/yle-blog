@@ -27,7 +27,7 @@ export default class Comment extends React.Component {
                             repo: "gittalk-comments",
                             owner: "yleave",
                             admin: ["yleave"],
-                            id: md5(location.pathname)
+                            id: md5(location.pathname.endsWith('/') ? location.pathname : location.pathname + '/')
                         }} />
                         : null
                 }

@@ -16,6 +16,7 @@ module.exports = {
         `博客建设/2021-04-10-hygen`,
         '博客建设/2021-04-13-blog-header-component',
         '博客建设/2021-04-14-toTopbutton',
+        '博客建设/2021-04-22-add comment component'
       ],
     },
     {

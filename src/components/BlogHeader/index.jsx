@@ -24,8 +24,8 @@ function bszCallback(data) {
     let pvEle = document.getElementById('busuanzi_value_page_pv');
     pvEle && (pvEle.innerText = data['page_pv']);
 
-    let siteEle = document.getElementById('busuanzi_value_site_pv');
-    siteEle && (siteEle.innerText = data['site_pv']);
+    let siteEle = document.getElementById('busuanzi_value_site_uv');
+    siteEle && (siteEle.innerText = data['site_uv']);
 }
 
 function Header(props) {

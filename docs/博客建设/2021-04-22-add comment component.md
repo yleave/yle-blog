@@ -159,8 +159,8 @@ export default class Comment extends React.Component {
                 {
                   this.state.ready ? 
                       <GitalkComponent options={{
-                          clientID: "376f48b355e1f9ac5d2e",
-                          clientSecret: "aceda79297e0265d1ae12cae6216e367f6ad7a3e", 
+                          clientID: "376f48...5e1f9ac5...",
+                          clientSecret: "aceda7..367f6...3e", 
                           repo: "gittalk-comments",
                           owner: "yleave",
                           admin: ["yleave"],

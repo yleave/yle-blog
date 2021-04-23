@@ -176,7 +176,7 @@ export default class Comment extends React.Component {
 
 &emsp;&emsp;经过了几个小时的折腾，终于把评论功能搞定了，虽然没有达到自己想要的评论功能效果，不过目前看上去也还不赖🤔
 
-### 坑点三
+### 坑3: 不唯一的 id 值
 
 &emsp;&emsp;自以为坑点都踩完了，测试了评论功能后自信部署，然而又发现问题了🤡
 
@@ -186,7 +186,7 @@ export default class Comment extends React.Component {
 
 &emsp;&emsp;点开其他页面，再次点进来，拉倒最底下 ？？？评论消失了❓
 
-&emsp;&emsp;重新评论，刷新，拉到最底下，之前的评论又出现了❔❔❔好家伙
+&emsp;&emsp;重新评论，刷新，拉到最底下，之前的评论又出现了 ❔❔❔ 好家伙
 
 &emsp;&emsp;看了下评论存放的 Issue，确实出现了两个，而且 `id` 值还不同：
 
@@ -198,6 +198,7 @@ export default class Comment extends React.Component {
 &emsp;&emsp;仔细观察后终于发现了问题所在：
 
 - 当我们从其他页面点到当前页面时，我们的路径是这样的：`https://yleave.top/docs/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E8%AE%BE/add%20comment%20component`
+  
   `location.pathname` 就是 `/docs/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E8%AE%BE/add%20comment%20component`
 - 而当我们刷新了当前页面：`https://yleave.top/docs/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E8%AE%BE/add%20comment%20component/` **末尾多了个斜杠**
 - 或是点击了某个 fragment：`https://yleave.top/docs/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E8%AE%BE/add%20comment%20component/#ref`
@@ -205,7 +206,10 @@ export default class Comment extends React.Component {
 
 &emsp;&emsp;发现几种不同的操作，`pathname` 最后的字符是不一样的（有的多了一个 `/`)，那么我们就对这个末尾字符进行处理就好了：
 
+`id: md5(location.pathname.endsWith('/') ? location.pathname : location.pathname + '/')`
 
+
+&emsp;&emsp;这下总该 ok 了吧？测试了一下，**暂时**没发现什么问题...
 
 
 ## REF 

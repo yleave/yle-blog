@@ -22,7 +22,7 @@ import Comment from '@site/src/components/Comment';
   <TabItem value="apple">This is an apple 🍎</TabItem>
   <TabItem value="orange">This is an orange 🍊</TabItem>
   <TabItem value="banana">This is a banana 🍌</TabItem>
-</Tabs>;
+</Tabs>
 
 <CustomComponent tags={[]} time="<%= h.date() %>" />
 

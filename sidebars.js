@@ -33,6 +33,7 @@ module.exports = {
       label: 'JS',
       items: [
         'JS/2021-04-18-dom-drag',
+        'JS/2021-05-11-JS-Automatic-Semicolon-Insertion',
       ],
     },
 

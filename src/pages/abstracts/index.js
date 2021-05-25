@@ -4,6 +4,7 @@ import Card from './Cards';
 import Button3D from '@site/src/components/Button3D';
 import Layout from '@theme/Layout';
 import BackToTop from '@site/src/components/BackToTop';
+import Head from '@docusaurus/Head';
 
 class Abstracts extends Component {
     constructor() {
@@ -138,6 +139,9 @@ class Abstracts extends Component {
       return (
         <Layout>
           <BackToTop />
+          <Head>
+            <title>文摘 | Yle</title>
+          </Head>
           <div className="cards-container">
             {
               this.cur_contents

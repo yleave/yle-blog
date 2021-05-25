@@ -207,11 +207,16 @@ module.exports = {
     {
       src: '//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js',
       async: true,
+    },
+    {
+      src: 'https://cdn.bootcdn.net/ajax/libs/node-waves/0.7.6/waves.min.js',
+      async: true,
     }
   ],
   stylesheets: [
     '//at.alicdn.com/t/font_2138234_yvmrwvxy5d.css',
     'https://use.fontawesome.com/releases/v5.3.1/css/all.css',
-    'https://unpkg.com/gitalk/dist/gitalk.css'
+    'https://unpkg.com/gitalk/dist/gitalk.css',
+    'https://cdn.bootcdn.net/ajax/libs/node-waves/0.7.6/waves.min.css'
   ],
 };

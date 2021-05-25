@@ -57,6 +57,11 @@ class Abstracts extends Component {
     }
 
     componentDidMount() {
+      if (window.Waves) {
+        // 开启点击波纹特效
+        Waves.displayEffect();
+      }
+
       fetch('https://qcho5o.fn.thelarkcloud.com/abstracts')
         .then((res) => {
           if (res.ok) {

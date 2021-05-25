@@ -69,7 +69,7 @@ export default class Card extends React.Component {
 
     render() {
         return (
-            <div className="abstract-card"
+            <div className="abstract-card waves-effect"
                 style={{
                     background: this.props.gradient
                 }}

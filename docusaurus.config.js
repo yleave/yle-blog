@@ -48,6 +48,11 @@ module.exports = {
           ],
         },
         {
+          label: '文摘',
+          position: 'right',
+          to: 'abstracts/'
+        },
+        {
           label: '奇里奇怪',
           position: 'right',
           items: [
@@ -205,7 +210,7 @@ module.exports = {
     },
   ],
   stylesheets: [
-    '//at.alicdn.com/t/font_2138234_za37n86uvwo.css',
+    '//at.alicdn.com/t/font_2138234_yvmrwvxy5d.css',
     'https://use.fontawesome.com/releases/v5.3.1/css/all.css',
     'https://unpkg.com/gitalk/dist/gitalk.css'
   ],

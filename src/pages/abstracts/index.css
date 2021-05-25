@@ -1,0 +1,22 @@
+
+.cards-container {
+    /* position: absolute; */
+    width: 100%;
+    min-width: 600px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    margin-top: 6rem;
+    margin-bottom: 8rem;
+}
+
+.cards-controller {
+    position: fixed;
+    right: 8%;
+    top: 15%;
+
+    transform-style: preserve-3d;
+	transform: perspective(800px);
+}

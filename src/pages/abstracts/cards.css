@@ -1,0 +1,82 @@
+@font-face {
+    font-family: jiaotang;
+    src: url(../../../static/font/OZ焦糖下午茶.ttf);
+}
+
+@font-face {
+    font-family: Merienda;
+    src: url(../../../static/font/Merienda-Regular.ttf);
+}
+
+.abstract-card {
+    font-family: 'Merienda', 'jiaotang';
+    width: 50%;
+    box-shadow: 0 0 18px rgb(0 105 165 / 35%);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 2rem;
+    border-radius: 2rem;
+    padding: 2rem;
+    box-sizing: border-box;
+    position: relative;
+    transition: transform ease-in 0.15s, box-shadow ease-in 0.25s;
+}
+
+.abstract-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 32px rgb(0 105 165 / 35%);
+}
+
+.c-content {
+    margin: 1rem;
+    text-indent: 2em;
+}
+
+.content_zh {
+    font-size: 1.5rem;
+}
+
+.content_en {
+    font-size: 1.2rem;
+}
+
+.c-author {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    align-self: flex-end;
+}
+
+.icon-heart-stage {
+    align-self: flex-end;
+	font-size: 1.5rem;
+}
+
+.icon-heart {
+	width: 100px;
+    height: 100px;
+	display: inline-block;
+	margin-top: -40px;
+	margin-bottom: -40px;
+	margin-right: -15px;
+    background: url("https://cssanimation.rocks/images/posts/steps/heart.png") no-repeat;
+    background-position: 0 0;
+    cursor: pointer;
+    -webkit-transition: background-position 1s steps(28);
+    transition: background-position 1s steps(28);
+    -webkit-transition-duration: 0s;
+    transition-duration: 0s;
+	/* opacity: 0.5; */
+}
+
+.icon-heart.is-active {
+    -webkit-transition-duration: 1s;
+    transition-duration: 1s;
+    background-position: -2800px 0;
+}
+
+.icon-heart.red-heart {
+    background-position: -2800px 0;
+}

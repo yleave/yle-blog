@@ -21,5 +21,6 @@ module.exports = {
         },
         "@ant-design/icons",
     ],
+    ["@babel/plugin-proposal-class-properties"]
   ],
 };

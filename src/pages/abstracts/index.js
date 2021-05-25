@@ -87,7 +87,8 @@ class Abstracts extends Component {
               onLikeChange={this.onLikeChange}
               getLikeProp={this.getLikeProp}
               getHeartCount={this.getHeartCount}
-              />
+              setHeartCount={this.setHeartCount}
+            />
           });
 
           this.cur_contents = this.cards.slice(0, this.content_per_page);
@@ -104,15 +105,19 @@ class Abstracts extends Component {
 
     onLikeChange = (id) => {
       this.likeMap.set(id, !this.likeMap.get(id));
-    }
+    };
 
     getLikeProp = (id) => {
       return this.likeMap.get(id);
-    }
+    };
 
     getHeartCount = (id) => {
       return this.heart_countMap.get(id);
-    }
+    };
+
+    setHeartCount = (id, inc) => {
+      this.heart_countMap.set(id, this.heart_countMap.get(id) + inc);
+    };
 
     update_cur_contents = () => {
       const total = this.cards.length;

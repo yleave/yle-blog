@@ -19,7 +19,7 @@ export default class Card extends React.Component {
     componentDidMount() {
         let like = this.props.getLikeProp(this.props._id);
         let heart_count = this.props.getHeartCount(this.props._id);
-        
+
         this.setState({
             heart_count,
             like
@@ -51,6 +51,7 @@ export default class Card extends React.Component {
         }
 
         this.props.onLikeChange(this.props._id);
+        this.props.setHeartCount(this.props._id, inc);
 
         fetch(`${this.heart_count_update_api}?id=${this.props._id}&inc=${inc}`)
             .then((res) => {

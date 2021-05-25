@@ -75,7 +75,7 @@ export default class Card extends React.Component {
                 id={this.props._id}
             >
                 <div className="icon-heart-stage"> 
-                    <span className="icon-heart" onClick={this.toggleClass}></span>
+                    <span className="icon-heart" onClick={this.toggleClass} ref={(ele) => this.heart=ele}></span>
                     <span className="heart-count">{this.state.heart_count}</span>
                 </div>
                 

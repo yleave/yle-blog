@@ -1,0 +1,30 @@
+.icon-heart-stage {
+    display: flex;
+    height: 250px;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(245, 245, 241);
+    margin-bottom: 20px;
+}
+
+.icon-heart {
+	width: 100px;
+    height: 100px;
+	display: inline-block;
+	margin-top: -40px;
+	margin-bottom: -40px;
+	margin-right: -15px;
+    background: url("https://cssanimation.rocks/images/posts/steps/heart.png") no-repeat;
+    background-position: 0 0;
+    cursor: pointer;
+    -webkit-transition: background-position 1s steps(28);
+    transition: background-position 1s steps(28);
+    -webkit-transition-duration: 0s;
+    transition-duration: 0s;
+}
+
+.is-active {
+    -webkit-transition-duration: 1s;
+    transition-duration: 1s;
+    background-position: -2800px 0;
+}

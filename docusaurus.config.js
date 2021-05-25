@@ -207,7 +207,7 @@ module.exports = {
     {
       src: '//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js',
       async: true,
-    },
+    }
   ],
   stylesheets: [
     '//at.alicdn.com/t/font_2138234_yvmrwvxy5d.css',

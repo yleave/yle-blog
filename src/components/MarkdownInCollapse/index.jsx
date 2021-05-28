@@ -20,7 +20,7 @@ const components = {
 export default function CollapseWithMarkdown({ markdown, header, OtherComponents }) {
 
     return (
-        <Collapse bordered={false}>
+        <Collapse bordered={false} style={{paddingBottom: '1.5rem'}}>
             <Panel header={header}>
                 <ReactMarkdown components={components} children={`${markdown}`} remarkPlugins={[gfm]} />
                 {

@@ -25,10 +25,13 @@ import MarkdownInCollapse from '@site/src/components/MarkdownInCollapse';
   ~~~
   - abc
   - de
+  
   ~strikethrough~
+  
   * Lists
   * [ ] todo
   * [x] done
+  
   A table:
   | a | b |
   | - | - |
@@ -109,6 +112,7 @@ export default function CollapseWithMarkdown({ markdown, header, OtherComponents
 ```jsx
 <MarkdownInCollapse markdown={`
   # title1
+
   URL: https://reactjs.org.
   ~~~js 
   var a = 3; 
@@ -116,10 +120,13 @@ export default function CollapseWithMarkdown({ markdown, header, OtherComponents
   ~~~
   - abc
   - de
+
   ~strikethrough~
+
   * Lists
   * [ ] todo
   * [x] done
+  
   A table:
   | a | b |
   | - | - |
@@ -127,7 +134,7 @@ export default function CollapseWithMarkdown({ markdown, header, OtherComponents
   header="点击查看效果👇" />
 ```
 
-&emsp;&emsp;由于文章是在 markdown 文件中写的，所以没办法像 JS 中那样可以定义一个 `markdown` 变量来保存 markdown 脚本，而是只能在传入参数时直接写 markdown，并且 markdown 格式也有限制：行与行之间不能有空行（密集恐惧症/强迫症患者落泪 T_T）；每行前可以没有缩进，但最多只能有一次缩进。
+&emsp;&emsp;由于文章是在 markdown 文件中写的，所以没办法像 JS 中那样可以定义一个 `markdown` 变量来保存 markdown 脚本，而是只能在传入参数时直接写 markdown，并且 markdown 格式也有限制：行与行之间有时能有空行有时却不行（还没搞懂空行规则）；每行前可以没有缩进，但最多只能有一次缩进。
 
 
 

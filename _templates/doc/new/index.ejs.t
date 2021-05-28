@@ -11,6 +11,7 @@ import CustomComponent from '@site/src/components/CustomComponent';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import Comment from '@site/src/components/Comment';
+import MarkdownInCollapse from '@site/src/components/MarkdownInCollapse';
 
 <Tabs
   defaultValue="apple"
@@ -27,6 +28,23 @@ import Comment from '@site/src/components/Comment';
 <CustomComponent tags={[]} time="<%= h.date() %>" />
 
 
-
+<MarkdownInCollapse markdown={`
+  # title1
+  URL: https://reactjs.org.
+  ~~~js 
+  var a = 3; 
+  console.log(a); 
+  ~~~
+  - abc
+  - de
+  ~strikethrough~
+  * Lists
+  * [ ] todo
+  * [x] done
+  A table:
+  | a | b |
+  | - | - |
+  `}
+  header="点击查看效果👇" />
 
 <Comment />

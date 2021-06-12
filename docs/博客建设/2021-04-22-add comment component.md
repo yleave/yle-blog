@@ -186,14 +186,14 @@ export default class Comment extends React.Component {
 
 &emsp;&emsp;点开其他页面，再次点进来，拉倒最底下 ？？？评论消失了❓
 
-&emsp;&emsp;重新评论，刷新，拉到最底下，之前的评论又出现了 ❔❔❔ 好家伙
+&emsp;&emsp;重新评论，刷新，拉到最底下，之前的评论又出现了 ❔❔❔
 
 &emsp;&emsp;看了下评论存放的 Issue，确实出现了两个，而且 `id` 值还不同：
 
 <img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210422225432818.png" alt="image-20210422225432818" style={{zoom:"80%"}} />
 
 
-&emsp;&emsp;又测试了下 `md5` ，同一个字符串加密出的字符串确实是唯一的，那么就是路径问题了。
+&emsp;&emsp; `md5` 算法对相同的字符串进行加密得到的结果肯定是唯一的，那么就只可能是路径问题了。
 
 &emsp;&emsp;仔细观察后终于发现了问题所在：
 
@@ -201,15 +201,22 @@ export default class Comment extends React.Component {
   
   `location.pathname` 就是 `/docs/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E8%AE%BE/add%20comment%20component`
 - 而当我们刷新了当前页面：`https://yleave.top/docs/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E8%AE%BE/add%20comment%20component/` **末尾多了个斜杠**
-- 或是点击了某个 fragment：`https://yleave.top/docs/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E8%AE%BE/add%20comment%20component/#ref`
-  此时 `location.pathname` 就是：`/docs/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E8%AE%BE/add%20comment%20component/`
 
-&emsp;&emsp;发现几种不同的操作，`pathname` 最后的字符是不一样的（有的多了一个 `/`)，那么我们就对这个末尾字符进行处理就好了：
+> &emsp;&emsp;对于为什么刷新页面会有斜杠：url 末尾的斜杠一般理解是表示该路径是一个文件夹的地址，会去这个文件夹中找到默认资源，而未加斜杠的话则表示这个路径代表了一个资源的定位，也即末尾字符串表示资源名称，而若找不到这个资源的话，则会认为这是一个文件夹，转而去对应文件夹中查找默认资源。
+> 
+> &emsp;&emsp;也就是若当前路径是表示一个文件夹地址且未加斜杆，那么访问其默认资源会多了一个步骤，中间会多了一个重定向（301）的过程。
+> 
+> &emsp;&emsp;比如刷新本页面（末尾无斜杆），可以看到浏览器实际上发起了两个请求，第一个请求（url 末尾无斜杆）返回状态码 301，第二个请求（url 末尾带斜杆）返回状态码 200：
+> <img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210612165535050.png" style={{zoom:"80%"}} />
+
+&emsp;&emsp;既然不同操作 `pathname` 最后的字符是不一样的（有的多了一个 `/`)，那么我们就对这个末尾字符进行处理就好了：
 
 `id: md5(location.pathname.endsWith('/') ? location.pathname : location.pathname + '/')`
 
 
 &emsp;&emsp;这下总该 ok 了吧？测试了一下，**暂时**没发现什么问题...
+
+> 还是出现问题了，尽管处理了 url 末尾的斜杆，但对同一个页面仍会有不同 id 值，搞不懂为什么...
 
 
 ## REF 

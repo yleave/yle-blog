@@ -37,6 +37,14 @@ module.exports = {
         'JS/2021-05-28-js-execution-context',
       ],
     },
+    // {
+    //   type: 'category',
+    //   label: '计算机基础',
+    //   items: [
+    //     '计算机基础/2021-06-11-type of programmig language',
+
+    //   ],
+    // },
 
     // {
     //   type: 'category',

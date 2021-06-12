@@ -45,6 +45,10 @@ module.exports = {
               label: 'JS',
               to: 'docs/JS/dom-drag'
             },
+            // {
+            //   label: '计算机基础',
+            //   to: 'docs/计算机基础/type of programmig language'
+            // },
           ],
         },
         {

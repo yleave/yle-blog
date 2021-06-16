@@ -5,11 +5,13 @@ import Button3D from '@site/src/components/Button3D';
 import Layout from '@theme/Layout';
 import BackToTop from '@site/src/components/BackToTop';
 import Head from '@docusaurus/Head';
+import { Skeleton } from 'antd';
 
 class Abstracts extends Component {
     constructor() {
         super();
         this.state = {
+          loading: true,
           abstracts: [],
           idx: 0
         };
@@ -99,6 +101,7 @@ class Abstracts extends Component {
           this.cur_contents = this.cards.slice(0, this.content_per_page);
 
           this.setState({
+            loading: false,
             abstracts: contents,
             idx: this.content_per_page
           });
@@ -147,20 +150,23 @@ class Abstracts extends Component {
 
     render() {
       return (
+        
         <Layout>
-          <BackToTop />
-          <Head>
-            <title>文摘 | Yle</title>
-          </Head>
-          <div className="cards-container">
-            {
-              this.cur_contents
-            }
-          </div>
+          <Skeleton loading={this.state.loading} active>
+            <BackToTop />
+            <Head>
+              <title>文摘 | Yle</title>
+            </Head>
+            <div className="cards-container">
+              {
+                this.cur_contents
+              }
+            </div>
 
-          <div className="cards-controller">
-            <Button3D text="换一批" id="cards-btn" toggleFn={this.update_cur_contents} />
-          </div>
+            <div className="cards-controller">
+              <Button3D text="换一批" id="cards-btn" toggleFn={this.update_cur_contents} />
+            </div>
+          </Skeleton>
         </Layout>
       )
     }

@@ -45,6 +45,10 @@ module.exports = {
               label: 'JS',
               to: 'docs/JS/dom-drag'
             },
+            {
+              label: 'React',
+              to: 'docs/React/2021-06-17-toy react-like-1'
+            },
             // {
             //   label: '计算机基础',
             //   to: 'docs/计算机基础/type of programmig language'

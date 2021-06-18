@@ -158,13 +158,13 @@ function HTMLDragContainer() {
     return (
         <div className="html-drag-container">
             <div id="html-drag-box-container">
-                <div class="html-drag-box" draggable="true"></div>
+                <div className="html-drag-box" draggable="true"></div>
             </div>
             <div id="html-drag-img-container">
-                <img class="html-drag-img" src="https://gitee.com/ylea/imagehost1/raw/master/img/cat.png"></img>
+                <img className="html-drag-img" src="https://gitee.com/ylea/imagehost1/raw/master/img/cat.png"></img>
             </div>
             
-            <div class="html-drop-box"></div>
+            <div className="html-drop-box"></div>
 
             <Button type="primary" shape="round" size="large" onClick={resetElement}>reset</Button>
         </div>

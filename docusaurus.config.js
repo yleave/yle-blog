@@ -47,7 +47,7 @@ module.exports = {
             },
             {
               label: 'React',
-              to: 'docs/React/2021-06-17-toy react-like-1'
+              to: 'docs/React/toy react-like-1'
             },
             // {
             //   label: '计算机基础',
@@ -120,15 +120,15 @@ module.exports = {
           items: [
             {
               label: '肉体',
-              href: 'https://yleave.top/',
+              href: 'https://yleave.top/a',
             },
             {
               label: '灵魂',
-              href: 'https://yleave.top/',
+              href: 'https://yleave.top/b',
             },
             {
               label: '总有一个该在路上',
-              href: 'https://yleave.top/',
+              href: 'https://yleave.top/c',
             },
           ],
         },
@@ -137,15 +137,15 @@ module.exports = {
           items: [
             {
               label: '坑位1',
-              href: 'https://yleave.top/',
+              href: 'https://yleave.top/d',
             },
             {
               label: '坑位2',
-              href: 'https://yleave.top/',
+              href: 'https://yleave.top/e',
             },
             {
               label: '坑位3',
-              href: 'https://yleave.top/',
+              href: 'https://yleave.top/f',
             },
           ],
         },

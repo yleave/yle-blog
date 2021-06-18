@@ -48,8 +48,8 @@ function Header(props) {
             <div className="tags-container">
                 <i className="iconfont iconlabel-01"></i>
                 {
-                    props.tags.map((tag) => {
-                        return <span className="blog-tag">  {tag} </span>
+                    props.tags.map((tag, idx) => {
+                        return <span className="blog-tag" key={idx}>  {tag} </span>
                     })
                 }
             </div>

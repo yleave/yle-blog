@@ -150,7 +150,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.
+      copyright: `Copyright © ${new Date().getFullYear()} yle blog. Built with Docusaurus.
         <p><span id="busuanzi_container_site_uv">本站总访问量：<span id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></span>次</span></p>
         <p><a href="http://beian.miit.gov.cn/">闽ICP备2021004814号-1<a></p>
         `,

@@ -61,9 +61,13 @@ module.exports = {
           to: 'abstracts/'
         },
         {
-          label: '奇里奇怪',
+          label: '乱七八糟',
           position: 'right',
           items: [
+            {
+              label: '全景图',
+              to: 'panoramic/'
+            },
             {
               label: '来一碗毒鸡汤如何',
               href: 'http://www.cxyxiaowu.com/soup.html'
@@ -150,7 +154,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} yle blog. Built with Docusaurus.
+      copyright: `Copyright © ${new Date().getFullYear()} | yle blog.
         <p><span id="busuanzi_container_site_uv">本站总访问量：<span id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></span>次</span></p>
         <p><a href="http://beian.miit.gov.cn/">闽ICP备2021004814号-1<a></p>
         `,

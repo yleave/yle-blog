@@ -49,6 +49,10 @@ module.exports = {
               label: 'React',
               to: 'docs/React/toy react-like-1'
             },
+            {
+              label: 'ThreeJS',
+              to: 'docs/ThreeJS/panoramic with threejs'
+            },
             // {
             //   label: '计算机基础',
             //   to: 'docs/计算机基础/type of programmig language'

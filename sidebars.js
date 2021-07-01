@@ -43,7 +43,14 @@ module.exports = {
       items: [
         'React/2021-06-17-toy react-like-1',
       ],
-    },// 2021-06-17-toy react-like-1
+    },
+    {
+      type: 'category',
+      label: 'ThreeJS',
+      items: [
+        'ThreeJS/2021-06-28-panoramic with threejs',
+      ],
+    },
 
     // {
     //   type: 'category',

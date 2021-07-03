@@ -53,6 +53,10 @@ module.exports = {
               label: 'ThreeJS',
               to: 'docs/ThreeJS/panoramic with threejs'
             },
+            {
+              label: '前端杂项',
+              to: 'docs/前端杂项/csrf attack'
+            },
             // {
             //   label: '计算机基础',
             //   to: 'docs/计算机基础/type of programmig language'
@@ -73,7 +77,7 @@ module.exports = {
               to: 'panoramic/'
             },
             {
-              label: '来一碗毒鸡汤如何',
+              label: '鸡汤/doge',
               href: 'http://www.cxyxiaowu.com/soup.html'
             },
           ],

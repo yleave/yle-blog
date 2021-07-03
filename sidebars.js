@@ -35,6 +35,7 @@ module.exports = {
         'JS/2021-04-18-dom-drag',
         'JS/2021-05-11-JS-Automatic-Semicolon-Insertion',
         'JS/2021-05-28-js-execution-context',
+        'JS/2021-07-03-object-or-function',
       ],
     },
     {
@@ -49,6 +50,13 @@ module.exports = {
       label: 'ThreeJS',
       items: [
         'ThreeJS/2021-06-28-panoramic with threejs',
+      ],
+    },
+    {
+      type: 'category',
+      label: '前端杂项',
+      items: [
+        '前端杂项/2021-07-03-csrf attack',
       ],
     },
 

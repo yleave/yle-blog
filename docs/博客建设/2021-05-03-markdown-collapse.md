@@ -134,8 +134,19 @@ export default function CollapseWithMarkdown({ markdown, header, OtherComponents
   header="点击查看效果👇" />
 ```
 
-&emsp;&emsp;由于文章是在 markdown 文件中写的，所以没办法像 JS 中那样可以定义一个 `markdown` 变量来保存 markdown 脚本，而是只能在传入参数时直接写 markdown，并且 markdown 格式也有限制：行与行之间有时能有空行有时却不行（还没搞懂空行规则）；每行前可以没有缩进，但最多只能有一次缩进。
+&emsp;&emsp;由于文章是在 markdown 文件中写的，而 markdown 对于一些字符会先进行解析，解析出的内容才会作为文本传入 MarkdownInCollapse 组件中，因此正常写的话很多地方会报错，因此写起来畏手畏脚的也不方便。
 
+&emsp;&emsp;另一个替代方案就是：将当前需要传入 MarkdownInCollapse 组件中的字符串在另一个 JS 文件中写好，再使用 import 导入使用，这样就方便多啦，如：
+
+```js
+const text = `
+.....
+`;
+
+export default {
+    text
+};
+```
 
 
 

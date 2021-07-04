@@ -21,6 +21,7 @@ import BackToTop from '@site/src/components/BackToTop';
   ![JavaScript](https://img.shields.io/badge/-JavaScript-333333?style=flat&logo=javascript)
   ![React](https://img.shields.io/badge/-React-61dafb?style=flat&logo=react&logoColor=white)
   ![Three.js](https://img.shields.io/badge/-Three.js-6bd6c7?style=flat&logo=three.js)
+  ![Python](https://img.shields.io/badge/-Python-3776AB?style=flat&logo=python&logoColor=white)
   ![Antd](https://img.shields.io/badge/-Antd-148dff?style=flat&logo=antdesign)
   ![Webpack](https://img.shields.io/badge/-Webpack-75afcc?style=flat&logo=webpack)
 

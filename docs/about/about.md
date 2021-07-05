@@ -6,14 +6,14 @@ import BackToTop from '@site/src/components/BackToTop';
 
 <BackToTop />
 
-<h3> 👨🏻‍💻 &nbsp;About Me </h3>
+## 👨🏻‍💻 &nbsp;About Me 
 
 - 🎓 &nbsp; 在五角场职业技术学院接受自由而无用的灵魂洗礼中，洗礼时长两年半.
 - 💼 &nbsp; 正在准备秋招 & 完成毕设.
 - 🌱 &nbsp; 正在学习前端相关知识.
 - ⚡️ &nbsp; 喜欢二次元 & 喜欢健身 & 还喜欢睡大觉.
 
-<h3> 🛠 &nbsp;Tech Stack | 技术栈 </h3>
+## 🛠 &nbsp;Tech Stack | 技术栈 
 
 - 🌐
   ![HTML5](https://img.shields.io/badge/-HTML5-E34F26?style=flat&logo=HTML5&logoColor=white)
@@ -43,7 +43,7 @@ import BackToTop from '@site/src/components/BackToTop';
 
 
 
-<h3> 🤝🏻 &nbsp;Connect with Me | 联系方式 </h3>
+## 🤝🏻 &nbsp;Connect with Me | 联系方式 
 
 <p align="center">
 <a href="https://www.yleave.top/"><img alt="Website" src="https://img.shields.io/badge/Website-www.yleave.top-blue?style=flat-square&logo=google-chrome" /></a>

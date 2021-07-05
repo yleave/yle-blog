@@ -8,7 +8,7 @@ import BackToTop from '@site/src/components/BackToTop';
 
 <h3> 👨🏻‍💻 &nbsp;About Me </h3>
 
-- 🎓 &nbsp; 在五角场职业技术学院接受自由而无用的洗礼中，洗礼时长两年半.
+- 🎓 &nbsp; 在五角场职业技术学院接受自由而无用的灵魂洗礼中，洗礼时长两年半.
 - 💼 &nbsp; 正在准备秋招 & 完成毕设.
 - 🌱 &nbsp; 正在学习前端相关知识.
 - ⚡️ &nbsp; 喜欢二次元 & 喜欢健身 & 还喜欢睡大觉.

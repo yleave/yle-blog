@@ -37,9 +37,9 @@ import BackToTop from '@site/src/components/BackToTop';
 
 <br/>
 
-<a href="https://github.com/yleave">
+<!-- <a href="https://github.com/yleave">
   <img src="https://github-readme-stats.vercel.app/api?username=yleave&theme=buefy&show_icons=true" />
-</a>
+</a> -->
 
 
 

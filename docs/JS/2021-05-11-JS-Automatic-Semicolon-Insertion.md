@@ -211,6 +211,26 @@ var a = function() {
 var a = function () {}[(1, 2, 3)].forEach();
 ```
 
+### 4.1 一个实例
+
+&emsp;&emsp;在刷力扣的时候，写了一个要进行数组元素交换的操作：`[nums[i], nums[j]] = [nums[j], nums[i]];`，不过出了个bug，为了进行调试，使用 `console.log` 打印了一些信息，然后就出错了，出错代码如下：
+
+```js
+console.log(i, j)
+[nums[i], nums[j]] = [nums[j], nums[i]];
+```
+
+&emsp;&emsp;报错是：`Uncaught TypeError: Cannot set property '5' of undefined`
+
+&emsp;&emsp;刚看到报错信息时很纳闷，不过再看了眼代码，发现少了个分号，然后回想起之前写过的这篇文章的内容就明白是为什么了~
+
+&emsp;&emsp;放到 `babel` 中一看，果然是这样：由于括号后没加分号，且 `[]` 可以看作是属性值获取操作，因此这两句就放到一起解析了。
+
+```js
+console.log(i, j)[(nums[i], nums[j])] = [nums[j], nums[i]];
+```
+
+
 
 
 ## 如何查看自动插入分号后的代码

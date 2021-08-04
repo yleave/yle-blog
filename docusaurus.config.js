@@ -7,7 +7,7 @@ module.exports = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'https://gitee.com/ylea/imagehost/raw/master/img/logo1.png',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
+  organizationName: 'yleave', // Usually your GitHub org/user name.
   projectName: 'docusaurus', // Usually your repo name.
   themeConfig: {
     hideableSidebar: true,
@@ -75,6 +75,10 @@ module.exports = {
             {
               label: '全景图',
               to: 'panoramic/'
+            },
+            {
+              label: '迷宫小游戏',
+              to: 'mazeGame/'
             },
             {
               label: '鸡汤/doge',

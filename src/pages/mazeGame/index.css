@@ -1,0 +1,101 @@
+#maze-container {
+    height: calc(100vh - 60px);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(https://cdn.jsdelivr.net/gh/yleave/mazeGame/105.jpg);
+}
+
+.layout-container {
+    width: 900px;
+    min-width: 820px;
+    min-height: 600px;
+    background-color: white;
+    border-radius: 30px;
+    border: 1px solid #04ff9d;
+}
+
+.maze-left {
+    float: left;
+}
+
+#maze-canvas {
+    border-radius: 30px;
+    box-shadow: -2px -2px 2px #F3F2F2, 5px 5px 5px #6F6767;
+}
+
+.maze-right {
+    float: right;
+    margin-top: 5vh;
+    margin-right: 2vw;
+}
+
+.maze-buttons  {
+
+}
+
+.maze-rank {
+    margin-top: 100px;
+    margin-left: 25px;
+}
+
+.maze-comment {
+    margin: 10vh 10vw;
+}
+
+.maze-button {
+    display: block;
+    cursor: pointer;    /*光标，点击样式（一只手)*/
+    width: 150px;
+    height: 44px;
+    margin-top: 25px;
+    padding: 0;
+    background: #ef4300;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 50px;
+    border: 1px solid #ff730e;
+    -moz-box-shadow:
+            0 15px 30px 0 rgba(255,255,255,.25) inset,
+            0 2px 7px 0 rgba(0,0,0,.2);
+    -webkit-box-shadow:
+            0 15px 30px 0 rgba(255,255,255,.25) inset,
+            0 2px 7px 0 rgba(0,0,0,.2);
+    box-shadow:
+            0 15px 30px 0 rgba(255,255,255,.25) inset,
+            0 2px 7px 0 rgba(0,0,0,.2);
+    font-family: 'PT Sans', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,.1);
+    -o-transition: all .2s;
+    -moz-transition: all .2s;
+    -webkit-transition: all .2s;
+    -ms-transition: all .2s;
+}
+.maze-button:hover {
+    -moz-box-shadow:
+            0 15px 30px 0 rgba(255,255,255,.15) inset,
+            0 2px 7px 0 rgba(0,0,0,.2);
+    -webkit-box-shadow:
+            0 15px 30px 0 rgba(255,255,255,.15) inset,
+            0 2px 7px 0 rgba(0,0,0,.2);
+    box-shadow:
+            0 15px 30px 0 rgba(255,255,255,.15) inset,
+            0 2px 7px 0 rgba(0,0,0,.2);
+}
+.maze-button:active {
+    -moz-box-shadow:
+            0 15px 30px 0 rgba(255,255,255,.15) inset,
+            0 2px 7px 0 rgba(0,0,0,.2);
+    -webkit-box-shadow:
+            0 15px 30px 0 rgba(255,255,255,.15) inset,
+            0 2px 7px 0 rgba(0,0,0,.2);
+    box-shadow:
+            0 5px 8px 0 rgba(0,0,0,.1) inset,
+            0 1px 4px 0 rgba(0,0,0,.1);
+
+    border: 0px solid #ef4300;
+}

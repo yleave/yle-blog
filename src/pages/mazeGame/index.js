@@ -42,6 +42,7 @@ export default class MazeGame extends Component {
         this.drawChessBoard();
         this.drawMazeMap();
         this.rectangle.load();
+        this.forceUpdate();
     }
 
     componentWillUnmount() {

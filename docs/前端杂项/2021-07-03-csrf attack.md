@@ -21,6 +21,24 @@ import MarkdownInCollapse from '@site/src/components/MarkdownInCollapse';
 4. a.com 接收到请求，并根据 Cookie 进行了用户验证，误以为是受害者发的请求
 5. a.com 以受害者的身份执行了对应操作，攻击完成。
 
+## 注意点
+
+&emsp;&emsp;我们知道，CSRF是跨站访问，那么它也一定是跨域的（跨站和跨域不是同一个概念，跨域比跨站更严格，什么是跨站可看[下文](#cookie-的-samesite-属性)），因此会受到浏览器的同源策略限制，导致请求发不出去（对于非简单请求会先发送一个 `Options` 请求，若成功了才能发送真正的请求），且跨域默认不允许携带 cookie。
+
+> &emsp;&emsp;对于 `fetch` 请求，要携带 cookie 需要设置 `credentials: 'include'` ，且服务器端需要设置 `Access-Control-Allow-Credentials: true`，并且 `Access-Control-Allow-Origin` 不能为 `*`。
+>
+> &emsp;&emsp;若是仅想在同源下请求携带 cookie，则可以设置 `credentials: 'same-origin'`。
+
+&emsp;&emsp;那么问题来了，**既然有了同源策略，为什么还有 CSRF 攻击呢？**
+
+&emsp;&emsp;这是因为同源策略只能限制一部分跨域请求（xhr 或 fetch 请求），但对一些情况如：
+
+- 直接通过 `window.location.href=xxx` 进行重定向跨域
+- 通过 `form` 表单提交 `post` 或 `get` 请求
+- 通过一些标签的 `src` 属性或 `href` 属性进行跨域请求
+- 通过 `iframe` 跨域 
+
+&emsp;&emsp;则可以进行跨域请求并携带我们保存的相应站点的 cookie ，也就成为了 CSRF 攻击的途径。
 
 
 ## 几种常见的 CSRF 攻击：
@@ -189,6 +207,9 @@ Referrer-Policy: unsafe-url
 > `eTLD + 1`：有效顶级域名 + 二级域名，如 `yleave.top`、`baidu.com`、`taobao.com` 等
 >
 > 那么按照这种规则，`a.baidu.com` 和 `b.baidu.com` 是同站，而 `a.github.io` 和 `b.github.io` 则不是同站
+
+
+Lax 和 None 的区别：
 
 | 请求类型  |                 示例                 | 正常情况（None) | Lax         |
 | :-------- | :----------------------------------: | --------------: | :---------- |

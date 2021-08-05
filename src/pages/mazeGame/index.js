@@ -163,7 +163,7 @@ export default class MazeGame extends Component {
     openNotification = () => {
         notification.open({
             message: '迷宫小游戏',
-            description: '游戏共有三关，每关结束后会自动跳转到下一关，结束后提交数据统计排名(TODO)，别暂停作弊哦~.',
+            description: '使用 W、S、A、D 来控制小方块移动。游戏共有三关，每关结束后会自动跳转到下一关，结束后提交数据统计排名(TODO)，别暂停作弊哦~.',
             top: 60,
         });
     };

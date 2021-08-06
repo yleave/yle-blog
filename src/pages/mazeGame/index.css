@@ -26,18 +26,27 @@
 }
 
 .maze-right {
-    float: right;
-    margin-top: 5vh;
-    margin-right: 2vw;
+    overflow: hidden;
 }
 
 .maze-buttons  {
-
+    float: right;
+    margin-top: 10%;
+    margin-right: 14%;
 }
 
 .maze-rank {
-    margin-top: 100px;
-    margin-left: 25px;
+    clear: both;
+    position: relative;
+}
+
+.maze-rank::after {
+    content: 'TOP5榜单(ms)...TODO';
+    position: relative;
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    top: -30px;
 }
 
 .maze-comment {

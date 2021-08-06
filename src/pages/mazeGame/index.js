@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
+
 import Layout from '@theme/Layout';
 import Head from '@docusaurus/Head';
-import { notification } from 'antd';
+
+import { DynamicBarChart } from 'react-dynamic-charts';
+import 'react-dynamic-charts/dist/index.css';
+
+import { notification, Modal, Button } from 'antd';
+import 'antd/dist/antd.min.css';    // 存在对话框无法关闭的问题，导入 css 样式后才恢复正常
+import Draggable from 'react-draggable';
+
 import Comment from '@site/src/components/Comment';
 import './index.css';
 
@@ -13,6 +21,12 @@ export default class MazeGame extends Component {
         this.borderSize = 30;
         this.tree = [];  //并查集
         this.isConnect = []; //标识两点是否相连
+
+        this.state = {
+            visible: false, // 对话框是否可见
+            disable: true,  // 对话框是否可拖动
+            bounds: {left: 0, top: 0, right: 0, bottom: 0},  // 对话框拖动边界
+        };
     }
 
     componentDidMount() {
@@ -43,6 +57,31 @@ export default class MazeGame extends Component {
         this.drawMazeMap();
         this.rectangle.load();
         this.forceUpdate();
+
+        fetch('https://qcetup.fn.thelarkcloud.com/top5Ranks')
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+            })
+            .then(data => {
+                const firstRenderData = {values: []};
+                for (let item of data) {
+                    firstRenderData.values.push({
+                        id: item.id,
+                        label: item.userName,
+                        value: item.spendMs,
+                        colors: item.colors
+                    });
+                }
+
+                this.setState({
+                    data: [firstRenderData]
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     componentWillUnmount() {
@@ -52,6 +91,31 @@ export default class MazeGame extends Component {
     updateMapSize = () => {
         this.mapSize += 3;
         this.forceUpdate();
+    };
+
+    uploadRecord = () => {
+
+    };
+
+    showModal = () => {
+        this.setState({
+          visible: true,
+        });
+    };
+    
+    handleOk = e => {
+        console.log('ok')
+        this.setState({
+            visible: false,
+        });
+        this.visible = false;
+    };
+
+    handleCancel = e => {
+        console.log('cancel')
+        this.setState({
+            visible: false,
+        });
     };
 
     initialTree = () => {
@@ -169,6 +233,8 @@ export default class MazeGame extends Component {
     };
 
     render() {
+        const { bounds, disabled, visible } = this.state;
+
         return (
             <Layout>
                 <Head>
@@ -193,16 +259,83 @@ export default class MazeGame extends Component {
                                         : null
                                 }
                             </div>
-
-                            <div className='maze-rank'>
-                                榜单（TODO)
-                            </div>
+                            {
+                                this.state.data ? 
+                                    <div className='maze-rank'>
+                                        <DynamicBarChart
+                                            data={this.state.data}
+                                            baseline={0}
+                                            barHeight={10}
+                                            mainWrapperStyles={{
+                                                // backgroundColor: '#333',
+                                                // color: '#fff',
+                                                // position: 'relative'
+                                            }}
+                                            chartWrapperStyles={{
+                                                // position: 'relative'
+                                            }}
+                                            labelStyles={{
+                                                // fontSize: '5px'
+                                            }}
+                                        />
+                                    </div>
+                                    : null
+                            }
                         </div>
                     </div>
                 </div>
                 <div className='maze-comment'>
                     <Comment/>
                 </div>
+                
+                <Modal
+                    title="Modal"
+                    visible={visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                    okText="确认"
+                    cancelText="取消"
+                >
+                    <p>Bla bla ...</p>
+                    <p>Bla bla ...</p>
+                    <p>Bla bla ...</p>
+                </Modal>
+                {/* <Modal
+                    // title={
+                    //     <div
+                    //         style={{
+                    //             width: '100%',
+                    //             cursor: 'move',
+                    //         }}
+                    //         // onMouseOver={() => {
+                    //         //     if (disabled) {
+                    //         //         this.setState({
+                    //         //             disabled: false,
+                    //         //         });
+                    //         //     }
+                    //         // }}
+                    //         // onMouseOut={() => {
+                    //         //     this.setState({
+                    //         //         disabled: true,
+                    //         //     });
+                    //         // }}
+                    //     >
+                    //         分数上传
+                    //     </div>
+                    // }
+                    visible={visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                    // modalRender={modal => (
+                    //     <Draggable
+                    //         disabled={disabled}
+                    //         bounds={bounds}
+                    //         // onStart={(event, uiData) => this.onStart(event, uiData)}
+                    //     >
+                    //     </Draggable>
+                    // )}
+                >
+                </Modal> */}
             </Layout>
         );
     }
@@ -275,7 +408,7 @@ class Rect {    //移动操纵的矩形的构造函数 , 小矩形距单元格�
         }
 
         let ms = this.formatMs(this.ms) + '';
-        ms = ms.padStart(4, '0');
+        ms = ms.padStart(4, '0').slice(0, 3);
         
         const str = this.formatTime(this.h) + '时' + this.formatTime(this.m) + '分' + this.formatTime(this.s) + '秒' + ms + '毫秒';
         this.myTime.innerHTML = str;

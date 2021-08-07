@@ -1,6 +1,6 @@
 ---
 slug: js-execution-context
-title: JS深入--词法作用域、执行上下文与闭包
+title: JS词法作用域、执行上下文与闭包
 ---
 
 import Highlight from '@site/src/components/Highlight';
@@ -89,7 +89,7 @@ checkscope()();
 
 
 
-&emsp;&emsp;词法环境和变量环境保存了函数中定义的变量和函数的标识，而指向外部环境的指针串起来简单理解起来就是我们所说的作用域链了。也就是函数在定义的时候（还未执行）的作用域链。
+&emsp;&emsp;词法环境和变量环境保存了函数中定义的变量和函数的标识。
 
 &emsp;&emsp;在执行阶段，这三个部分都会被确定，词法环境和变量环境中的变量会被初始化，直到执行阶段才会被真正赋值。
 
@@ -307,7 +307,7 @@ console.log(window.a);	// 1
 
 来看一个例子：
 
-```JS
+```js
 function makeCounter() {
   let count = 0;
 
@@ -319,7 +319,7 @@ function makeCounter() {
 let counter = makeCounter();
 ```
 
-&emsp;&emsp;在这个例子中，`counter` 就是我们一般所指的**闭包**，且每次调用 `counter`，就能获得加 1 后的 `count` 值。
+&emsp;&emsp;在这个例子中，`counter` 就是我们一般所指的**闭包**，且每次调用 `counter`，就能获得 `count` 值，然后 `count` 会自增。
 
 &emsp;&emsp;在每次 `makeCounter()` 调用的开始，都会创建一个**新的**词法环境对象，以存储该 `makeCounter` 运行时的变量。
 

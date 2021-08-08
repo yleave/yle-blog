@@ -5,7 +5,6 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './styles.module.css';
-import Comment from '@site/src/components/Comment';
 
 const features = [
   {
@@ -88,11 +87,6 @@ export default function Home() {
           </section>
         )}
       </main>
-      <Comment style={{
-        width: 0,
-        height: 0,
-        visibility: 'hidden'
-      }} />
     </Layout>
   );
 }

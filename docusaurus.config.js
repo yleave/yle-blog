@@ -149,20 +149,9 @@ module.exports = {
           ],
         },
         {
-          title: '友链',
+          title: '待填充🙉',
           items: [
-            {
-              label: '坑位1',
-              href: 'https://yleave.top/d',
-            },
-            {
-              label: '坑位2',
-              href: 'https://yleave.top/e',
-            },
-            {
-              label: '坑位3',
-              href: 'https://yleave.top/f',
-            },
+            
           ],
         },
       ],

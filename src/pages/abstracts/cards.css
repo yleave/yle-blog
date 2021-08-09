@@ -1,6 +1,7 @@
 @font-face {
     font-family: jiaotang;
-    src: url(../../../static/font/OZ焦糖下午茶.ttf);
+    /* src: url(../../../static/font/OZ焦糖下午茶.ttf); */
+    src: url(https://cdn.jsdelivr.net/gh/yleave/yle-blog/font/OZ%E7%84%A6%E7%B3%96%E4%B8%8B%E5%8D%88%E8%8C%B6.ttf);
 }
 
 @font-face {

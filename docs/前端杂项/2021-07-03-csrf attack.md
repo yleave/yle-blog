@@ -40,6 +40,8 @@ import MarkdownInCollapse from '@site/src/components/MarkdownInCollapse';
 
 &emsp;&emsp;则可以进行跨域请求并携带我们保存的相应站点的 cookie ，也就成为了 CSRF 攻击的途径。
 
+&emsp;&emsp;此外，对于 xhr 或 fetch 请求，确实会受到同源策略的限制，导致拿不到请求的返回结果，但是对于简单请求来说，它们实际上还是会发送到服务器端，那么攻击者就达到目的了。
+
 
 ## 几种常见的 CSRF 攻击：
 
@@ -187,6 +189,15 @@ Referrer-Policy: unsafe-url
 > 验证码和密码其实也可以起到CSRF Token的作用，而且更安全。
 
 
+一个 CSRF-Token 的例子：
+
+1. 服务端在收到请求时，生成一个随机数，在渲染请求页面时，将随机数埋入页面（一般会埋在 form 表单中 `<imput type="hidden" name="_csrf_token" value="xxxx">`）
+2. 服务端同时设置 `setCookie`，将随机数存在用户浏览器的 cookie 中
+3. 用户发送 GET 或 POST 请求时，携带上 `_csrf_token` 参数（header 中的一个字段，form 表单直接提交即可）
+4. 后台在收到请求后，解析 cookie 并获取 `_csrf_token` 的值，然后和用户提交的 `_csrf_token` 做一个对比，如果相等则表示是合法的。
+
+
+
 
 ### Cookie 的 SameSite 属性
 
@@ -231,5 +242,6 @@ Lax 和 None 的区别：
 
 [浏览器系列之 Cookie 和 SameSite 属性](https://github.com/mqyqingfeng/Blog/issues/157) 
 
+[「每日一题」CSRF 是什么？](https://zhuanlan.zhihu.com/p/22521378)
 
 <Comment />

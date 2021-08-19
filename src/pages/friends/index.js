@@ -85,9 +85,9 @@ export default class Friends extends Component {
 
         let model;
         const gltfLoader = new GLTFLoader();
-        gltfLoader.load('../../../static/models/RobotExpressive.glb', function(gltf) {
+        gltfLoader.load('https://cdn.jsdelivr.net/gh/yleave/yle-blog/models/RobotExpressive.glb', function(gltf) {
             model = gltf.scene;
-            console.log(model);
+            // console.log(model);
             model.scale.set(60, 60, 60);
             model.position.y = -250;
             scene.add(model);

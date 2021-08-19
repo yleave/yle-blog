@@ -86,6 +86,11 @@ module.exports = {
             },
           ],
         },
+        {
+          label: '友链',
+          position: 'right',
+          to: 'friends/'
+        },
         // {
         //   to: 'timeline',
         //   label: '时间线',

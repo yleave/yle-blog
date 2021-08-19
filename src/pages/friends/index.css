@@ -1,0 +1,17 @@
+#friends-canvas-container {
+    height: calc(100vh - 60px);
+    width: 100%;
+    /* display: flex; */
+}
+
+/* 隐藏横向滚动条，不知道为什么切换了屏幕分辨率后横向滚动条会出现 */
+#friends-canvas-container::-webkit-scrollbar {
+    display: none; /* Chrome Safari */
+}
+
+#friends-canvas-container {
+    scrollbar-width: none; /* firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+    overflow-x: hidden;
+    overflow-y: auto;
+}

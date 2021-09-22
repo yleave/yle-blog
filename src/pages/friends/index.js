@@ -6,32 +6,43 @@ import Head from '@docusaurus/Head';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import * as TWEEN from '@tweenjs/tween.js';
+import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
+import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
+// import * as TWEEN from '@tweenjs/tween.js';
 
 import grassImg from '../../../static/img/textures/grasslight-big.jpg';
 
 import './index.css';
 
-let renderer, camera, scene, controls, container;
+let renderer, camera, scene, controls, container, labelRenderer;
+let dialogDom, dialogObj, fLinkDom, aWordDom;
 
 export default class Friends extends Component {
     constructor() {
         super();
         
         this.models = [];
-        
+        this.modelsMap = {};
     }
 
     componentDidMount() {
         container = document.getElementById('friends-canvas-container');
         const canvas = document.getElementById('friends-canvas');
+        const height = container.clientHeight;
+        const width = container.clientWidth;
+
         renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 
         // renderer.setClearColor(0xffffff);   // b2e0df 绿豆沙色
         renderer.setPixelRatio( window.devicePixelRatio );
-        const height = container.clientHeight;
-        const width = container.clientWidth;
         renderer.setSize(width, height);
+
+        labelRenderer = new CSS2DRenderer();
+        labelRenderer.setSize(width, height);
+        labelRenderer.domElement.style.position = 'absolute';
+        labelRenderer.domElement.style.top = '60px';
+        labelRenderer.domElement.style.zIndex = '1000';
+        container.appendChild(labelRenderer.domElement);
         
         camera = new THREE.PerspectiveCamera(60, width / height, 1, 30000);
         camera.position.set( 1000, 50, 1500 );
@@ -60,7 +71,7 @@ export default class Friends extends Component {
 
         scene.add( light );
 
-        controls = new OrbitControls(camera, renderer.domElement);
+        controls = new OrbitControls(camera, labelRenderer.domElement);
         controls.maxPolarAngle = Math.PI * 0.5;
         controls.minDistance = 50;
         controls.maxDistance = 5000;
@@ -83,11 +94,18 @@ export default class Friends extends Component {
         // const axesHelper = new THREE.AxesHelper( 50 );
         // scene.add( axesHelper );
 
-        const model = new Robot();
+        const name = 'robot';
+        const model = new Robot({name});
         model.init();
         this.models.push(model);
+        this.modelsMap[name] = model;
+
+        this.initDialog();
 
         window.addEventListener('resize', this.onWindowResize);
+
+        labelRenderer.domElement.addEventListener('click', this.clickLabel);
+
         this.renderLoop();
     }
 
@@ -104,18 +122,79 @@ export default class Friends extends Component {
         });
 
         window.removeEventListener('resize', this.onWindowResize);
+        labelRenderer.domElement.removeEventListener('click', this.clickLabel);
         cancelAnimationFrame(this.rfa);
     }
 
+    initDialog = () => {
+        dialogDom = document.createElement('div');
+        dialogDom.className = 'model-dialog';
+
+        const linkContainer = document.createElement('div');
+        fLinkDom = document.createElement('a');
+        fLinkDom.target = '_blank';
+        linkContainer.appendChild(fLinkDom);
+
+        aWordDom = document.createElement('div');
+
+        dialogDom.append(linkContainer, aWordDom);
+
+        fLinkDom.innerText = 'Yle 的博客';
+        fLinkDom.href = 'https://yleave.top';
+        aWordDom.innerText = '这个人很懒，什么都没有说~';
+
+        dialogObj = new CSS2DObject(dialogDom);
+        dialogObj.name = 'dialog';
+    };
+
+
+
+    clickLabel = e => {
+        const name = e.target.name;
+        const friend = name && this.modelsMap[name];
+
+        if (friend) {
+            friend.activeEmote('Wave');
+            if (scene.getObjectByName('dialog')) {
+                scene.remove(dialogObj);
+            } else {
+                const pos = friend.model.position;
+                dialogObj.position.set(pos.x, pos.y + 500, pos.z);
+                setTimeout(() => friend.pause = true, 2000)
+                scene.add(dialogObj);
+            }
+            
+        }
+    };
+
+    getMouse = e => {
+        const canvas = renderer.domElement;
+        const mouse = new THREE.Vector2();
+        mouse.x = ((e.clientX - canvas.getBoundingClientRect().left) / canvas.offsetWidth) * 2 - 1;
+        mouse.y = -((e.clientY - canvas.getBoundingClientRect().top) / canvas.offsetHeight) * 2 + 1;
+
+        return mouse;
+    }
+
+    getIntersects = mouse => {
+        const raycaster = new THREE.Raycaster();
+        
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects(scene.children);
+
+        if (intersects.length) return intersects[0];
+    };
 
     onWindowResize = () => {
-        const width = this.container.clientWidth;
-        const height = this.container.clientHeight;
+        console.log('resize')
+        const width = container.clientWidth;
+        const height = container.clientHeight;
         
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
         
         renderer.setSize(width, height);
+        labelRenderer.setSize(width, height);
     };
 
     renderLoop = () => {
@@ -124,6 +203,7 @@ export default class Friends extends Component {
         });
 
         renderer.render(scene, camera);
+        labelRenderer.render(scene, camera);
         this.rfa = requestAnimationFrame(this.renderLoop);
     };
 
@@ -142,9 +222,9 @@ export default class Friends extends Component {
 }
 
 class Robot {
-    constructor() {
-        // this.state = ['Idle', 'Walking', 'Running', 'Dance', 'Death', 'Standing'];   // 'Sitting',
-        this.state = ['Walking', 'Running'];   // 'Sitting',
+    constructor({name}) {
+        this.state = ['Idle', 'Walking', 'Running', 'Dance', 'Death', 'Sitting', 'Standing'];   // ',
+        this.emotes = ['Jump', 'Yes', 'No', 'Wave', 'Punch', 'ThumbsUp'];
         this.activeState = 'Walking';
 
         this.mixer = null;
@@ -161,6 +241,11 @@ class Robot {
         };
 
         this.angle = Math.random() * 2 * Math.PI;
+        this.label = null;
+
+        this.pause = false;
+
+        this.name = name;
     }
 
     init = () => {
@@ -170,7 +255,7 @@ class Robot {
         gltfLoader.load('https://cdn.jsdelivr.net/gh/yleave/yle-blog/models/RobotExpressive.glb', gltf => {
             const model = gltf.scene;
             model.scale.set(60, 60, 60);
-            model.position.y = -250
+            model.position.y = -250;
 
             const animations = gltf.animations;
 
@@ -181,7 +266,7 @@ class Robot {
                 const action = this.mixer.clipAction(clip);
                 this.actions[clip.name] = action;
 
-                if (this.state.indexOf(clip.name) >= 4 ) {
+                if (this.emotes.indexOf( clip.name ) >= 0 || this.state.indexOf(clip.name) >= 4 ) {
                     action.clampWhenFinished = true;
                     action.loop = THREE.LoopOnce;
                 }
@@ -193,11 +278,32 @@ class Robot {
             model.rotateY(this.angle);
             scene.add(model);
             this.model = model;
+
+            const position = model.position.clone();
+            position.y = 65;
+            const label = this.createLabel(this.name, position);
+            this.label = label;
+            scene.add(label);
         });
     };
 
+    activeEmote = name => {
+        this.pause = true;
+        this.fadeToAction(name, 0.2);
+        this.mixer.addEventListener('finished', this.restoreState);
+    };
+
+    restoreState = () => {
+        this.mixer.removeEventListener('finished', this.restoreState);
+        this.fadeToAction(this.activeState, 0.2);
+        this.pause = false;
+        // setTimeout(() => {
+            
+        // }, 200);
+    };
+
     update = () => {
-        const flag = this.model != null;
+        const flag = this.model != null && !this.pause;
 
         const now = +new Date();
         if (now - this.prevTime > 10000) {
@@ -243,9 +349,24 @@ class Robot {
             z = dz + this.model.position.z;
         }
 
+        this.label.position.x = x;
+        this.label.position.z = z;
         this.model.position.x = x;
         this.model.position.z  = z;
     };
+
+    // 使用自定义 div 元素创建标签
+    createLabel = (name, pos) => {
+        const div = document.createElement('div');
+        div.className = 'model-label';
+        div.textContent = name;
+        div.name = name;
+
+        const divLabel = new CSS2DObject(div);
+        divLabel.position.set(pos.x, pos.y, pos.z);
+
+        return divLabel;
+    }
 
     despose = () => {
         const action = this.activeAction;

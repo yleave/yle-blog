@@ -9,8 +9,10 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import * as TWEEN from '@tweenjs/tween.js';
+import Comment from '@site/src/components/Comment';
 
 import grassImg from '../../../static/img/textures/grasslight-big.jpg';
+import arrow from '../../../static/img/downArrow.png';
 
 import './index.css';
 
@@ -42,7 +44,7 @@ export default class Friends extends Component {
         labelRenderer.setSize(width, height);
         labelRenderer.domElement.style.position = 'absolute';
         labelRenderer.domElement.style.top = '60px';
-        labelRenderer.domElement.style.zIndex = '1000';
+        // labelRenderer.domElement.style.zIndex = '1000';
         container.appendChild(labelRenderer.domElement);
         
         camera = new THREE.PerspectiveCamera(60, width / height, 1, 30000);
@@ -106,7 +108,7 @@ export default class Friends extends Component {
             })
             .then(list => {
                 list.forEach(item => {
-                    const { friendName, friendAddr, aWord } = item;
+                    const { friendName, blogTitle, friendAddr, aWord } = item;
                     const model = new Robot({name: friendName});
                     model.init();
                     this.models.push(model);
@@ -173,7 +175,7 @@ export default class Friends extends Component {
                 dialogObj.position.set(pos.x, pos.y + 450, pos.z);
                 setTimeout(() => robot.pause = true, 2000);
 
-                fLinkDom.innerText = friend.friendName;
+                fLinkDom.innerText = friend.blogTitle;
                 fLinkDom.href = friend.friendAddr;
                 aWordDom.innerText = friend.aWord;
 
@@ -223,7 +225,6 @@ export default class Friends extends Component {
     };
 
     onWindowResize = () => {
-        console.log('resize')
         const width = container.clientWidth;
         const height = container.clientHeight;
         
@@ -233,6 +234,14 @@ export default class Friends extends Component {
         renderer.setSize(width, height);
         labelRenderer.setSize(width, height);
     };
+
+    onScrollDown = e => {
+        console.log('scroll')
+        window.scrollTo({ 
+            top: 600, 
+            behavior: "smooth" 
+        });
+    }
 
     renderLoop = () => {
         this.models.forEach(model => {
@@ -254,6 +263,15 @@ export default class Friends extends Component {
                 </Head>
                 <div id='friends-canvas-container'>
                     <canvas id='friends-canvas'></canvas>
+                </div>
+                <div className="friends-scroll-down-bar">
+                    <div className="friends-link" onClick={this.onScrollDown}>
+                        <div className="friends-link-text">添加友链</div>
+                        <img src={arrow} className="friends-link-arrow"></img>
+                    </div>
+                </div>
+                <div className='maze-comment'>
+                    <Comment/>
                 </div>
             </Layout>
         );

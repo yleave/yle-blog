@@ -1,7 +1,6 @@
 #friends-canvas-container {
     height: calc(100vh - 60px);
     width: 100%;
-    /* display: flex; */
 }
 
 /* 隐藏横向滚动条，不知道为什么切换了屏幕分辨率后横向滚动条会出现 */
@@ -69,4 +68,55 @@
     border-top: 12px solid #fff;
     border-left: 7px solid transparent;
     border-right: 7px solid transparent;
+}
+
+.friends-scroll-down-bar {
+    position: absolute;
+    width: 100%;
+    top: 85%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.friends-link-arrow {
+    width: 60px;
+    height: 60px;
+    position: relative;
+}
+
+.friends-link-text {
+    font-size: 16px;
+    color: rgb(183, 183, 184);
+}
+
+.friends-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.friends-link:hover {
+    animation: friends-scroll-down 1.5s infinite;
+}
+
+@keyframes friends-scroll-down {
+    0% {
+        opacity: 0.6;
+        top: 0;
+    }
+    50% {
+        opacity: 0.4;
+        top: -1rem;
+    }
+    100% {
+        opacity: 0.6;
+        top: 0;
+    }
 }

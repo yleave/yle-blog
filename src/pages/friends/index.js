@@ -8,7 +8,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
-// import * as TWEEN from '@tweenjs/tween.js';
+import * as TWEEN from '@tweenjs/tween.js';
 
 import grassImg from '../../../static/img/textures/grasslight-big.jpg';
 
@@ -22,7 +22,8 @@ export default class Friends extends Component {
         super();
         
         this.models = [];
-        this.modelsMap = {};
+        this.modelsMap = {};// 保存博客名称到博客信息的映射
+        this.lastActiveModel = null;
     }
 
     componentDidMount() {
@@ -94,11 +95,26 @@ export default class Friends extends Component {
         // const axesHelper = new THREE.AxesHelper( 50 );
         // scene.add( axesHelper );
 
-        const name = 'robot';
-        const model = new Robot({name});
-        model.init();
-        this.models.push(model);
-        this.modelsMap[name] = model;
+        const friends = this.friends;
+        fetch('https://qc9pvu.fn.thelarkcloud.com/getFriendList')
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+
+                throw new Error('获取数据失败');
+            })
+            .then(list => {
+                list.forEach(item => {
+                    const { friendName, friendAddr, aWord } = item;
+                    const model = new Robot({name: friendName});
+                    model.init();
+                    this.models.push(model);
+                    item.model = model;
+                    this.modelsMap[friendName] = item;
+                });
+            })
+            .catch(err => console.log(err));
 
         this.initDialog();
 
@@ -139,31 +155,52 @@ export default class Friends extends Component {
 
         dialogDom.append(linkContainer, aWordDom);
 
-        fLinkDom.innerText = 'Yle 的博客';
-        fLinkDom.href = 'https://yleave.top';
-        aWordDom.innerText = '这个人很懒，什么都没有说~';
-
         dialogObj = new CSS2DObject(dialogDom);
         dialogObj.name = 'dialog';
     };
-
-
 
     clickLabel = e => {
         const name = e.target.name;
         const friend = name && this.modelsMap[name];
 
         if (friend) {
-            friend.activeEmote('Wave');
+            const robot = friend.model;
+            robot.activeEmote('Wave');
             if (scene.getObjectByName('dialog')) {
                 scene.remove(dialogObj);
             } else {
-                const pos = friend.model.position;
-                dialogObj.position.set(pos.x, pos.y + 500, pos.z);
-                setTimeout(() => friend.pause = true, 2000)
+                const pos = robot.model.position;
+                dialogObj.position.set(pos.x, pos.y + 450, pos.z);
+                setTimeout(() => robot.pause = true, 2000);
+
+                fLinkDom.innerText = friend.friendName;
+                fLinkDom.href = friend.friendAddr;
+                aWordDom.innerText = friend.aWord;
+
                 scene.add(dialogObj);
+
+                
+                let dx = Math.sin(robot.angle) * 1200;
+                let dz = Math.cos(robot.angle) * 1200;
+                let x = dx + robot.model.position.x;
+                let z = dz + robot.model.position.z;
+
+                new TWEEN.Tween(camera.position)
+                    .to({x, y: 400, z}, 800)
+                    .easing(TWEEN.Easing.Quadratic.Out)
+                    .start()
+                    .onComplete(() => {
+                        camera.lookAt(pos);
+                    });
+
+                this.lastActiveModel = robot;
             }
-            
+        } else if (scene.getObjectByName('dialog')) {
+            scene.remove(dialogObj);
+            if (this.lastActiveModel) {
+                this.lastActiveModel.activeEmote('Wave');
+                this.lastActiveModel = null;
+            }
         }
     };
 
@@ -205,6 +242,8 @@ export default class Friends extends Component {
         renderer.render(scene, camera);
         labelRenderer.render(scene, camera);
         this.rfa = requestAnimationFrame(this.renderLoop);
+
+        TWEEN.update();
     };
 
     render() {

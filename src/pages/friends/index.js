@@ -334,6 +334,8 @@ class Robot {
         this.pause = false;
 
         this.name = name;
+
+        this.timeout = Math.random() * 8000 + 8000;
     }
 
     init = () => {
@@ -394,7 +396,7 @@ class Robot {
         const flag = this.model != null && !this.pause;
 
         const now = +new Date();
-        if (now - this.prevTime > 10000) {
+        if (now - this.prevTime > this.timeout) {
             this.prevTime = now;
             const nextState = this.state[Math.floor(Math.random() * this.state.length)];
             console.log(nextState)

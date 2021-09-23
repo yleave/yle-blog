@@ -11,6 +11,8 @@ import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import * as TWEEN from '@tweenjs/tween.js';
 import Comment from '@site/src/components/Comment';
 
+import { Card } from 'antd';
+
 import grassImg from '../../../static/img/textures/grasslight-big.jpg';
 import arrow from '../../../static/img/downArrow.png';
 
@@ -167,12 +169,21 @@ export default class Friends extends Component {
 
         if (friend) {
             const robot = friend.model;
+
+            if (this.lastActiveModel && this.lastActiveModel !== robot) {
+                this.lastActiveModel.activeEmote('Wave');
+                this.lastActiveModel.pause = false;
+                scene.remove(dialogObj);
+                this.lastActiveModel = null;
+            }
+
             robot.activeEmote('Wave');
             if (scene.getObjectByName('dialog')) {
                 scene.remove(dialogObj);
             } else {
                 const pos = robot.model.position;
                 dialogObj.position.set(pos.x, pos.y + 450, pos.z);
+                // 在做完 emote 动作后需要停止其他动作
                 setTimeout(() => robot.pause = true, 2000);
 
                 fLinkDom.innerText = friend.blogTitle;
@@ -180,7 +191,6 @@ export default class Friends extends Component {
                 aWordDom.innerText = friend.aWord;
 
                 scene.add(dialogObj);
-
                 
                 let dx = Math.sin(robot.angle) * 1200;
                 let dz = Math.cos(robot.angle) * 1200;
@@ -238,10 +248,10 @@ export default class Friends extends Component {
     onScrollDown = e => {
         console.log('scroll')
         window.scrollTo({ 
-            top: 600, 
+            top: 650, 
             behavior: "smooth" 
         });
-    }
+    };
 
     renderLoop = () => {
         this.models.forEach(model => {
@@ -259,7 +269,7 @@ export default class Friends extends Component {
         return (
             <Layout>
                 <Head>
-                    <title>友链（未完工） | Yle</title>
+                    <title>友链 | Yle</title>
                 </Head>
                 <div id='friends-canvas-container'>
                     <canvas id='friends-canvas'></canvas>
@@ -270,6 +280,27 @@ export default class Friends extends Component {
                         <img src={arrow} className="friends-link-arrow"></img>
                     </div>
                 </div>
+                <Card title="友链添加说明">
+                    <div className='friends-link-description'>
+                        <div className="friends-description-left">
+                            <p style={{fontSize: "18px"}}>请按以下格式在评论区回复：</p>
+                            <p>昵称：Yle</p>
+                            <p>博客标题：Yle的涂鸦板</p>
+                            <p>博客链接：https://yleave.top</p>
+                            <p>一言：人生苦短，至少该让咖啡☕甜点~</p>
+
+                            
+
+                            <p style={{marginTop: "2rem", fontSize: "17px"}}>不需要图片链接，下面的是本博客的头像链接，欢迎自取信息互加友链</p>
+                            <p>头像链接：https://gitee.com/ylea/imagehost1/raw/master/img/zzm3.jpg</p>
+
+                            <p style={{marginTop: "2rem", fontSize: "17px", color: '#c4c4c4'}}>目前暂不支持自定义人物模型，后续会考虑加上</p>
+                        </div>
+                        <div className="friends-description-right">
+                            <img src="https://gitee.com/ylea/imagehost1/raw/master/img/friends.png"></img>
+                        </div>
+                    </div>
+                </Card>
                 <div className='maze-comment'>
                     <Comment/>
                 </div>

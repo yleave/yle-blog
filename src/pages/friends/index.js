@@ -12,6 +12,7 @@ import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import * as TWEEN from '@tweenjs/tween.js';
 import Comment from '@site/src/components/Comment';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
+import { Sky } from 'three/examples/jsm/objects/Sky';
 
 import { Card } from 'antd';
 
@@ -21,6 +22,7 @@ import arrow from '../../../static/img/downArrow.png';
 import './index.css';
 
 let renderer, camera, scene, controls, container, labelRenderer, stats;
+let dracoLoader, gltfLoader, gltfAndDracoLoader;
 let dialogDom, dialogObj, fLinkDom, aWordDom;
 
 export default class Friends extends Component {
@@ -47,6 +49,11 @@ export default class Friends extends Component {
         renderer.setPixelRatio( window.devicePixelRatio );
         renderer.setSize(width, height);
 
+        // 为了 sky and sum 加的
+        renderer.outputEncoding = THREE.sRGBEncoding;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 0.5;
+
         labelRenderer = new CSS2DRenderer();
         labelRenderer.setSize(width, height);
         labelRenderer.domElement.style.position = 'absolute';
@@ -59,16 +66,16 @@ export default class Friends extends Component {
         container.append(stats.dom);
         
         camera = new THREE.PerspectiveCamera(60, width / height, 1, 30000);
-        camera.position.set(5000, 1000, 0);
+        camera.position.set(-3000, 1000, 4000);
 
         scene = new THREE.Scene();
-        scene.background = new THREE.Color( 0xcce0ff );
+        // scene.background = new THREE.Color( 0xcce0ff );
         scene.fog = new THREE.Fog( 0xcce0ff, 500, 10000 );
 
-        scene.add( new THREE.AmbientLight( 0x666666, 2.0 ) );
+        scene.add( new THREE.AmbientLight( 0x666666, 1.0 ) );
 
         const light = new THREE.DirectionalLight( 0xdfebff, 1.2 );
-        light.position.set( 50, 200, 100 );
+        light.position.set( -50, 200, -100 );
         light.position.multiplyScalar( 1.3 );
         light.castShadow = true;
 
@@ -93,13 +100,13 @@ export default class Friends extends Component {
         const loader = new THREE.TextureLoader();
         const groundTexture = loader.load(grassImg);
         groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
-        groundTexture.repeat.set( 25, 25 );
+        groundTexture.repeat.set(25, 25);
         groundTexture.anisotropy = 16;
         groundTexture.encoding = THREE.sRGBEncoding;
 
         const groundMaterial = new THREE.MeshLambertMaterial({map: groundTexture});
         // 20000
-        let mesh = new THREE.Mesh( new THREE.PlaneGeometry(20000, 20000), groundMaterial);
+        let mesh = new THREE.Mesh( new THREE.PlaneGeometry(100000, 100000), groundMaterial);
         mesh.position.y = - 250;
         mesh.rotation.x = - Math.PI / 2;
         mesh.receiveShadow = true;
@@ -108,27 +115,28 @@ export default class Friends extends Component {
         // const axesHelper = new THREE.AxesHelper( 50 );
         // scene.add( axesHelper );
 
-        const dracoLoader = new DRACOLoader();
+        dracoLoader = new DRACOLoader();
         dracoLoader.setDecoderPath('https://unpkg.com/three@0.123.0/examples/js/libs/draco/gltf/');
 
-        const gltfLoader = new GLTFLoader();
-        gltfLoader.setDRACOLoader(dracoLoader);
+        gltfLoader = new GLTFLoader();
 
-        gltfLoader.load('https://cdn.jsdelivr.net/gh/yleave/yle-blog/models/LittlestTokyo.glb', gltf => {
-            const model = gltf.scene;
-            model.scale.set( 5, 5, 5);
-            model.position.y = 750;
-            model.position.x = 400;
+        gltfAndDracoLoader = new GLTFLoader();
+        gltfAndDracoLoader.setDRACOLoader(dracoLoader);
 
-            this.houseMixer = new THREE.AnimationMixer(model);
-            this.houseMixer.clipAction(gltf.animations[0]).play();
-            this.house = model;
-            this.action = gltf.animations[0];
+        this.initSkyAndSun();
+        this.initHouse();
+        this.initFriends();
+        this.initFlowers();
+        this.initDialog();
 
-            scene.add(model);
-        });
+        window.addEventListener('resize', this.onWindowResize);
 
+        labelRenderer.domElement.addEventListener('click', this.clickLabel);
 
+        this.renderLoop();
+    }
+
+    initFriends = () => {
         fetch('https://qc9pvu.fn.thelarkcloud.com/getFriendList')
             .then(res => {
                 if (res.ok) {
@@ -148,23 +156,148 @@ export default class Friends extends Component {
                 });
             })
             .catch(err => console.log(err));
+    };
 
-        this.initDialog();
+    initFlowers = () => {
+        const count = 3000;
+        const matrix = new THREE.Matrix4();
+        const position = new THREE.Vector3();
+        const rotation = new THREE.Euler();
+        const quaternion = new THREE.Quaternion();
+        const scale = new THREE.Vector3();
 
-        window.addEventListener('resize', this.onWindowResize);
+        let passFlower = false;
 
-        labelRenderer.domElement.addEventListener('click', this.clickLabel);
+        const randomizeMatrix = function () {
+            const symbolx = Math.random() < 0.5 ? 1 : -1;
+            const symbolz = Math.random() < 0.5 ? 1 : -1;
 
-        this.renderLoop();
-    }
+            let x = Math.random() * 8000;
+            let z = Math.random() * 8000;
+
+            if (x < 1500) {
+                z = 1500 + Math.random() * 6500;
+            } else if (z < 1500) {
+                x = 1500 + Math.random() * 6500;
+            }
+
+            position.x = x * symbolx;
+            position.y = -250;
+            position.z = z * symbolz;
+
+            rotation.x = Math.PI / 2;
+            // rotation.y = Math.PI / 2;
+            rotation.z = Math.PI / 2;
+
+            quaternion.setFromEuler( rotation );
+
+            const _scale = Math.random() * 500 + 200;
+            scale.x = scale.y = scale.z = _scale;
+
+            matrix.compose( position, quaternion, scale );
+        };
+
+        gltfAndDracoLoader.load('https://cdn.jsdelivr.net/gh/yleave/models/Flower.glb', gltf => {
+            const _stemMesh = gltf.scene.getObjectByName('Stem');
+            const _blossomMesh = gltf.scene.getObjectByName('Blossom');
+
+            const stemGeometry = _stemMesh.geometry.clone();
+            const blossomGeometry = _blossomMesh.geometry.clone();
+            const stemMaterial = _stemMesh.material;
+            const blossomMaterial = _blossomMesh.material;
+
+            const stemMesh = new THREE.InstancedMesh(stemGeometry, stemMaterial, count);
+            const blossomMesh = new THREE.InstancedMesh(blossomGeometry, blossomMaterial, count);
+
+            // Assign random colors to the blossoms.
+            const blossomPalette = [0xF20587, 0xF2D479, 0xF2C879, 0xF2B077, 0xF24405];
+            const color = new THREE.Color();
+
+            for ( let i = 0; i < count; i ++ ) {
+                color.setHex(blossomPalette[Math.floor(Math.random() * blossomPalette.length)]);
+                blossomMesh.setColorAt(i, color);
+
+                randomizeMatrix();
+
+                if (passFlower) continue;
+
+                stemMesh.setMatrixAt(i, matrix);
+                blossomMesh.setMatrixAt(i, matrix);
+            }
+
+            this.stemMesh = stemMesh;
+            this.blossomMesh = blossomMesh;
+
+            scene.add(stemMesh);
+            scene.add(blossomMesh);
+        });
+    };
+
+    initHouse = () => {
+        gltfAndDracoLoader.load('https://cdn.jsdelivr.net/gh/yleave/models/LittlestTokyo.glb', gltf => {
+            const model = gltf.scene;
+            model.scale.set( 5, 5, 5);
+            model.position.y = 750;
+            model.position.x = 400;
+
+            this.houseMixer = new THREE.AnimationMixer(model);
+            this.houseMixer.clipAction(gltf.animations[0]).play();
+            this.house = model;
+            this.action = gltf.animations[0];
+
+            scene.add(model);
+        });
+    };
+
+    initSkyAndSun = () => {
+        // 添加天空
+        const sky = new Sky();
+        sky.scale.setScalar(450000);
+        scene.add( sky );
+
+        const sun = new THREE.Vector3();
+        const effectController = {
+            turbidity: 10,
+            rayleigh: 3,
+            mieCoefficient: 0.005,
+            mieDirectionalG: 0.7,
+            elevation: 2,
+            azimuth: 180,
+            exposure: renderer.toneMappingExposure
+        };
+
+        const uniforms = sky.material.uniforms;
+        uniforms[ 'turbidity' ].value = effectController.turbidity;
+        uniforms[ 'rayleigh' ].value = effectController.rayleigh;
+        uniforms[ 'mieCoefficient' ].value = effectController.mieCoefficient;
+        uniforms[ 'mieDirectionalG' ].value = effectController.mieDirectionalG;
+
+        const phi = THREE.MathUtils.degToRad( 90 - effectController.elevation );
+        const theta = THREE.MathUtils.degToRad( effectController.azimuth );
+
+        sun.setFromSphericalCoords( 1, phi, theta );
+
+        uniforms[ 'sunPosition' ].value.copy( sun );
+
+        renderer.toneMappingExposure = effectController.exposure;
+        renderer.render( scene, camera );
+    };
 
     componentWillUnmount() {
         this.models.forEach(model => {
             model.despose();
         });
 
+        if (this.stemMesh) {
+            this.stemMesh.dispose();
+            this.blossomMesh.dispose();
+
+            this.stemMesh = null;
+            this.blossomMesh = null;
+        }
+        
         scene.traverse((obj) => {
-            if (obj.type === 'Mesh') {
+            if (obj.isMesh) {
                 obj.geometry.dispose();
                 obj.material.dispose();
             }
@@ -174,8 +307,8 @@ export default class Friends extends Component {
         const model = this.house;
         const mixer = this.houseMixer;
 
-        mixer.uncacheAction(action, model);
-
+        if (mixer)  mixer.uncacheAction(action, model);
+        
         this.action = null;
         this.house = null;
         this.houseMixer = null;
@@ -386,14 +519,25 @@ class Robot {
     }
 
     init = () => {
-        const gltfLoader = new GLTFLoader();
-
-        gltfLoader.load('https://cdn.jsdelivr.net/gh/yleave/yle-blog/models/RobotExpressive.glb', gltf => {
+        gltfLoader.load('https://cdn.jsdelivr.net/gh/yleave/models/RobotExpressive.glb', gltf => {
             const model = gltf.scene;
             model.scale.set(60, 60, 60);
             model.position.y = -250;
-            model.position.x = (1000 + Math.random() * 2000) * (Math.random() < 0.5 ? 1 : -1);
-            model.position.z = (1000 + Math.random() * 2000) * (Math.random() < 0.5 ? 1 : -1);
+
+            const symbolx = Math.random() < 0.5 ? 1 : -1;
+            const symbolz = Math.random() < 0.5 ? 1 : -1;
+
+            let x = Math.random() * 3000;
+            let z = Math.random() * 3000;
+
+            if (x < 1500) {
+                z = 1500 + Math.random() * 1500;
+            } else if (z < 1500) {
+                x = 1500 + Math.random() * 1500;
+            }
+
+            model.position.x = x * symbolx;
+            model.position.z = z * symbolz;
 
             const animations = gltf.animations;
 
@@ -476,7 +620,7 @@ class Robot {
 
         // 限制移动空间
         const overMaxBound = x >= 3000 || x <= -3000 || z >= 3000 || z <= -3000;
-        const underMinBound = (x <= 1000 && x >= -1000) || (z <= 1000 && z >= -1000);
+        const underMinBound = (x <= 1400 && x >= -1400) && (z <= 1400 && z >= -1400);
 
         if (overMaxBound || underMinBound) {
             // console.log('change angle')

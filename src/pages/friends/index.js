@@ -61,9 +61,9 @@ export default class Friends extends Component {
         // labelRenderer.domElement.style.zIndex = '1000';
         container.appendChild(labelRenderer.domElement);
 
-        stats = new Stats();
-        stats.dom.style.top = '60px';
-        container.append(stats.dom);
+        // stats = new Stats();
+        // stats.dom.style.top = '60px';
+        // container.append(stats.dom);
         
         camera = new THREE.PerspectiveCamera(60, width / height, 1, 30000);
         camera.position.set(-3000, 1000, 4000);
@@ -437,7 +437,7 @@ export default class Friends extends Component {
         this.rfa = requestAnimationFrame(this.renderLoop);
 
         TWEEN.update();
-        stats.update();
+        // stats.update();
 
         if (this.houseMixer) {
             const delta = this.clock.getDelta();

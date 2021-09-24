@@ -6,10 +6,12 @@ import Head from '@docusaurus/Head';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { DRACOLoader } from 'three/examples/jsm/loaders/dracoloader';
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import * as TWEEN from '@tweenjs/tween.js';
 import Comment from '@site/src/components/Comment';
+import Stats from 'three/examples/jsm/libs/stats.module.js';
 
 import { Card } from 'antd';
 
@@ -18,7 +20,7 @@ import arrow from '../../../static/img/downArrow.png';
 
 import './index.css';
 
-let renderer, camera, scene, controls, container, labelRenderer;
+let renderer, camera, scene, controls, container, labelRenderer, stats;
 let dialogDom, dialogObj, fLinkDom, aWordDom;
 
 export default class Friends extends Component {
@@ -28,6 +30,9 @@ export default class Friends extends Component {
         this.models = [];
         this.modelsMap = {};// 保存博客名称到博客信息的映射
         this.lastActiveModel = null;
+
+        this.houseMixer = null;
+        this.clock = new THREE.Clock();
     }
 
     componentDidMount() {
@@ -48,17 +53,21 @@ export default class Friends extends Component {
         labelRenderer.domElement.style.top = '60px';
         // labelRenderer.domElement.style.zIndex = '1000';
         container.appendChild(labelRenderer.domElement);
+
+        stats = new Stats();
+        stats.dom.style.top = '60px';
+        container.append(stats.dom);
         
         camera = new THREE.PerspectiveCamera(60, width / height, 1, 30000);
-        camera.position.set( 1000, 50, 1500 );
+        camera.position.set(5000, 1000, 0);
 
         scene = new THREE.Scene();
         scene.background = new THREE.Color( 0xcce0ff );
         scene.fog = new THREE.Fog( 0xcce0ff, 500, 10000 );
 
-        scene.add( new THREE.AmbientLight( 0x666666 ) );
+        scene.add( new THREE.AmbientLight( 0x666666, 2.0 ) );
 
-        const light = new THREE.DirectionalLight( 0xdfebff, 1 );
+        const light = new THREE.DirectionalLight( 0xdfebff, 1.2 );
         light.position.set( 50, 200, 100 );
         light.position.multiplyScalar( 1.3 );
         light.castShadow = true;
@@ -78,8 +87,8 @@ export default class Friends extends Component {
 
         controls = new OrbitControls(camera, labelRenderer.domElement);
         controls.maxPolarAngle = Math.PI * 0.5;
-        controls.minDistance = 50;
-        controls.maxDistance = 5000;
+        controls.minDistance = 20;
+        controls.maxDistance = 10000;
 
         const loader = new THREE.TextureLoader();
         const groundTexture = loader.load(grassImg);
@@ -88,18 +97,38 @@ export default class Friends extends Component {
         groundTexture.anisotropy = 16;
         groundTexture.encoding = THREE.sRGBEncoding;
 
-        const groundMaterial = new THREE.MeshLambertMaterial( { map: groundTexture } );
-
-        let mesh = new THREE.Mesh( new THREE.PlaneGeometry( 20000, 20000 ), groundMaterial );
+        const groundMaterial = new THREE.MeshLambertMaterial({map: groundTexture});
+        // 20000
+        let mesh = new THREE.Mesh( new THREE.PlaneGeometry(20000, 20000), groundMaterial);
         mesh.position.y = - 250;
         mesh.rotation.x = - Math.PI / 2;
         mesh.receiveShadow = true;
-        scene.add( mesh );
+        scene.add(mesh);
 
         // const axesHelper = new THREE.AxesHelper( 50 );
         // scene.add( axesHelper );
 
-        const friends = this.friends;
+        const dracoLoader = new DRACOLoader();
+        dracoLoader.setDecoderPath('https://unpkg.com/three@0.123.0/examples/js/libs/draco/gltf/');
+
+        const gltfLoader = new GLTFLoader();
+        gltfLoader.setDRACOLoader(dracoLoader);
+
+        gltfLoader.load('https://cdn.jsdelivr.net/gh/yleave/yle-blog/models/LittlestTokyo.glb', gltf => {
+            const model = gltf.scene;
+            model.scale.set( 5, 5, 5);
+            model.position.y = 750;
+            model.position.x = 400;
+
+            this.houseMixer = new THREE.AnimationMixer(model);
+            this.houseMixer.clipAction(gltf.animations[0]).play();
+            this.house = model;
+            this.action = gltf.animations[0];
+
+            scene.add(model);
+        });
+
+
         fetch('https://qc9pvu.fn.thelarkcloud.com/getFriendList')
             .then(res => {
                 if (res.ok) {
@@ -140,6 +169,18 @@ export default class Friends extends Component {
                 obj.material.dispose();
             }
         });
+
+        const action = this.action;
+        const model = this.house;
+        const mixer = this.houseMixer;
+
+        mixer.uncacheAction(action, model);
+
+        this.action = null;
+        this.house = null;
+        this.houseMixer = null;
+        this.clock = null;
+        this.lastActiveModel = null;
 
         window.removeEventListener('resize', this.onWindowResize);
         labelRenderer.domElement.removeEventListener('click', this.clickLabel);
@@ -263,6 +304,12 @@ export default class Friends extends Component {
         this.rfa = requestAnimationFrame(this.renderLoop);
 
         TWEEN.update();
+        stats.update();
+
+        if (this.houseMixer) {
+            const delta = this.clock.getDelta();
+            this.houseMixer.update(delta);
+        }
     };
 
     render() {
@@ -321,12 +368,12 @@ class Robot {
         this.activeAction = null;
         this.prevTime = +new Date();
 
-        this.clock = null;
-
         this.speed = {
             'Walking': 3,
             'Running': 5
         };
+
+        this.clock = new THREE.Clock();
 
         this.angle = Math.random() * 2 * Math.PI;
         this.label = null;
@@ -339,13 +386,14 @@ class Robot {
     }
 
     init = () => {
-        this.clock = new THREE.Clock();
         const gltfLoader = new GLTFLoader();
 
         gltfLoader.load('https://cdn.jsdelivr.net/gh/yleave/yle-blog/models/RobotExpressive.glb', gltf => {
             const model = gltf.scene;
             model.scale.set(60, 60, 60);
             model.position.y = -250;
+            model.position.x = (1000 + Math.random() * 2000) * (Math.random() < 0.5 ? 1 : -1);
+            model.position.z = (1000 + Math.random() * 2000) * (Math.random() < 0.5 ? 1 : -1);
 
             const animations = gltf.animations;
 
@@ -399,7 +447,7 @@ class Robot {
         if (now - this.prevTime > this.timeout) {
             this.prevTime = now;
             const nextState = this.state[Math.floor(Math.random() * this.state.length)];
-            console.log(nextState)
+            // console.log(nextState)
             if (nextState !== this.activeState && flag) {
                 this.activeState = nextState;
                 this.fadeToAction(nextState, 0.5);
@@ -427,8 +475,11 @@ class Robot {
         let z = dz + this.model.position.z;
 
         // 限制移动空间
-        if (x >= 2000 || x <= -2000 || z >= 2000 || z <= -2000) {
-            console.log('change angle')
+        const overMaxBound = x >= 3000 || x <= -3000 || z >= 3000 || z <= -3000;
+        const underMinBound = (x <= 1000 && x >= -1000) || (z <= 1000 && z >= -1000);
+
+        if (overMaxBound || underMinBound) {
+            // console.log('change angle')
             this.model.rotateY(-this.angle);
             this.angle = (this.angle + Math.PI) % (2 * Math.PI);
             this.model.rotateY(this.angle);
@@ -464,6 +515,10 @@ class Robot {
         const mixer = this.mixer;
 
         mixer.uncacheAction(action, model);
+
+        this.activeAction = null;
+        this.model = null;
+        this.mixer = null;
         // mixer.uncacheClip(action);
         // mixer.uncacheRoot(model);
     };

@@ -435,7 +435,6 @@ export default class Friends extends Component {
         renderer.render(scene, camera);
         labelRenderer.render(scene, camera);
         this.rfa = requestAnimationFrame(this.renderLoop);
-
         TWEEN.update();
         // stats.update();
 

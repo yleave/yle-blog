@@ -229,7 +229,15 @@ module.exports = {
     {
       src: 'https://cdn.bootcdn.net/ajax/libs/node-waves/0.7.6/waves.min.js',
       async: true,
-    }
+    },
+    {
+      src: 'https://cdn1.lncld.net/static/js/av-min-1.5.0.js',
+      async: true,
+    },
+    {
+      src: 'https://jerryz.sgp1.cdn.digitaloceanspaces.com/lib/hit-kounter/hit-kounter-lc-0.3.0.js',
+      async: true,
+    },
   ],
   stylesheets: [
     '//at.alicdn.com/t/font_2138234_yvmrwvxy5d.css',

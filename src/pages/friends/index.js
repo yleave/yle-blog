@@ -6,7 +6,7 @@ import Head from '@docusaurus/Head';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { DRACOLoader } from 'three/examples/jsm/loaders/dracoloader';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import * as TWEEN from '@tweenjs/tween.js';

@@ -61,9 +61,9 @@ export default class Friends extends Component {
         // labelRenderer.domElement.style.zIndex = '1000';
         container.appendChild(labelRenderer.domElement);
 
-        // stats = new Stats();
-        // stats.dom.style.top = '60px';
-        // container.append(stats.dom);
+        stats = new Stats();
+        stats.dom.style.top = '60px';
+        container.append(stats.dom);
         
         camera = new THREE.PerspectiveCamera(60, width / height, 1, 30000);
         camera.position.set(-3000, 1000, 4000);
@@ -106,7 +106,7 @@ export default class Friends extends Component {
 
         const groundMaterial = new THREE.MeshLambertMaterial({map: groundTexture});
         // 20000
-        let mesh = new THREE.Mesh( new THREE.PlaneGeometry(100000, 100000), groundMaterial);
+        let mesh = new THREE.Mesh( new THREE.PlaneGeometry(50000, 50000), groundMaterial);
         mesh.position.y = - 250;
         mesh.rotation.x = - Math.PI / 2;
         mesh.receiveShadow = true;
@@ -436,7 +436,7 @@ export default class Friends extends Component {
         labelRenderer.render(scene, camera);
         this.rfa = requestAnimationFrame(this.renderLoop);
         TWEEN.update();
-        // stats.update();
+        stats.update();
 
         if (this.houseMixer) {
             const delta = this.clock.getDelta();
@@ -490,7 +490,7 @@ export default class Friends extends Component {
 
 class Robot {
     constructor({name}) {
-        this.state = ['Idle', 'Walking', 'Running', 'Dance', 'Death', 'Sitting', 'Standing'];   // ',
+        this.state = ['Idle', 'Walking', 'Running', 'Dance', 'Death', 'Sitting', 'Standing'];
         this.emotes = ['Jump', 'Yes', 'No', 'Wave', 'Punch', 'ThumbsUp'];
         this.activeState = 'Walking';
 
@@ -662,6 +662,9 @@ class Robot {
         this.activeAction = null;
         this.model = null;
         this.mixer = null;
+        this.clock = null;
+        this.actions = null;
+        this.label = null;
         // mixer.uncacheClip(action);
         // mixer.uncacheRoot(model);
     };

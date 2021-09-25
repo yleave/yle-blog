@@ -6,6 +6,12 @@
  */
 
 /* You can override the default Infima variables here. */
+@font-face {
+  font-family: btfFont;
+  src: url(https://cdn.jsdelivr.net/gh/ZhongZN/ZFonts/13.woff2);
+}
+
+
 :root {
   --ifm-color-primary: #25c2a0;
   --ifm-color-primary-dark: rgb(33, 175, 144);
@@ -44,6 +50,10 @@ body::-webkit-scrollbar-thumb {
   -webkit-box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
 }
 
+#__docusaurus {
+  font-family: "btfFont", 'Courier New', Courier, monospace;
+  font-size: 14px;
+}
 
 /* 博客详情页 CSS 覆盖 */
 .blog-wrapper > .container {

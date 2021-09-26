@@ -1,0 +1,35 @@
+.page-like {
+    position: fixed;
+    font-size: 2rem;
+}
+
+.iconicon {
+    font-size: 2rem;
+}
+
+.iconicon:hover {
+    cursor: pointer;
+}
+
+.active-page-like {
+    position: relative;
+    display: inline-block;
+    animation: active 0.8s ease-in-out;
+}
+
+@keyframes active {
+    0% {
+        transform: translateY(0);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: translateY(-70%);
+        opacity: 0.4;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 0.8;
+    }
+}

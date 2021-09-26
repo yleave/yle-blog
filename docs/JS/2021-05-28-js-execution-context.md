@@ -325,17 +325,17 @@ let counter = makeCounter();
 
 &emsp;&emsp;根据我们上面对执行上下文的介绍可以知道，对于这个例子，它有两层嵌套的词法环境：
 
-<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210528192626093.png" alt="image-20210528192626093" style={{zoom:"80%;"}} />
+<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210528192626093.png" alt="image-20210528192626093" style={{zoom:"80%"}} />
 
 &emsp;&emsp;当执行 `makeCounter` 函数时，创建了一个匿名函数，此时这个匿名函数还未运行。
 
 &emsp;&emsp;而所有函数在创建时都会有一个指针指向创建它的外部环境：`[[Environment]]`（也就是我们上面说的 `outer`），即使 `makeCounter` 结束，这个引用也仍然存在。
 
-<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210528192917079.png" alt="image-20210528192917079" style={{zoom:"80%;"}} />
+<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210528192917079.png" alt="image-20210528192917079" style={{zoom:"80%"}} />
 
 &emsp;&emsp;现在，当 `counter()` 中的代码查找 `count` 变量时，它首先搜索自己的词法环境（为空，因为那里没有局部变量），然后是外部 `makeCounter()` 的词法环境，并且在哪里找到就在哪里修改。**即在变量所在的词法环境中更新变量。**
 
-<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210528193440752.png" alt="image-20210528193440752" style={{zoom:"80%;"}} />
+<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210528193440752.png" alt="image-20210528193440752" style={{zoom:"80%"}} />
 
 
 :::note 闭包与垃圾回收机制

@@ -16,6 +16,8 @@ import 'swiper/components/effect-coverflow/effect-coverflow.min.css';
 import './index.css';
 import imgs from './imgs.json';
 
+import { initPage } from '../../utils/pageStatics';
+
 SwiperCore.use([EffectCoverflow]);
 
 const imglist = imgs.map(img => {
@@ -34,6 +36,8 @@ export default class Panormatic extends Component {
     }
 
     componentDidMount() {
+        initPage();
+
         const container = document.getElementById('panoramic-canvas-container');
         const canvas = document.getElementById('panoramic-canvas');
         const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });

@@ -16,6 +16,8 @@ import { Sky } from 'three/examples/jsm/objects/Sky';
 
 import { Card } from 'antd';
 
+import { initPage } from '../../utils/pageStatics';
+
 import grassImg from '../../../static/img/textures/grasslight-big.jpg';
 import arrow from '../../../static/img/downArrow.png';
 
@@ -38,6 +40,8 @@ export default class Friends extends Component {
     }
 
     componentDidMount() {
+        initPage();
+
         container = document.getElementById('friends-canvas-container');
         const canvas = document.getElementById('friends-canvas');
         const height = container.clientHeight;

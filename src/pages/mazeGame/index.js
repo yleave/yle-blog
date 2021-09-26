@@ -10,6 +10,8 @@ import { notification, Modal, Button } from 'antd';
 import 'antd/dist/antd.min.css';    // 存在对话框无法关闭的问题，导入 css 样式后才恢复正常
 import Draggable from 'react-draggable';
 
+import { initPage } from '../../utils/pageStatics';
+
 import Comment from '@site/src/components/Comment';
 import './index.css';
 
@@ -30,6 +32,8 @@ export default class MazeGame extends Component {
     }
 
     componentDidMount() {
+        initPage();
+
         this.chess = document.getElementById('maze-canvas');    //迷宫地图画布
         this.ctx_chess = this.chess.getContext('2d');
         this.rect = document.getElementById('maze-canvas');     //移动方块画布

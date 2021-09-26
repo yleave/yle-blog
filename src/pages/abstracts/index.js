@@ -6,6 +6,9 @@ import Layout from '@theme/Layout';
 import BackToTop from '@site/src/components/BackToTop';
 import Head from '@docusaurus/Head';
 import { Skeleton } from 'antd';
+import Comment from '@site/src/components/Comment';
+import * as _ from 'underscore';
+import { initPage } from '../../utils/pageStatics';
 
 class Abstracts extends Component {
     constructor() {
@@ -20,6 +23,8 @@ class Abstracts extends Component {
         this.cur_contents = [];
         this.likeMap = new Map(); // 卡片 id -> 点赞与否的映射，为了防止换一批卡片后还能重新点赞
         this.heart_countMap = new Map();
+
+        this.throttle_onScroll = _.throttle(this.onScroll, 100);
 
         this.gradients = [
           'linear-gradient(120deg, #a1c4fd 30%, #c2e9fb 100%)',
@@ -63,6 +68,8 @@ class Abstracts extends Component {
         // 开启点击波纹特效
         Waves.displayEffect();
       }
+
+      initPage();
 
       fetch('https://qcho5o.fn.thelarkcloud.com/abstracts')
         .then((res) => {
@@ -109,6 +116,14 @@ class Abstracts extends Component {
         .catch((err) => {
           console.log(err)
         });
+
+        window.addEventListener('scroll', this.throttle_onScroll);
+    }
+
+    componentWillUnmount() {
+      this.likeMap.clear();
+      this.heart_countMap.clear();
+      window.removeEventListener('scroll', this.throttle_onScroll);
     }
 
     onLikeChange = (id) => {
@@ -148,9 +163,21 @@ class Abstracts extends Component {
       });
     };
 
+    onScroll = e => {
+      const line = document.getElementsByClassName('comment-line')[0];
+      const btn3D = document.getElementById('cards-btn');
+
+      if (!line || !btn3D) return;
+
+      if (line.getBoundingClientRect().top <= 130) {
+        btn3D.style.visibility = 'hidden';
+      } else {
+        btn3D.style.visibility = 'visible';
+      }
+    };
+
     render() {
       return (
-        
         <Layout>
           <Skeleton loading={this.state.loading} active>
             <BackToTop />
@@ -167,6 +194,10 @@ class Abstracts extends Component {
               <Button3D text="换一批" id="cards-btn" toggleFn={this.update_cur_contents} />
             </div>
           </Skeleton>
+          <hr className='comment-line' />
+          <div className='maze-comment'>
+              <Comment/>
+          </div>
         </Layout>
       )
     }

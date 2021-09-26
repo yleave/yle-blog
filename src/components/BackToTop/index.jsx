@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
-import throttle from '@site/src/utils/throttle.js';
+import * as _ from 'underscore';
 import './index.css';
 
 function toTop(e) {
@@ -19,7 +19,7 @@ function onScroll(e) {
     }
 }
 
-const fn = throttle(onScroll, 100);
+const fn = _.throttle(onScroll, 100);
 
 function BackToTop() {
     useEffect(() => {

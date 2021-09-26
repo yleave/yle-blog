@@ -3,8 +3,11 @@ title: 关于我
 ---
 
 import BackToTop from '@site/src/components/BackToTop';
+import ToggleViewCountUpdate from '@site/src/components/ToggleViewCountUpdate';
 
 <BackToTop />
+
+<ToggleViewCountUpdate />
 
 ## 👨🏻‍💻 &nbsp;About Me 
 

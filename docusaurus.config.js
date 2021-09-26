@@ -161,7 +161,7 @@ module.exports = {
         },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} | yle blog.
-        <p><span id="busuanzi_container_site_uv">本站总访问量：<span id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></span>次</span></p>
+        <p>本站总访问量：<span class="website-uv-cnt"><i class="fa fa-spinner fa-spin"></i></span>次</p>
         <p><a href="http://beian.miit.gov.cn/">闽ICP备2021004814号-1<a></p>
         `,
     },
@@ -229,18 +229,10 @@ module.exports = {
     {
       src: 'https://cdn.bootcdn.net/ajax/libs/node-waves/0.7.6/waves.min.js',
       async: true,
-    },
-    {
-      src: 'https://cdn1.lncld.net/static/js/av-min-1.5.0.js',
-      async: true,
-    },
-    {
-      src: 'https://jerryz.sgp1.cdn.digitaloceanspaces.com/lib/hit-kounter/hit-kounter-lc-0.3.0.js',
-      async: true,
-    },
+    }
   ],
   stylesheets: [
-    '//at.alicdn.com/t/font_2138234_yvmrwvxy5d.css',
+    '//at.alicdn.com/t/font_2138234_mgg9ssvprf.css',
     'https://use.fontawesome.com/releases/v5.3.1/css/all.css',
     'https://unpkg.com/gitalk/dist/gitalk.css',
     'https://cdn.bootcdn.net/ajax/libs/node-waves/0.7.6/waves.min.css'

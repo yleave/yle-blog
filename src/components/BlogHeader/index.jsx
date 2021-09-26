@@ -1,24 +1,25 @@
 import React, { useEffect } from 'react';
+import { initPage } from '../../utils/pageStatics';
 import './index.css';
 
-function bszJsonp() {
-    return new Promise((resolve, reject) => {
-        let randomStr = 'BusuanziCallback_' + Math.floor(1099511627776 * Math.random());
-        let bszUrl = '//busuanzi.ibruce.info/busuanzi?jsonpCallback=' + randomStr;
-        let scriptEle = document.createElement('script');
-        scriptEle.type = 'text/javascript',
-        scriptEle.defer = !0,
-        scriptEle.src = bszUrl,
-        scriptEle.referrerPolicy = 'no-referrer-when-downgrade',
-        document.getElementsByTagName('head')[0].appendChild(scriptEle);
+// function bszJsonp() {
+//     return new Promise((resolve, reject) => {
+//         let randomStr = 'BusuanziCallback_' + Math.floor(1099511627776 * Math.random());
+//         let bszUrl = '//busuanzi.ibruce.info/busuanzi?jsonpCallback=' + randomStr;
+//         let scriptEle = document.createElement('script');
+//         scriptEle.type = 'text/javascript',
+//         scriptEle.defer = !0,
+//         scriptEle.src = bszUrl,
+//         scriptEle.referrerPolicy = 'no-referrer-when-downgrade',
+//         document.getElementsByTagName('head')[0].appendChild(scriptEle);
 
-        window[randomStr] = function(data) {
-            resolve(data);
-            // 不要忘记移除创建的 script 标签了（避免内存泄漏
-            document.removeChild(scriptEle);
-        };
-    })
-}
+//         window[randomStr] = function(data) {
+//             resolve(data);
+//             // 不要忘记移除创建的 script 标签了（避免内存泄漏
+//             document.removeChild(scriptEle);
+//         };
+//     })
+// }
 
 function bszCallback(data) {
     let pvEle = document.getElementById('busuanzi_value_page_pv');
@@ -31,7 +32,8 @@ function bszCallback(data) {
 function Header(props) {
 
     useEffect(() => {
-        bszJsonp().then(bszCallback);
+        // bszJsonp().then(bszCallback);
+        initPage();
     }, []);
 
     return (
@@ -42,7 +44,8 @@ function Header(props) {
                 <span className="vertical-gap">|</span>
 
                 <i className="iconfont iconyanjing"></i>
-                <span id="busuanzi_value_page_pv"><i className="fa fa-spinner fa-spin"></i></span>
+                {/* <span id="busuanzi_value_page_pv"><i className="fa fa-spinner fa-spin"></i></span> */}
+                <span className="page-pv-cnt"><i className="fa fa-spinner fa-spin"></i></span>
             </span>
 
             <div className="tags-container">

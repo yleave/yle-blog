@@ -33,7 +33,14 @@ const checkEnv = () => {
 };
 
 const genUrl = baseUrl => {
-    const pageID = md5(location.pathname);
+    let pathname = location.pathname;
+
+    if (pathname.endsWith('/')) {
+        console.log('end with /', pathname);
+        pathname = pathname.slice(0, -1);
+    }
+
+    const pageID = md5(pathname);
 
     const params = {
         pageID

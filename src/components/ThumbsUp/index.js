@@ -91,7 +91,13 @@ export default class ThumbsUp extends Component {
     };
 
     componentDidMount() {
-        this.pageId = md5(location.pathname);
+        let pathname = location.pathname;
+
+        if (pathname.endsWith('/')) {
+            console.log('end with /', pathname);
+            pathname = pathname.slice(0, -1);
+        }
+        this.pageId = md5(pathname);
 
         this.updatePageLikePos();
 

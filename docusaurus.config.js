@@ -161,7 +161,7 @@ module.exports = {
         },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} | yle blog.
-        <p>本站总访问量：<span class="website-uv-cnt"><i class="fa fa-spinner fa-spin"></i></span>次</p>
+        <p>本站总访问量：<span class="website-pv-cnt"><i class="fa fa-spinner fa-spin"></i></span>次</p>
         <p><a href="http://beian.miit.gov.cn/">闽ICP备2021004814号-1<a></p>
         `,
     },

@@ -222,10 +222,10 @@ module.exports = {
   ],
   themes: ['@docusaurus/theme-live-codeblock'],
   scripts: [
-    {
-      src: '//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js',
-      async: true,
-    },
+    // {
+    //   src: '//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js',
+    //   async: true,
+    // },
     {
       src: 'https://cdn.bootcdn.net/ajax/libs/node-waves/0.7.6/waves.min.js',
       async: true,

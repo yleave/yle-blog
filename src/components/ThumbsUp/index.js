@@ -90,6 +90,19 @@ export default class ThumbsUp extends Component {
         localStorage.setItem('dateCache', JSON.stringify(dateCache));
     };
 
+    initIconColor = () => {
+        // 初始化点赞按钮的颜色与是否能点击
+        const enableLike = this.checkStorage();
+        // 首先初始化按钮样式
+        const pageLike = document.getElementsByClassName('page-like')[0];
+
+        // 若已被点击，则替换点击按钮颜色为已点击颜色
+        if (!enableLike) {
+            this.state.enableLike = false;
+            pageLike.style.color = '#00d0ff';
+        }
+    };
+
     componentDidMount() {
         let pathname = location.pathname;
 
@@ -101,16 +114,7 @@ export default class ThumbsUp extends Component {
 
         this.updatePageLikePos();
 
-        // 初始化点赞按钮的颜色与是否能点击
-        const enableLike = this.checkStorage();
-        // 首先初始化按钮样式
-        const pageLike = document.getElementsByClassName('page-like')[0];
-
-        // 若已被点击，则替换点击按钮颜色为已点击颜色
-        if (!enableLike) {
-            this.state.enableLike = false;
-            pageLike.style.color = '#00d0ff';
-        }
+        this.initIconColor();
 
         getPageLikeCount()
             .then(data => {
@@ -139,15 +143,20 @@ export default class ThumbsUp extends Component {
     }
 
     onWindowResize = e => {
+        // 根据页面中的小列表位置来判断页面是否被挤压成了小区域
         const menuButton = document.getElementsByClassName('menu__button')[0];
-        const show = menuButton.getBoundingClientRect().top !== 0;
+        const show = menuButton.getBoundingClientRect().top === 0;
 
         this.updatePageLikePos();
-        if (show) {
+        if (!show) {
             this.setState({
                 showLikeIcon: false
             });
         } else if (!this.state.showLikeIcon) {
+            setTimeout(() => {
+                this.initIconColor();
+            }, 0);
+            
             this.setState({
                 showLikeIcon: true
             });

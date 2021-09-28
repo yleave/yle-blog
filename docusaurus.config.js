@@ -91,6 +91,11 @@ module.exports = {
           position: 'right',
           to: 'friends/'
         },
+        {
+          label: '🚇开往',
+          position: 'right',
+          href: 'https://travellings.link'
+        },
         // {
         //   to: 'timeline',
         //   label: '时间线',
@@ -161,8 +166,9 @@ module.exports = {
         },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} | yle blog.
-        <p>本站总访问量：<span class="website-pv-cnt"><i class="fa fa-spinner fa-spin"></i></span>次</p>
-        <p><a href="http://beian.miit.gov.cn/">闽ICP备2021004814号-1<a></p>
+        <div>本站总访问量：<span class="website-pv-cnt"><i class="fa fa-spinner fa-spin"></i></span>次</div>
+        <div><a href="http://beian.miit.gov.cn/">闽ICP备2021004814号-1<a></div>
+        <div><img src="https://cdn.jsdelivr.net/gh/volfclub/travellings@12.0/assets/logo.svg" width="100"><div>
         `,
     },
     gtag: {

@@ -64,14 +64,13 @@ module.exports = {
           ],
         },
         {
-          label: '文摘',
-          position: 'right',
-          to: 'abstracts/'
-        },
-        {
           label: '乱七八糟',
           position: 'right',
           items: [
+            {
+              label: '文摘',
+              to: 'abstracts/'
+            },
             {
               label: '全景图',
               to: 'panoramic/'
@@ -80,11 +79,16 @@ module.exports = {
               label: '迷宫小游戏',
               to: 'mazeGame/'
             },
-            {
-              label: '鸡汤/doge',
-              href: 'http://www.cxyxiaowu.com/soup.html'
-            },
+            // {
+            //   label: '鸡汤/doge',
+            //   href: 'http://www.cxyxiaowu.com/soup.html'
+            // },
           ],
+        },
+        {
+          label: '前端面试',
+          position: 'right',
+          to: 'docs/interview/preface',
         },
         {
           label: '友链',

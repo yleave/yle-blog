@@ -4,12 +4,12 @@ title: 添加评论功能
 ---
 
 import Highlight from '@site/src/components/Highlight';
-import CustomComponent from '@site/src/components/CustomComponent';
+import { BlogComponent } from '@site/src/components/CustomComponent';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import Comment from '@site/src/components/Comment';
 
-<CustomComponent tags={["博客建设", "Gitalk"]} time="2021-04-22" />
+<BlogComponent tags={["博客建设", "Gitalk"]} time="2021-04-22" />
 
 &emsp;&emsp;Docusaurus 是一款静态网站构建工具，它主要是面向文档站点的，因此没有提供开箱即用的评论的功能或是插件。
 

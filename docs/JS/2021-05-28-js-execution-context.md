@@ -4,13 +4,13 @@ title: JS词法作用域、执行上下文与闭包
 ---
 
 import Highlight from '@site/src/components/Highlight';
-import CustomComponent from '@site/src/components/CustomComponent';
+import { BlogComponent } from '@site/src/components/CustomComponent';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import Comment from '@site/src/components/Comment';
 import MarkdownInCollapse from '@site/src/components/MarkdownInCollapse';
 
-<CustomComponent tags={['词法作用域', '执行上下文', '闭包', '作用域链']} time="2021-05-28" />
+<BlogComponent tags={['词法作用域', '执行上下文', '闭包', '作用域链']} time="2021-05-28" />
 
 
 ## 词法作用域

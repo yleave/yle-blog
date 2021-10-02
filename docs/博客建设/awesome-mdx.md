@@ -6,9 +6,9 @@ title: Awesome MDX
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import Highlight from '@site/src/components/Highlight';
-import CustomComponent from '@site/src/components/CustomComponent';
+import { BlogComponent } from '@site/src/components/CustomComponent';
 
-<CustomComponent tags={['markdown']} time="2021-4-05" />
+<BlogComponent tags={['markdown']} time="2021-4-05" />
 
 搭建博客的过程中遇到了一个新格式：`.mdx`，它太 awesome 了，结合了 markdown 和 jsx 语法，这样页面内容就可以变得更加丰富多彩了！话虽如此，不过目前就单独的 markdown 基本够应付日常的博客笔记了...
 

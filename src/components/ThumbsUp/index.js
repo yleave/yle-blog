@@ -30,10 +30,15 @@ export default class ThumbsUp extends Component {
                 top = bound.top + bound.height + 20;
                 left = bound.left + 16;
             } else {
-                const markdown = document.getElementsByClassName('markdown')[0];
-                const bound = markdown.getBoundingClientRect();
+                let referDom = document.querySelector('.markdown > p'); //  文章中的第一行文字，如果没有的话就选择除标题外的第一个元素作为参照
 
-                top = bound.top + 120;
+                if (!referDom) {
+                    referDom = document.getElementsByClassName('markdown')[0].children[1];
+                }
+
+                const bound = referDom.getBoundingClientRect();
+
+                top = bound.top - 16;
                 left = bound.left + bound.width + 40;
             }
 
@@ -116,15 +121,16 @@ export default class ThumbsUp extends Component {
 
         this.initIconColor();
 
-        getPageLikeCount()
-            .then(data => {
-                const { pageLikeCount } = data;
-                this.setState({
-                    likeCount: pageLikeCount,
-                    spinning: false
-                });
+        const p = getPageLikeCount();
+        
+        p && p.then(data => {
+            const { pageLikeCount } = data;
+            this.setState({
+                likeCount: pageLikeCount,
+                spinning: false
             });
-
+        });
+        
         message.config({
             maxCount: 3,
             top: 60,
@@ -144,8 +150,8 @@ export default class ThumbsUp extends Component {
 
     onWindowResize = e => {
         // 根据页面中的小列表位置来判断页面是否被挤压成了小区域
-        const menuButton = document.getElementsByClassName('menu__button')[0];
-        const show = menuButton.getBoundingClientRect().top === 0;
+        const menuButton = document.getElementsByClassName('clean-btn')[0];
+        const show = menuButton && menuButton.getBoundingClientRect().top === 0;
 
         this.updatePageLikePos();
         if (!show) {

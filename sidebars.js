@@ -59,31 +59,25 @@ module.exports = {
         '前端杂项/2021-07-03-csrf attack',
       ],
     },
-
-    // {
-    //   type: 'category',
-    //   label: '计算机基础',
-    //   items: [
-    //     '计算机基础/2021-06-11-type of programmig language',
-
-    //   ],
-    // },
-
-    // {
-    //   type: 'category',
-    //   label: 'CSS',
-    //   items: [
-    //     'CSS/2021-04-02-前言',
-    //   ],
-    // },
-    // {  不显示 sidebar 的链接，也即根据这个 id 跳转到 blog 中的对应页面
-    //   type: 'ref',
-    //   id: 'thank-you', // Document id (string).
-    // }
-    // {  创建一个链接
-    //   type: 'link',
-    //   label: 'Custom Label', // The label that should be displayed (string).
-    //   href: 'https://example.com' // The target URL (string).
-    // }
   ],
+  // interview: [
+  //   {
+  //     type: 'doc',
+  //     id: 'interview/2021-09-28-preface',
+  //   },
+  //   {
+  //     type: 'category',
+  //     label: '面经',
+  //     items: [
+  //       'interview/面经/2021-09-28-spring-recruitment',
+  //       'interview/面经/2021-09-28-autumn-recruitment',
+  //     ],
+  //   },
+  // ],
+  interview: [
+    'interview/2021-09-28-preface',
+    {
+      面经: ['interview/面经/2021-09-28-spring-recruitment', 'interview/面经/2021-09-28-autumn-recruitment', 'interview/面经/2021-09-28-autumn-recruitment2'],
+    },
+  ]
 };

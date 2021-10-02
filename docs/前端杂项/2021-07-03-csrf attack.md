@@ -3,11 +3,11 @@ slug: csrf attack
 title: 前端安全之CSRF攻击
 ---
 
-import CustomComponent from '@site/src/components/CustomComponent';
+import { BlogComponent } from '@site/src/components/CustomComponent';
 import Comment from '@site/src/components/Comment';
 import MarkdownInCollapse from '@site/src/components/MarkdownInCollapse';
 
-<CustomComponent tags={["前端安全","CSRF"]} time="2021-07-03" />
+<BlogComponent tags={["前端安全","CSRF"]} time="2021-07-03" />
 
 &emsp;&emsp;CSRF（Cross-site Request Forgery），跨站请求伪造攻击，简单来说就是攻击者诱导受害者进入第三方网站，在第三方网站中，向被攻击网站发送请求，并利用受害者在被攻击网站中获取的用户凭证，达到冒充受害者的目的，并使用受害者的身份进行一些恶意操作。
 

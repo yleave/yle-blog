@@ -49,10 +49,6 @@
     top: -30px;
 }
 
-.maze-comment {
-    margin: 10vh 10vw;
-}
-
 .maze-button {
     display: block;
     cursor: pointer;    /*光标，点击样式（一只手)*/

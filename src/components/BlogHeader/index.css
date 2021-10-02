@@ -12,7 +12,7 @@
 }
 
 .iconlabel-01 {
-    color: rgb(5, 231, 220);
+    color: hsl(199, 98%, 48%);
     font-size: 1.3em;
 }
 
@@ -29,16 +29,16 @@
 }
 
 .blog-tag {
-    border: rgba(5, 231, 220, 0.911) solid 1px;
+    border: hsl(199, 98%, 48%) solid 1px;
     color: rgb(0, 0, 0);
     font-size: 0.9em;
     margin-left: 12px;
     padding: 4px 9px;
-    border-radius: 8px;
-    transition: background-color, 0.2s ease-in, color 0.2s ease-in;
+    border-radius: 15px;
+    transition: box-shadow, 0.3s ease-in, color 0.3s ease-in;
 }
 
 .blog-tag:hover {
-    background-color: rgba(5, 231, 220, 0.911);
-    color: white;
+    /* cursor: pointer; */
+    box-shadow: 0 0 5px 2px hsl(199, 98%, 48%);
 }

@@ -4,10 +4,10 @@ title: Object or Function-JS 中的鸡与蛋问题
 ---
 
 import Highlight from '@site/src/components/Highlight';
-import CustomComponent from '@site/src/components/CustomComponent';
+import { BlogComponent } from '@site/src/components/CustomComponent';
 import Comment from '@site/src/components/Comment';
 
-<CustomComponent tags={['JS']} time="2021-07-03" />
+<BlogComponent tags={['JS']} time="2021-07-03" />
 
 &emsp;&emsp;JS 中有一个奇怪的现象：
 

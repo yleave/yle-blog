@@ -30,6 +30,16 @@
   padding: 0 var(--ifm-pre-padding);
 }
 
+html[data-theme='dark'] {
+  --ifm-color-primary: #4e89e8;
+  --ifm-color-primary-dark: #5a91ea;
+  /* 任何你要覆盖的其它颜色 */
+}
+
+/* 评论组件的 css 样式，最早是放在 迷宫小游戏页面的，不过后来在其他页面也添加了，因此将他放在全局样式里 */
+.maze-comment {
+  margin: 10vh 10vw;
+}
 
 /* 滚动条样式优化 */
 
@@ -53,6 +63,10 @@ body::-webkit-scrollbar-thumb {
 #__docusaurus {
   font-family: "btfFont", 'Courier New', Courier, monospace;
   font-size: 16px;
+}
+
+.theme-doc-markdown h1, h2, h3, h4 {
+  font-family: "btfFont", 'Courier New', Courier, monospace;
 }
 
 /* 博客详情页 CSS 覆盖 */
@@ -96,7 +110,7 @@ body::-webkit-scrollbar-thumb {
   font-weight: var(--ifm-heading-font-weight);
 }
 
-.main-docs-wrapper .container .col--3 > div::before {
+.docs-wrapper .container .col--3 > div::before {
   content: "文章目录";
   display: block;
   margin-bottom: 0.5rem;
@@ -119,4 +133,9 @@ body::-webkit-scrollbar-thumb {
 
 header {
   text-align: center;
+}
+
+/* 隐藏主题中提供的 backtotop 按钮 */
+.main-wrapper .clean-btn {
+  display: none;
 }

@@ -30,7 +30,6 @@ function bszCallback(data) {
 }
 
 function Header(props) {
-
     useEffect(() => {
         // bszJsonp().then(bszCallback);
         initPage();
@@ -39,6 +38,11 @@ function Header(props) {
     return (
         <div className="header-container">
             <span id="busuanzi_container_page_pv">
+                {
+                    props.lastUpdate ?
+                        <div style={{fontSize: '0.9em'}}>最后更新时间 - {props.lastUpdate}</div>
+                        : null
+                }
                 <i className="iconfont iconrili"></i> 
                 <span>{props.time}</span>
                 <span className="vertical-gap">|</span>
@@ -47,15 +51,20 @@ function Header(props) {
                 {/* <span id="busuanzi_value_page_pv"><i className="fa fa-spinner fa-spin"></i></span> */}
                 <span className="page-pv-cnt"><i className="fa fa-spinner fa-spin"></i></span>
             </span>
-
-            <div className="tags-container">
-                <i className="iconfont iconlabel-01"></i>
-                {
-                    props.tags.map((tag, idx) => {
-                        return <span className="blog-tag" key={idx}>  {tag} </span>
-                    })
-                }
-            </div>
+            
+            {
+                props.tags ?
+                    <div className="tags-container">
+                        <i className="iconfont iconlabel-01"></i>
+                        {
+                            props.tags.map((tag, idx) => {
+                                return <span className="blog-tag" key={idx}>  {tag} </span>
+                            })
+                        }
+                    </div>
+                    : null
+            }
+            
         </div>
     );
 }

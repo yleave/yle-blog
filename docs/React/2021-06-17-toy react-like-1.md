@@ -4,14 +4,14 @@ title: 写一个 toy react-like
 ---
 
 import Highlight from '@site/src/components/Highlight';
-import CustomComponent from '@site/src/components/CustomComponent';
+import { BlogComponent } from '@site/src/components/CustomComponent';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import Comment from '@site/src/components/Comment';
 import MarkdownInCollapse from '@site/src/components/MarkdownInCollapse';
 
 
-<CustomComponent tags={['react']} time="2021-06-17" />
+<BlogComponent tags={['react']} time="2021-06-17" />
 
 &emsp;&emsp;这个 react-like 是跟着一个博客：[build-your-own-react](https://pomb.us/build-your-own-react/) 一步步学习的，主要目的是进一步学习 react 的原理知识。
 

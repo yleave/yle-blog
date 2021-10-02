@@ -4,13 +4,13 @@ title: JS自动插入分号机制ASI
 ---
 
 import Highlight from '@site/src/components/Highlight';
-import CustomComponent from '@site/src/components/CustomComponent';
+import { BlogComponent } from '@site/src/components/CustomComponent';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import Comment from '@site/src/components/Comment';
 
 
-<CustomComponent tags={["ASI", "JS运行机制"]} time="2021-05-11" />
+<BlogComponent tags={["ASI", "JS运行机制"]} time="2021-05-11" />
 
 ## 问题背景
 

@@ -57,6 +57,7 @@ const genUrl = baseUrl => {
  * @return {void} 
  */
 const setPageLikeCount = () => {
+    if (!checkEnv()) return;
     const url = genUrl('https://qc4w3l.fn.thelarkcloud.com/updatePLCount');
 
     fetch(url)
@@ -71,6 +72,8 @@ const setPageLikeCount = () => {
  * @return {Promise} 返回 promise 的 resolve 入参即获取数据的 json 值
  */
 const getPageLikeCount = () => {
+    if (!checkEnv()) return;
+
     const url = genUrl('https://qc4w3l.fn.thelarkcloud.com/getPLCount');
 
     return fetch(url)

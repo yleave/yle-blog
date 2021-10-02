@@ -7,7 +7,7 @@ title: <%= title %>
 ---
 
 import Highlight from '@site/src/components/Highlight';
-import CustomComponent from '@site/src/components/CustomComponent';
+import { BlogComponent } from '@site/src/components/CustomComponent';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import Comment from '@site/src/components/Comment';
@@ -25,7 +25,7 @@ import MarkdownInCollapse from '@site/src/components/MarkdownInCollapse';
   <TabItem value="banana">This is a banana 🍌</TabItem>
 </Tabs>
 
-<CustomComponent tags={[]} time="<%= h.date() %>" />
+<BlogComponent tags={[]} time="<%= h.date() %>" lastUpdate='' />
 
 
 <MarkdownInCollapse markdown={`

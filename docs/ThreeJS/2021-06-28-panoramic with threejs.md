@@ -3,10 +3,10 @@ slug: panoramic with threejs
 title: react + threejs + swiper 实现全景图效果
 ---
 
-import CustomComponent from '@site/src/components/CustomComponent';
+import { BlogComponent } from '@site/src/components/CustomComponent';
 import Comment from '@site/src/components/Comment';
 
-<CustomComponent tags={['react', 'threejs', 'swiper']} time="2021-06-28" />
+<BlogComponent tags={['react', 'threejs', 'swiper']} time="2021-06-28" />
 
 &emsp;&emsp;咱先看看全景图实现效果：[展示地址](https://yleave.top/panoramic/)
 

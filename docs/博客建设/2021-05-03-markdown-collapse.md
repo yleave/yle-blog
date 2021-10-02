@@ -4,14 +4,14 @@ title: 支持 markdown 的折叠面板
 ---
 
 import Highlight from '@site/src/components/Highlight';
-import CustomComponent from '@site/src/components/CustomComponent';
+import { BlogComponent } from '@site/src/components/CustomComponent';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import Comment from '@site/src/components/Comment';
 import MarkdownInCollapse from '@site/src/components/MarkdownInCollapse';
 
 
-<CustomComponent tags={['markdown', '折叠面板']} time="2021-05-03" />
+<BlogComponent tags={['markdown', '折叠面板']} time="2021-05-03" />
 
 &emsp;&emsp;首先看看看效果：
 

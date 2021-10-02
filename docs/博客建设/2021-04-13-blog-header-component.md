@@ -6,9 +6,9 @@ title: 博客头部样式自定义
 import Highlight from '@site/src/components/Highlight';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import CustomComponent from '@site/src/components/CustomComponent';
+import { BlogComponent } from '@site/src/components/CustomComponent';
 
-<CustomComponent tags={['博客搭建', 'jsonp']} time="2021-04-13" />
+<BlogComponent tags={['博客搭建', 'jsonp']} time="2021-04-13" lastUpdate='2021.9.26' />
 
 
 &emsp;&emsp;添加头部样式前：

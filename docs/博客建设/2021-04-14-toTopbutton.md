@@ -4,9 +4,9 @@ title: B站小火箭点击置顶按钮
 ---
 
 import Highlight from '@site/src/components/Highlight';
-import CustomComponent from '@site/src/components/CustomComponent';
+import { BlogComponent } from '@site/src/components/CustomComponent';
 
-<CustomComponent tags={['博客建设', '节流']} time="2021-04-14" />
+<BlogComponent tags={['博客建设', '节流']} time="2021-04-14" />
 
 
 &emsp;&emsp;为博客中的内容页面加上置顶按钮，即：

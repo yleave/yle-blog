@@ -1,5 +1,5 @@
 ---
-to: interview/<%= h.date() %>-<%= filename %>.md
+to: docs/interview/<%= h.date() %>-<%= filename %>.md
 ---
 ---
 slug: <%= filename %>

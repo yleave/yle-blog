@@ -26,43 +26,48 @@ module.exports = {
         // },
         // {to: 'blog', label: '文章', position: 'right'},
         {
-          label: '分类',
+          label: 'BLOG',
           position: 'right',
-          items: [
-            {
-              label: '杂谈',
-              to: 'docs/杂谈/前言'
-            },
-            {
-              label: '博客建设',
-              to: 'docs/博客建设/awesome-mdx'
-            },
-            {
-              label: 'CSS',
-              to: 'docs/CSS/CSS-demo'
-            },
-            {
-              label: 'JS',
-              to: 'docs/JS/dom-drag'
-            },
-            {
-              label: 'React',
-              to: 'docs/React/toy react-like-1'
-            },
-            {
-              label: 'ThreeJS',
-              to: 'docs/ThreeJS/panoramic with threejs'
-            },
-            {
-              label: '前端杂项',
-              to: 'docs/前端杂项/csrf attack'
-            },
-            // {
-            //   label: '计算机基础',
-            //   to: 'docs/计算机基础/type of programmig language'
-            // },
-          ],
+          to: 'docs/杂谈/前言'
         },
+        // {
+        //   label: '分类',
+        //   position: 'right',
+        //   items: [
+        //     {
+        //       label: '杂谈',
+        //       to: 'docs/杂谈/前言'
+        //     },
+        //     {
+        //       label: '博客建设',
+        //       to: 'docs/博客建设/awesome-mdx'
+        //     },
+        //     {
+        //       label: 'CSS',
+        //       to: 'docs/CSS/CSS-demo'
+        //     },
+        //     {
+        //       label: 'JS',
+        //       to: 'docs/JS/dom-drag'
+        //     },
+        //     {
+        //       label: 'React',
+        //       to: 'docs/React/toy react-like-1'
+        //     },
+        //     {
+        //       label: 'ThreeJS',
+        //       to: 'docs/ThreeJS/panoramic with threejs'
+        //     },
+        //     {
+        //       label: '前端杂项',
+        //       to: 'docs/前端杂项/csrf attack'
+        //     },
+        //     // {
+        //     //   label: '计算机基础',
+        //     //   to: 'docs/计算机基础/type of programmig language'
+        //     // },
+        //   ],
+        // },
         {
           label: '乱七八糟',
           position: 'right',

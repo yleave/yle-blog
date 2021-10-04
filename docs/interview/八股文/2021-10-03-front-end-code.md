@@ -11,7 +11,7 @@ import Comment from '@site/src/components/Comment';
 import MarkdownInCollapse from '@site/src/components/MarkdownInCollapse';
 
 
-<InterviewComponent time="2021-10-03" lastUpdate='' />
+<InterviewComponent time="2021-10-03" lastUpdate='2021-10-4' />
 
 ## 1. 节流和防抖
 
@@ -314,5 +314,491 @@ window.addEventListener('resize', throttle(print, 1500));
     return res;
   }
   ```
+
+## 3. 原生 JS 方法实现
+
+&emsp;&emsp;原生 JS 的各种方法实现是一个比较重要的部分，不仅仅是为了应对面试，学习原生 JS 方法的实现还能帮助我们对 JS 有一个更好的理解，在写代码的时候也能少出点 BUG。
+
+### instancof
+
+[MDN 文档](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/instanceof)
+
+&emsp;&emsp;`instanceof` 运算符用于检测构造函数的 `prototype` 属性是否出现在实例对象的原型链上。
+
+&emsp;&emsp;故：`instanceof `操作符其实就是检查左侧的元素的 **__proto__** 链上有没有右侧类或对象的 `prototype`存在。因此实现思路就是顺着原型链逐层查找，直到原型链的尽头 `null` 为止，若过程中 `left` 的原型与 `right` 的原型相同，则返回 `true`。
+
+```js
+function myInstanceof(left, right) {
+    // 首先，对于基本数据类型，一律返回 false
+    if (!left || typeof left !== 'object') {
+        return false;
+    }
+
+    // 获取左边的原型
+    let proto = Object.getPrototypeOf(left);
+
+    while (true) {
+        if (proto === null) return false;
+        if (proto === right.prototype) return true;
+        proto = Object.getPrototypeOf(proto);
+    }
+}
+```
+
+### Object.create
+
+[MDN Polyfill](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create#polyfill)
+
+> 创建一个纯净的新对象，然后继承其原型
+
+```js
+Object.prototype.myCreate = function(proto) {
+    // 创建一个空函数并将其 prototypr 指向 proto
+    function F() {}
+    F.prototype = proto;
+
+    // 返回一个新的实例对象，这样实例对象就能够访问到 proto 及其原型链上的属性和方法了
+    return new F();
+}
+```
+
+### new
+
+[MDN new](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new)
+
+`new` 被调用后做了几件事：
+
+- 创建一个空对象
+- 让这个空对象对象可以访问到构造函数的属性
+- 让这个空对象可以访问构造函数原型所在原型链上的属性
+- 考虑构造函数有返回值且返回值为对象的情况，这时候返回的对象的优先级更高
+
+```js
+function myNew(ctor, ...args) {
+    if (typeof ctor !== 'function') throw `${ctor} is not a constructor`;
+
+    const obj = Object.create(ctor.prototype);	// 创建一个新的对象，且继承其原型
+    const res = ctor.apply(obj, args);
+    const isObject = res && typeof res === 'object';
+    const isFunction = typeof res === 'function';
+    return isObject || isFunction ? res : obj;
+}
+```
+
+### call & apply
+
+[MDN call](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/call)
+
+[MDN apply](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/apply)
+
+
+&emsp;&emsp;`call` 方法的作用和 `apply` 方法类似，区别仅是 `call` 方法接受的是**参数列表**，而 `apply` 方法接受的是**一个参数数组**。
+
+&emsp;&emsp;它们的作用都是使用指定的上下文来调用函数，若有传入额外的参数，那么该参数会传递给调用函数。
+
+```js
+Function.prototype.myCall = function() {    // apply 同写法
+    if (typeof this !== 'function') throw `caller must be a function!`;
+
+    const context = arguments[0] || window;
+    const args = [...arguments].slice(1).flat();  // 对于 apply 的话，传入的是一个参数数组，因此将参数格式统一
+    context.fn = this;
+    const res = context.fn(...args);
+    delete context.fn;
+
+    return res;
+}; 
+```
+
+### Function.prototype.bind
+
+[MDN bind](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)
+
+&emsp;&emsp;`bind` 方法会创建一个新函数，然后会将传入的上下文对象绑定到调用函数上。若传递了多个参数，其余参数会作为新函数的参数。此外，若是对使用了 `bind` 绑定的函数使用了 `new` 关键字创建实例对象，那么此时会忽略原先传入的上下文对象。
+
+
+```js
+Function.prototype.myBind = function() {
+    if (typeof this !== 'function') throw new TypeError('caller must be a function');
+
+    const slice = Array.prototype.slice;
+
+    const fn = this;
+    const context = arguments[0];
+    const args = slice.call(arguments, 1);
+
+    const bindFunc = function() {
+        const newArgs = args.concat(slice.call(arguments));
+        // 若是普通情况，this 会指向 window，而若是使用 new ，那么 this 会指向实例
+        return fn.apply(this instanceof bindFunc ? this : context, newArgs);
+    };
+    // bindFunc 继承原型链中的方法
+    bindFunc.prototype = Object.create(fn.prototype);
+
+    return bindFunc;
+}
+```
+
+#### 一道 bind 题
+
+&emsp;&emsp;基于 `bind` 方法的特性，有一道题如下：
+
+```js
+function foo() {
+    console.log(this.x);
+}
+
+foo.bind({x: 1}).bind({x: 2})() // 打印结果是什么？
+```
+
+  <MarkdownInCollapse markdown='&emsp;&emsp;输出 1，因为在第一次调用 bind 时，创建了一个新函数 f1，这个函数会调用 foo 并使用传入的对象作为 this。当第二次调用 bind 方法时，也会创建一个新函数 f2，f2 中调用的是上一次调用 bind 创建的新函数 f1，但是这 f1 中并没有使用到本次传入的 this 值，因此最终结果还会是第一次传入的对象中的 x，也就是 1。' header="解答👇" />
+
+
+### Array.prototype.map
+
+**map 概念：**
+
+&emsp;&emsp;`map(callback(val, idx, arr), thisArg)` 方法将**创建一个新数组**，这个数组中的元素是原数组中的每个元素都调用 `callback` 后的结果。其中 `callback` 的三个参数分别是原数组中的**元素**、**元素对应索引值**和**原数组**，`thisArg` 可选，是 `map` 函数的 `this` 指向。
+
+&emsp;&emsp;因此调用 `map` 函数后，**原数组不会发生改变**。
+
+&emsp;&emsp;此外，调用的数组 `arr` 中的元素不一定是连续的（有的索引位置会为 `empty`），这点需要注意。
+
+```js
+Array.prototype.myMap = function(callbackFn, thisArg) {
+    // null 或 undefined
+    if (this == null) {
+        throw new TypeError(`can't not read proterty 'map' of ${this}` );
+    }
+
+    if (Object.prototype.toString.call(callbackFn) !== '[object Function]') {
+        throw new TypeError(`${callbackFn} is not a function!`);
+    }
+
+    let O = Object(this);   // 规定 this 需要先转换为对象
+    let len = O.length >>> 0;   // 保证 len 为数字且为整数
+    let T = thisArg || null;
+
+    let res = new Array(len);
+
+    for (let i = 0; i < len; ++i) {
+        if (i in O) {
+            let mappedValue = callbackFn.call(T, O[i], i, O);
+            res[i] = mappedValue;
+        }
+    }
+
+    return res;
+};
+```
+
+其中：
+
+- `>>>` 运算符为 零填充右移运算符，如 `0101 >>> 1 : 0010`，保证 `len ` 为数字且为整数。
+- 使用 [Object](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object)  是为了保证 `o` 一定是一个对象：
+
+  - 当给定值是 `null` 或 `undefined` 时，会创建并返回一个空对象。
+  - 若传进去的是一个基本类型的值，则会构造其包装类型的对象，如 `Object(3)` ，会返回 `Number {3}`。
+  - 若传的是引用类型的值，仍会返回这个值，因此引用是相同的。
+
+
+### Array.prototype.flat
+
+[MDN flat](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/flat) 
+
+> `flat(deep)` 方法会根据指定的递归深度遍历数组，并将遍历到的元素合并为一个**新数组**返回
+
+
+&emsp;&emsp;设有数组如下：
+
+```js
+const test = ["a", ["b", "c"], ["d", ["e", ["f"]], "g"]]
+```
+
+&emsp;&emsp;`flag` 不传参数时，默认扁平化一层
+
+```js
+test.flat()
+// ["a", "b", "c", "d", ["e", ["f"]], "g"]
+```
+
+&emsp;&emsp;`flat` 传入参数时，传入的参数即扁平化的深度
+
+```js
+test.flat(2)
+// ["a", "b", "c", "d", "e", ["f"], "g"]
+```
+
+&emsp;&emsp;当使用 `Infinity` 作为参数时，无论多少层嵌套，都会扁平化为一维数组
+
+```js
+test.flat(Infinity)
+// ["a", "b", "c", "d", "e", "f", "g"]
+```
+
+&emsp;&emsp;传入小于等于 `0` 的参数，不进行扁平化
+
+```js
+test.flat(0)
+test.flat(-1)
+// ["a", ["b", "c"], ["d", ["e", ["f"]], "g"]]
+```
+
+&emsp;&emsp;若数组不是连续的，会跳过那些空位
+
+```js
+["a", , "b", "c", ,].flat()
+// ["a", "b", "c"]
+```
+
+#### 1. 使用 reduce 实现 flat
+
+
+&emsp;&emsp;首先实现一个一次性扁平化任意深度的 `flat` 方法：
+
+```js
+function flattenDeep(arr) {
+    return Array.isArray(arr) ? 
+        arr.reduce((acc, cur) => [...acc, flattenDeep(cur)], [])
+        : [arr];
+}
+```
+
+&emsp;&emsp;在此之上实现 `flat`：
+
+```js
+if (!Array.prototype.flat) {
+    Array.prototype.flat = function(deep=1) {
+        return deep >= 0 ?
+            this.reduce((acc, cur) => {
+                if (Array.isArray(cur)) {
+                    return [...acc, cur.flat(deep-1)];
+                }
+
+                return [...acc, cur];
+            }, [])
+            : this;
+    }
+}
+```
+
+#### 2. 使用栈实现
+
+&emsp;&emsp;同样的，先实现一个一次性扁平化所有深度的 `flat`：
+
+```js
+function flattenDeep(arr) {
+    const ret = [];
+    const st = [...arr];
+
+    while (st.length) {
+        const val = st.pop();
+
+        if (Array.isArray(val)) {
+            st.push(...val);
+        } else {
+            ret.unshift(val);
+        }
+    }
+
+    return ret;
+}
+```
+
+&emsp;&emsp;再在此基础上实现 `flat`：
+
+```js
+// 其实实现上和栈关系不大...
+Array.prototype.myFlat = function(deep=1) {
+    if (deep < 1) return this;
+
+    const ret = [];
+    const st = [...this];
+
+    while (st.length) {
+        const val = st.pop();
+
+        if (Array.isArray(val)) {
+            ret.unshift(...val.myFlat(deep-1));
+        } else {
+            ret.unshift(val);
+        }
+    }
+
+    return ret;
+}
+```
+
+
+### Array.prototype.euqals
+
+&emsp;&emsp;原生 JS 中没有数组的 `equals` 方法实现，但数组是引用类型不能使用 `===` 来判断。
+
+&emsp;&emsp;对两个数组进行对比判断是否相同可以分为两种，一种是考虑了数组内元素的顺序，一种则是不考虑顺序。对于不考虑顺序的，可以先对数组进行一个排序，再进行比较。
+
+&emsp;&emsp;此外，**下面主要讨论数组元素为基本数据类型与数组对象的情况，其他对象暂未考虑在内**。
+
+#### 方法1
+
+&emsp;&emsp;最简单的办法就是一次遍历判断数组内元素是否相同了，当然也可以将数组转换为字符串再进行比较：
+
+```js
+function isEqual(arr1, arr2) {
+    return JSON.stringify(arr1.sort()) == JSON.stringify(arr2.sort());
+}
+```
+
+#### 方法2
+
+&emsp;&emsp;手写一个数组的 `equals` 方法来实现两个数组元素的比较：
+
+```js
+if (!Array.prototype.equals) {
+    Array.prototype.equals = function(array) {
+        // 若 array 是虚值，直接返回
+        if (!array) {
+            return false;
+        }
+
+        // 先判断数组长度是否相等，若不相等返回 false
+        if (this.length != array.length) {
+            return false;
+        }
+
+        for (let i = 0, l = this.length; i < l; ++i) {
+            // 判断是否有循环嵌套
+            if (this[i] instanceof Array && array[i] instanceof Array) {
+                if (!this[i].equals(array[i])) {
+                    return false;
+                }
+            } else if (this[i] != array[i]) {
+                return false;
+            }
+            // 这边没有考虑数组元素是 object 的情况
+        }
+
+        return true;
+    };
+}
+```
+
+
+### Object.prototype.equals
+
+&emsp;&emsp;对象的 `equals` 方法中需要有数组的 `equals` 方法支持，以便能进行一个更全面的比较。
+
+```js
+Object.prototype.equals = function(obj) {
+    // 第一次循环，检查 this 中的属性名和属性值类别是否 与 obj 中的相同
+    for (let propName in this) {
+        if (this.hasOwnProperty(propName) != obj.hasOwnProperty(propName)) {
+            return false;
+        } else if (typeof this[propName] != typeof obj[propName]) {
+            return false;
+        }
+    }
+
+    // 第二次循环，检查 obj 中的属性名和属性值类别是否和 this 中的相同
+    // 并递归进行检查
+    for (let propName in obj) {
+        // 因为可能有的属性只存在与 obj 中
+        if (this.hasOwnProperty(propName) != obj.hasOwnProperty(propName)) {
+            return false;
+        } else if (typeof this[propName] != typeof obj[propName]) {
+            return false;
+        }
+
+        // 若该属性是继承自原型链的，那么肯定相等，不需要检查
+        if (!this.hasOwnProperty(propName)) {
+            continue;
+        }
+
+        // 进行递归检查
+
+        // 首先检查是否是一个数组类型，需要实现数组的检查方法 Array.prototype.equals
+        if (this[propName] instanceof Array && obj[propName] instanceof Array) {
+            if (!this[propName].equals(obj[propName])) {
+                return false;
+            }
+        } else if (this[propName] instanceof Object && obj[propName] instanceof Object) {
+            if (!this[propName].equals(obj[propName])) {
+                return false;
+            }
+        } else if (this[propName] != obj[propName]) {
+            return false;
+        }
+    }
+
+    return true;
+};
+```
+
+### Array.prototype.filter
+
+[MDN filter](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+
+&emsp;&emsp;一个比较简单的 filter 实现，主要就是根据传入的回调函数的调用结果，判断当前值是否要加入结果数组中。
+
+```js
+Array.prototype.myFilter = function(fn, thisArg) {
+    if (typeof fn !== 'function') {
+        throw new TypeError(`${fn} is not a function!`);
+    }
+
+    const self = Object(this);
+    const len = self.length;
+
+    const res = [];
+    const T = thisArg || null;
+
+    for (let i = 0; i < len; ++i) {
+        if (i in self) {
+            const flag = fn.call(T, self[i], i, self);
+
+            if (flag) {
+                res.push(self[i]);
+            }
+        }
+    }
+
+    return res;
+};
+```
+
+### Array.prototype.reduce
+
+[MDN reduce](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce)
+
+[MDN reduce Polyfill](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce#polyfill)
+
+&emsp;&emsp;`reduce` 方法接收一个回调函数 `callback(acc, cur, idx, arr)` 与一个可选的初始值。其中 `acc` 是累加器，`cur` 是当前值，`idx` 是当前值对应的索引，`arr` 是原数组。
+
+```js
+Array.prototype.myReduce = function(fn, initialValue) {
+    if (typeof fn !== 'function') throw new TypeError(`${fn} is not a function!`);
+
+    const self = Object(this);
+    const len = self.length;
+
+    const i = 0;
+
+    const res = initialValue;
+
+    // 若未输入初始值，则找到第一个不为虚值的元素
+    if (res == null && len > 0 && i < len) {
+        res = self[i++];
+    }
+
+    for (; i < len; ++i) {
+        // in 会包括原型链上的属性，这是没问题的，因为原生 reduce 也会包括
+        if (i in self) {
+            // 为什么使用 call：都行，个人习惯
+            res = fn.call(null, res, self[i], i, self);
+        }
+    }
+
+    return res;
+};
+```
 
 <Comment />

@@ -244,6 +244,10 @@ module.exports = {
     {
       src: 'https://cdn.bootcdn.net/ajax/libs/node-waves/0.7.6/waves.min.js',
       async: true,
+    },
+    {
+      src: '//cdn.jsdelivr.net/npm/@waline/client',
+      async: true,
     }
   ],
   stylesheets: [

@@ -9,7 +9,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import Comment from '@site/src/components/Comment';
 
-<BlogComponent tags={["博客建设", "Gitalk"]} time="2021-04-22" />
+<BlogComponent tags={["博客建设", "Gitalk"]} time="2021-04-22" lastUpdate='2021-10-15' />
 
 &emsp;&emsp;Docusaurus 是一款静态网站构建工具，它主要是面向文档站点的，因此没有提供开箱即用的评论的功能或是插件。
 
@@ -19,7 +19,7 @@ import Comment from '@site/src/components/Comment';
 
 &emsp;&emsp;在选择评论插件的时候有了解过几款评论工具，最后选择了 `Gitalk` 完成评论功能（因为其他几种都不太好搭配 Docusaurus...)
 
-1. [Vssue](https://vssue.js.org/zh/)
+### 1. [Vssue](https://vssue.js.org/zh/)
 
 - 基于 Vue 开发，因此对 Vue 开发的博客比较友好，方便集成
 - 支持多个平台的评论登陆和管理，如 Github, Gitlab, Bitbucket, Gitee 和 Gitea
@@ -29,7 +29,7 @@ import Comment from '@site/src/components/Comment';
 
 <img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210422181444302.png" alt="image-20210422181444302" style={{zoom:"80%"}} />
 
-2. [Valine](https://valine.js.org/)
+### 2. [Valine](https://valine.js.org/)
 
 - 功能丰富，除了基本的评论操作之外还能自定义评论表情以及文章阅读量统计
 - 进行评论无需登陆，可以选填自己的邮箱或网址让别人找到你
@@ -40,7 +40,7 @@ import Comment from '@site/src/components/Comment';
 <img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210422194646955.png" alt="image-20210422194646955" style={{zoom:"80%"}} />
 
 
-3. [Gitalk](https://gitalk.github.io/)
+### 3. [Gitalk](https://gitalk.github.io/)
 
 - 基于 Preact（一个轻量级的 React 替代方案）开发，使用 Github Issue 来管理评论数据
 - 因此与 Vssue 不同，它仅支持使用 Github 来进行配置
@@ -54,8 +54,32 @@ import Comment from '@site/src/components/Comment';
 
 &emsp;&emsp;其实我是比较偏向使用 Valine 的，可以自定义表情包，还能不用登陆就能进行评论，方便了大家的使用，不过尝试了一番无果，就先使用 Gitalk 了，至少先把评论功能加上去再说。
 
+### 4. [Waline](https://waline.js.org/)
 
-## 使用方法
+> 更新于 2021.10.15
+
+&emsp;&emsp;拖了这么久终于对评论系统动刀子了。最开始在博客评论系统选型时就比较倾向于 Valine 这类无需登陆就能进行发表的评论系统，不过尝试了一番无果，将就选择了对 React 框架更加友好的 Gitalk。
+
+&emsp;&emsp;不过 Gitalk 的缺陷也比较明显，评论列表获取速度慢、需要登陆 Github 账号（可能导致许多游客放弃评论），因此一直也不太满意。
+
+&emsp;&emsp;而这次更新的主要动力来源于友链小伙伴 [三水非冰](https://www.sanshuifeibing.com/) 的催更：
+
+![催更](https://gitee.com/ylea/imagehost1/raw/master/img/%E5%82%AC%E6%9B%B4.png)
+
+&emsp;&emsp;平时博客评论区一直比较惨淡，因此更换评论系统影响也不大，迟早要换的，长痛不如短痛，刚好就趁这个机会改动一波。
+
+&emsp;&emsp;至于为什么选择这个评论系统呢，主要有以下几点：
+
+- 无需登陆即可评论（最重要的一点）
+- 可自定义评论表情包
+- 丰富的功能配置以及详细的文档说明
+- 提供了管理端的评论管理系统，方便对评论进行管理
+
+&emsp;&emsp;不过目前发现了一个缺点：上传图片功能无效...不知道是否是我的配置有问题（感觉没问题
+
+&emsp;&emsp;关于 Waline 如何使用这边就不多做介绍了，官网文档里介绍的非常清楚~
+
+## Gitalk 使用方法
 
 &emsp;&emsp;使用方法比较简单，跟着文档一步步做下来就行了，不过为了方便食用，还是简单记录一下：
 
@@ -225,6 +249,7 @@ export default class Comment extends React.Component {
 - [Gitalk 运作原理](https://carl-zk.github.io/blog/2020/03/03/gitalk-%E8%BF%90%E4%BD%9C%E5%8E%9F%E7%90%86/#%E7%BB%93%E8%AE%BA)
 - [Debugging HTML Builds](https://www.gatsbyjs.com/docs/debugging-html-builds/)
 - [Issue#102](https://github.com/gitalk/gitalk/issues/102)
+- [静态博客评论系统的选择](https://eallion.com/comments/)
 
 
 <Comment />

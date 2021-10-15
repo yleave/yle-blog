@@ -25,17 +25,7 @@ export default class Comment extends React.Component {
             ],
         });
     }
-
-    /* <GitalkComponent options={{
-            clientID: "b92dde21f07145d83795",
-            clientSecret: "fb75f58b6f05d2cb95563b8e089562c06c01db52", 
-            repo: "gittalk-comments",
-            owner: "yleave",
-            admin: ["yleave"],
-            id: md5(location.pathname.endsWith('/') ? location.pathname : location.pathname + '/')
-        }} />
-        : null */
-
+    
     render() {
         return (
             <>

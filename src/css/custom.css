@@ -129,6 +129,21 @@ body::-webkit-scrollbar-thumb {
   border-radius: 3px;
 }
 
+/* 评论中的图片取消阴影和居中 */
+
+.waline-comment-class img {
+  margin: 0 .75em 0 0;
+  border-radius: var(--waline-avatar-radius);
+  box-shadow: var(--waline-box-shadow);
+}
+
+.v[data-class=v] .vcontent .vemoji {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1.25em;
+  margin: .25em;
+}
+
 /* 文章标题居中 */
 
 header {

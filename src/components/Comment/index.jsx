@@ -16,6 +16,11 @@ export default class Comment extends React.Component {
             ready: true
         });
 
+        let path = location.pathname;
+        if (!path.endsWith('/')) {
+            path += '/';
+        }
+
         Waline({
             el: '#waline-comment',
             serverURL: 'https://wline-comment-kyqnqsngs-yleave.vercel.app/',
@@ -23,6 +28,7 @@ export default class Comment extends React.Component {
                 'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/weibo',
                 'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili',
             ],
+            path
         });
     }
     
@@ -34,7 +40,7 @@ export default class Comment extends React.Component {
                     marginBottom: '40px'
                 }}>  
                     <hr className="hr-twill-colorful" />
-                    <div id='waline-comment'></div>
+                    <div id='waline-comment' className='waline-comment-class'></div>
                 </div>
             </>
         );

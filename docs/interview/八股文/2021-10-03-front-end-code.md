@@ -1,6 +1,6 @@
 ---
 slug: front-end-code
-title: 前端代码题
+title: 前端代码题1
 ---
 
 import Highlight from '@site/src/components/Highlight';

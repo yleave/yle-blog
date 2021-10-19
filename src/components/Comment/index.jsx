@@ -23,7 +23,7 @@ export default class Comment extends React.Component {
 
         Waline({
             el: '#waline-comment',
-            serverURL: 'https://wline-comment-kyqnqsngs-yleave.vercel.app/',
+            serverURL: 'https://wline-comment-yleave.vercel.app/',
             emoji: [
                 'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/weibo',
                 'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili',

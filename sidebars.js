@@ -53,7 +53,8 @@ module.exports = {
     {
       八股文: [
         'interview/八股文/2021-10-03-front-end-code',
-        'interview/八股文/2021-10-16-front-end-code2'
+        'interview/八股文/2021-10-16-front-end-code2',
+        'interview/八股文/2021-10-20-front-end-code3'
       ],
     }
   ]

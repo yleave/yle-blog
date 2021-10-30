@@ -11,7 +11,7 @@ import Comment from '@site/src/components/Comment';
 import MarkdownInCollapse from '@site/src/components/MarkdownInCollapse';
 
 
-<InterviewComponent time="2021-10-20" lastUpdate='2021.10.20' />
+<InterviewComponent time="2021-10-20" lastUpdate='2021.10.30' />
 
 ## 1. 数组去重
 
@@ -461,6 +461,379 @@ console.log(numFormat(b)); // "673,439.4542"
 2. [String.prototype.replace()](https://link.jianshu.com/?t=https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/replace)
 
 
+## 5. 事件分发器 EventEmitter
+
+&emsp;&emsp;实现一个简单的 EventEmitter 类，需要实现 `once`, `on`, `off`, `emit` 方法
+
+- `once` 表示该类型的事件只触发一次就删除
+
+- `on` 表示挂载一个类型的事件
+
+- `off` 表示卸载一个类型的事件
+
+- `emit` 表示对某一类型的事件进行一次分发
+
+```js
+class EventEmitter {
+    constructor() {
+        this.handlers = {};
+    }
+
+    // 注册事件回调
+    on(eventName, cb) {
+        const handlers = this.handlers;
+
+        if (!handlers[eventName]) {
+            handlers[eventName] = [];
+        }
+
+        handlers[eventName].push(cb);
+    }
+
+    // 移除某个事件回调队列中的事件回调函数
+    off(eventName, cb) {
+        const callbacks = this.handlers;
+
+        if (!callbacks) return;
+
+        const idx = callbacks.indexOf(cb);
+        if (idx !== -1) {
+            callbacks.splice(idx, 1);
+        }
+    }
+
+    // 触发某类事件中注册的所有回调
+    emit(eventName, ...args) {
+        const callbacks = this.handlers[eventName];
+
+        if (callbacks) {
+            // 对事件队列做一次浅拷贝，主要是防止 once 注册的回调在触发后对调用顺序造成影响
+            const _callbacks = callbacks.slice();
+            _callbacks.forEach(cb => {
+                cb(...args);
+            });
+        }
+    }
+
+    once(eventName, cb) {
+        const wrappedCb = (...args) => {
+            cb(...args);
+            this.off(eventName, cb);
+        };
+
+        this.on(eventName, wrappedCb);
+    }
+}
+```
+
+## 6. 对象属性值的链式查找
+
+&emsp;&emsp;实现一个 `get` 函数，传入三个参数：`get(obj, chain, default)`，若能从给定对象中找到属性值，则返回，否则找不到返回默认值：
+
+> 当时看到题目一拍脑袋想出来的，有更好的解法欢迎分享~
+
+```js
+const obj = {
+    a: {
+        b: [{
+            c:1
+        }]
+    }
+};
+
+console.log(get(obj, 'a.b[0].c', 0)); // 1
+console.log(get(obj, 'a.b.c', 0)); // 0
+
+function get(obj, chain, defaultVal) {
+    if (chain.length === 0) return defaultVal;
+
+    chain = chain.split('.');
+
+    const getVal = (curObj, idx) => {
+        // 若找不到，则当前的 curObj 会是 undefined，则返回默认值
+        if (!curObj) return defaultVal;
+
+        // 否则若找到尾，返回查询值
+        if (idx === chain.length) return curObj;
+
+        let prop = chain[idx];
+        const flag = prop.indexOf('[') !== -1;
+        let nextObj;
+
+        // 分两种情况，一种是使用 [] 访问属性值，一种是使用 . 访问属性值
+        if (flag) {
+            let start = prop.indexOf('[');
+            let end = prop.length - 1;
+            while (prop[end] !== ']') end--;
+
+            let nextProp = prop.slice(0, start);
+            let arrayProp = prop.slice(start + 1, end);
+
+            nextObj = curObj[nextProp] && curObj[nextProp][arrayProp];
+        } else {
+            nextObj = curObj[prop];
+        }
+
+        // 递归查找
+        return getVal(nextObj, idx + 1);
+    };
+
+    return getVal(obj, 0);
+}
+```
+
+## 7. 笛卡尔积
+
+&emsp;&emsp;要求如下：
+
+```
+const list = [
+    ['热', '冷', '冰'],
+    ['大', '中', '小'],
+    ['重辣', '微辣'],
+    ['重麻', '微麻'],
+];
+
+// 根据 list 计算所有组合结果
+[
+  '热大重辣重麻', '热大重辣微麻', '热大微辣重麻',
+  '热大微辣微麻', '热中重辣重麻', '热中重辣微麻',
+  '热中微辣重麻', '热中微辣微麻', '热小重辣重麻',
+  '热小重辣微麻', '热小微辣重麻', '热小微辣微麻',
+  '冷大重辣重麻', '冷大重辣微麻', '冷大微辣重麻',
+  '冷大微辣微麻', '冷中重辣重麻', '冷中重辣微麻',
+  '冷中微辣重麻', '冷中微辣微麻', '冷小重辣重麻',
+  '冷小重辣微麻', '冷小微辣重麻', '冷小微辣微麻',
+  '冰大重辣重麻', '冰大重辣微麻', '冰大微辣重麻',
+  '冰大微辣微麻', '冰中重辣重麻', '冰中重辣微麻',
+  '冰中微辣重麻', '冰中微辣微麻', '冰小重辣重麻',
+  '冰小重辣微麻', '冰小微辣重麻', '冰小微辣微麻'
+]
+```
+
+### 解法1
+
+```js
+const list = [
+    ['热', '冷', '冰'],
+    ['大', '中', '小'],
+    ['重辣', '微辣'],
+    ['重麻', '微麻'],
+];
+
+const ans = list.reduce((acc, cur) => {
+    const next = [];
+    for (let a of acc) {
+        for (let b of cur) {
+            next.push(a + b);
+        }
+    }
+
+    return next;
+});
+
+console.log(ans);
+```
+
+### 解法2
+
+```js
+const list = [
+    ['热', '冷', '冰'],
+    ['大', '中', '小'],
+    ['重辣', '微辣'],
+    ['重麻', '微麻'],
+];
+
+const ans = list.reduce((acc, cur) => {
+    return acc.reduce((ret, a) => {
+        ret.push(...cur.map(b => a + b));
+        return ret;
+    }, []);
+});
+
+console.log(ans);
+```
+
+## 8. 使用 raf 模拟 setTimeout 与 setInterval
+
+&emsp;&emsp;实现思路：`requestAnimation` 会在每一帧的帧首被调用，因此我们**默认一秒 60 帧**，那么我们每调用一次 RFA 就是 1000 / 60 ~= 16.67 毫秒，因此能够大致模拟计时器了
+
+```js
+const mockSettimeout = (fn, wait) => {
+    let t = 0;
+
+    function loop() {
+        t++;
+        const time = (1000 / 60) * t;
+        if (time >= wait) {
+            fn.apply(this, [...arguments]);
+            cancelAnimationFrame(loop);
+        } else {
+            requestAnimationFrame(loop);
+        }
+    };
+
+    requestAnimationFrame(loop);
+};
+
+let prev = +new Date();
+mockSettimeout(() => {
+    console.log('aaa', +new Date() - prev);
+}, 1000)
+```
+
+&emsp;&emsp;此外，一个改进的方法是在每次调用 rfa 时记录上一次回调的调用时间，然后累计花费时间与 wait 对比，这样可以减少帧率小于 60 帧情况下的误差：
+
+```js
+const mockSettimeout = (fn, wait) => {
+    let total = 0;
+    let prev = +new Date();
+
+    function loop() {
+        const now = +new Date();
+        total += now - prev;
+        prev = now;
+
+        if (total >= wait) {
+            fn.apply(this, [...arguments]);
+            cancelAnimationFrame(loop);
+        } else {
+            requestAnimationFrame(loop);
+        }
+    };
+
+    requestAnimationFrame(loop);
+};
+
+let prev = +new Date();
+mockSettimeout(() => {
+    console.log('aaa', +new Date() - prev);
+}, 1000)
+```
+
+&emsp;&emsp;有了 `setTimeout` `的经验后，setInterval` 的模拟就很简单了：
+
+```js
+const mockSetInterval = (fn, wait) => {
+    let total = 0;
+    let prev = +new Date();
+
+    function loop() {
+        const now = +new Date();
+        total += now - prev;
+        prev = now;
+
+        if (total >= wait) {
+            total -= 1000; 
+            fn.apply(this, [...arguments]);
+        }
+        requestAnimationFrame(loop);
+    };
+
+    requestAnimationFrame(loop);
+};
+
+let prev = +new Date();
+mockSetInterval(() => {
+    console.log('aaa', +new Date() - prev);
+}, 1000)
+```
+
+## 9. React Hook 封装一个计时器
+
+&emsp;&emsp;主要思路就是使用 `useRef` 来保存回调函数以及计时器，使用 `useCallback` 来缓存重置函数以及清除函数，当传入回调或是延迟时间修改时，再获取更新，具体可看代码：
+
+```js
+import { useEffect, useRef, useCallback } from "react";
+
+export default function useTimeoutFn(fn, ms) {
+    // 表示当前是否完成计时
+    const ready = useRef(false);
+    const timeout = useRef();
+    const callback = useRef(fn);
+
+    const isReady = useCallback(() => ready.current, []);
+
+    // 设置/重置定时器
+    const set = useCallback(() => {
+        ready.current = false;
+        // 若 timeout 有值，则表示是重置，那么清除前面设置的计时器
+        timeout.current && clearTimeout(timeout.current);
+
+        timeout.current = setTimeout(() => {
+            ready.current = true;
+            callback.current();
+        }, ms);
+
+    }, [ms]);
+
+    const clear = useCallback(() => {
+        ready.current = null;
+        timeout.current && clearTimeout(timeout.current);
+    }, []);
+
+    // 当回调函数 fn 更新时，重置 fn
+    useEffect(() => {
+        callback.current = fn;
+    }, [fn]);
+
+    // 第一次挂起时设置定时器，当组件卸载时清空计时器，防止内存泄漏
+    useEffect(() => {
+        set();
+
+        return clear;
+    }, [ms]);
+
+    return [isReady, clear, set]
+}
+```
+
+&emsp;&emsp;demo 实例：
+
+```js
+import React, { useState, useCallback } from 'react';
+import useTimeoutFn from './useTimeoutFn';
+import './App.css';
+
+
+const App = () => {
+  const [state, setState] = React.useState('Not called yet');
+
+  function fn() {
+    setState(`called at ${Date.now()}`);
+  }
+
+  const [isReady, cancel, reset] = useTimeoutFn(fn, 3000);
+  const cancelButtonClick = useCallback(() => {
+    if (isReady() === false) {
+      cancel();
+      setState(`cancelled`);
+    } else {
+      reset();
+      setState('Not called yet');
+    }
+  }, []);
+
+  const readyState = isReady();
+
+  return (
+    <div>
+      <div>{readyState !== null ? 'Function will be called in 3 seconds' : 'Timer cancelled'}</div>
+      <button onClick={cancelButtonClick}> {readyState === false ? 'cancel' : 'restart'} timeout</button>
+      <br />
+      <div>Function state: {readyState === false ? 'Pending' : readyState ? 'Called' : 'Cancelled'}</div>
+      <div>{state}</div>
+    </div>
+  );
+};
+
+export default App;
+```
+
+- [demo 来源](https://streamich.github.io/react-use/?path=/story/animation-usetimeoutfn--docs)
+
+- [源码](https://github.com/streamich/react-use/blob/master/src/useTimeoutFn.ts)
 
 
 <Comment />

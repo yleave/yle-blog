@@ -8,11 +8,8 @@
 }
 
 .timeline_box {
-    /* font: normal 14px/24px "Helvetica Neue", Helvetica, STheiti, "Microsoft Yahei", "冬青黑体简体中文 w3", 宋体, Arial, Tahoma, sans-serif, serif; */
     word-wrap: break-word;
     background-color: #f0f0f0;
-    /* height: calc(100vh - 60px - 18px);
-    width: 100vw; */
 }
 
 .timeline_box img {

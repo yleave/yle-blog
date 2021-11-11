@@ -77,7 +77,7 @@ export default function Home() {
                 'button button--outline button--secondary button--lg',
                 styles.getStarted,
               )}
-              to={useBaseUrl('docs/杂谈/前言')}>
+              to={useBaseUrl('timeline/')}>
               点击开启新世界大门（bushi
             </Link>
           </div>

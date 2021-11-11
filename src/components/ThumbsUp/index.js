@@ -21,11 +21,13 @@ export default class ThumbsUp extends Component {
     updatePageLikePos = () => {
         const tableOfContents = document.getElementsByClassName('table-of-contents')[0];
         const pageLike = document.getElementsByClassName('page-like')[0];
-        
         if (this.state.showLikeIcon) {
             let top, left;
             //  有的文章中没有标题列表，所以会为空，这时候使用 markdown 来计算位置
             if (tableOfContents) {
+                // if (!tableOfContents.getElementsByClassName('page-like').length) {
+                //     tableOfContents.appendChild(pageLike);
+                // }
                 const bound = tableOfContents.getBoundingClientRect();
                 top = bound.top + bound.height + 20;
                 left = bound.left + 16;

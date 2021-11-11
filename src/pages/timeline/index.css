@@ -1,0 +1,149 @@
+.timeline-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background-color: #f0f0f0;
+    padding-top: 28px;
+    padding-bottom: 48px;
+}
+
+.timeline_box {
+    /* font: normal 14px/24px "Helvetica Neue", Helvetica, STheiti, "Microsoft Yahei", "冬青黑体简体中文 w3", 宋体, Arial, Tahoma, sans-serif, serif; */
+    word-wrap: break-word;
+    background-color: #f0f0f0;
+    /* height: calc(100vh - 60px - 18px);
+    width: 100vw; */
+}
+
+.timeline_box img {
+    border: 0;
+}
+
+.timeline_box ul li {
+    list-style: none;
+}
+
+.timeline_box ul {
+    margin: 0;
+    padding: 0;
+}
+
+.timeline_box li {
+    margin: 0;
+    padding: 0;
+}
+
+.timeline_box h3 {
+    margin: 0;
+    padding: 0;
+}
+
+.timeline_box p {
+    margin: 0;
+    padding: 0;
+}
+
+.timeline_box h3 {
+    font-size: 100%;
+}
+
+/* .timeline_box span {
+    font-size: 16px;
+    color: #ccc;
+    font-weight: normal;
+} */
+
+.timeline_box a {
+    text-decoration: none;
+    color: #1C3D72
+}
+
+.timeline_box img {
+    -ms-interpolation-mode: bicubic;
+}
+
+.timeline_box {
+    width: 940px;
+    margin: 0 auto 0 auto;
+}
+
+.timeline_event_year {
+    width: 60px;
+    border-bottom: 2px solid #DDD;
+    text-align: center;
+    float: left;
+    margin-top: 10px;
+}
+
+.timeline_event_year li {
+    height: 40px;
+    line-height: 40px;
+    background: #FFF;
+    margin-bottom: 1px;
+    font-size: 16px;
+    color: #828282;
+    cursor: pointer;
+}
+
+.timeline_event_year li.current {
+    width: 70px;
+    background: #0066ff url('../../../static/img/timeline/jian.png') 60px 0 no-repeat;
+    color: #FFF;
+    text-align: left;
+    padding-left: 2px;
+}
+
+.timeline_event_list {
+    width: 850px;
+    float: right;
+    background: url('../../../static/img/timeline/dian3.png') 139px 0 repeat-y;
+    margin: 10px 0 20px 0;
+}
+
+.timeline_event_list h3 {
+    margin: 0 0 10px 132px;
+    font-size: 24px;
+    font-family: Georgia;
+    color: #0066ff;
+    padding-left: 25px;
+    background: url('../../../static/img/timeline/jian.png') 0 -45px no-repeat;
+    height: 38px;
+    line-height: 30px;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.timeline_event_list li {
+    background: url('../../../static/img/timeline/jian.png') 136px -80px no-repeat;
+}
+
+.timeline_event_list li span {
+    width: 127px;
+    text-align: right;
+    display: block;
+    float: left;
+    margin-top: 10px;
+}
+
+.timeline_event_list li p {
+    width: 680px;
+    margin-left: 24px;
+    display: inline-block;
+    padding-left: 10px;
+    background: url('../../../static/img/timeline/jian.png') -21px 0 no-repeat;
+    line-height: 25px;
+    _float: left;
+}
+
+.timeline_event_list li p span {
+    width: 650px;
+    text-align: left;
+    border-bottom: 2px solid #DDD;
+    padding: 10px 15px;
+    background: #FFF;
+    margin: 0;
+}
+
+.clearfix {
+    clear: both;
+}

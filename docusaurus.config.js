@@ -26,6 +26,11 @@ module.exports = {
         // },
         // {to: 'blog', label: '文章', position: 'right'},
         {
+          label: '时间线',
+          position: 'right',
+          to: 'timeline/'
+        },
+        {
           label: 'BLOG',
           position: 'right',
           to: 'docs/杂谈/前言'
@@ -242,11 +247,15 @@ module.exports = {
     //   async: true,
     // },
     {
-      src: 'https://cdn.bootcdn.net/ajax/libs/node-waves/0.7.6/waves.min.js',
+      src: '//cdn.bootcdn.net/ajax/libs/node-waves/0.7.6/waves.min.js',
       async: true,
     },
     {
       src: '//cdn.jsdelivr.net/npm/@waline/client',
+      async: true,
+    },
+    {
+      src: '//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js',
       async: true,
     }
   ],

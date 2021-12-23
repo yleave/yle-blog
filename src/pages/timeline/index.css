@@ -122,6 +122,16 @@
     margin-top: 10px;
 }
 
+#timeline_tag {
+    float: right;
+    padding: 2px;
+    width: 5em;
+    border-radius: 5px;
+    background-color: cornflowerblue;
+    color: cornsilk;
+    text-align: center;
+}
+
 .timeline_event_list li p {
     width: 680px;
     margin-left: 24px;

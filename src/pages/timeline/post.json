@@ -92,7 +92,8 @@
     {
         "title": "CSS特效",
         "time": "2021.04.11",
-        "link": "https://yleave.top/docs/CSS/CSS-demo"
+        "link": "https://yleave.top/docs/CSS/CSS-demo",
+        "update": true
     },
     {
         "title": "使用hygen快速创建文章模板",
@@ -102,7 +103,8 @@
     {
         "title": "博客样式优化",
         "time": "2021.04.09",
-        "link": "https://yleave.top/docs/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E8%AE%BE/prettify-blog"
+        "link": "https://yleave.top/docs/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E8%AE%BE/prettify-blog",
+        "update": true
     },
     {
         "title": "Awesome MDX",

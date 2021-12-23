@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import Layout from '@theme/Layout';
 import { initPage } from '../../utils/pageStatics';
+import { PageComponent } from '../../components/CustomComponent';
 import './index.css';
 import postData from './post.json';
 
@@ -9,7 +10,7 @@ const items = [];
 const dateMap = {};
 
 postData.forEach(item => {
-    let { time, title, link } = item;
+    let { time, title, link, update } = item;
     time = time.split('.');
     const yymm = `${time[0]}.${time[1]}`;
     YYMM.add(yymm);
@@ -26,6 +27,7 @@ postData.forEach(item => {
         day: time[2] + '号',
         title,
         link,
+        update
     });
 });
 
@@ -43,7 +45,21 @@ const eventListDoms = Array.from(YYMM).map((yymm, idx) => {
             postList.map((item, idx) => {
                 return <li key={idx}>
                     <span>{item.day}</span>
-                    <p><span><a href={item.link} target="_blank">{item.title}</a></span></p>
+                    <p>
+                        <span>
+                            <a href={item.link} 
+                                target="_blank"
+                                style={{lineHeight: item.update ? '30.8px' : 'initial'}}
+                            >
+                                {item.title}
+                            </a>
+                            {
+                                item.update ?
+                                    <span id='timeline_tag'>持续更新</span>
+                                    : null
+                            }
+                        </span>
+                    </p>
                 </li>
             })
         }
@@ -86,7 +102,7 @@ export default function Home() {
                     <div className='clearfix'></div>
                 </div>
             </div>
-            
+            <PageComponent />
         </Layout>
     );
 }

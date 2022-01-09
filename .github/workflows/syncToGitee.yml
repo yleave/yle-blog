@@ -1,0 +1,19 @@
+name: syncToGitee
+on:
+  push:
+    branches:
+      - blog
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mirror the Github organization repos to Gitee.
+        uses: Yikun/hub-mirror-action@master
+        with:
+          src: 'github/yleave'
+          dst: 'gitee/yleave'
+          dst_key: ${{ secrets.GITEE_SYNC_PRIVATE_KEY }}
+          dst_token:  ${{ secrets.GITEE_TOKEN }}
+          static_list: "yle-blog"
+          force_update: true
+			    debug: true

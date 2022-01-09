@@ -16,7 +16,7 @@ jobs:
           dst_token:  ${{ secrets.GITEE_TOKEN }}
           static_list: "yle-blog"
           force_update: true
-			    debug: true
+          debug: true
       - name: Build Gitee Pages
         uses: yanglbme/gitee-pages-action@main
         with:

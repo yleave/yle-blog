@@ -15,5 +15,5 @@ jobs:
           dst_key: ${{ secrets.GITEE_SYNC_PRIVATE_KEY }}
           dst_token:  ${{ secrets.GITEE_TOKEN }}
           static_list: "yle-blog"
-          force_update: true
-			    debug: true
+          # force_update: true
+          # debug: true

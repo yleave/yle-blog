@@ -12,8 +12,8 @@ jobs:
         with:
           src: github/yleave
           dst: gitee/yleave
-          dst_key: '${{ secrets.GITEE_SYNC_PRIVATE_KEY }}'
-          dst_token: '${{ secrets.GITEE_TOKEN }}'
+          dst_key: ${{ secrets.GITEE_SYNC_PRIVATE_KEY }}
+          dst_token: ${{ secrets.GITEE_TOKEN }}
           static_list: yle-blog
           force_update: true
           debug: true

@@ -8,7 +8,8 @@
 /* You can override the default Infima variables here. */
 @font-face {
   font-family: btfFont;
-  src: url(https://cdn.jsdelivr.net/gh/ZhongZN/ZFonts/13.woff2);
+  /* src: url(https://cdn.jsdelivr.net/gh/yleave/yle-blog/font/13.woff2); */
+  src: url(../../static/font/13.woff2);
 }
 
 

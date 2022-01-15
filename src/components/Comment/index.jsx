@@ -12,16 +12,12 @@ export default class Comment extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({
-            ready: true
-        });
-
         let path = location.pathname;
         if (!path.endsWith('/')) {
             path += '/';
         }
 
-        Waline({
+        Waline && Waline({
             el: '#waline-comment',
             serverURL: 'https://wline-comment-yleave.vercel.app/',
             emoji: [
@@ -29,6 +25,10 @@ export default class Comment extends React.Component {
                 'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili',
             ],
             path
+        });
+
+        this.setState({
+            ready: true
         });
     }
     

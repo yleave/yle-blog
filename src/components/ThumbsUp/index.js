@@ -1,218 +1,222 @@
-import React, { Component } from 'react';
-import * as _ from 'underscore';
-import md5 from 'md5';
-import { message } from 'antd';
-import { SmileTwoTone } from '@ant-design/icons';
-import { getPageLikeCount, setPageLikeCount } from '../../utils/pageStatics';
-import './index.css';
+import React, { Component } from "react";
+import * as _ from "underscore";
+import md5 from "md5";
+import { message } from "antd";
+import { SmileTwoTone } from "@ant-design/icons";
+import { getPageLikeCount, setPageLikeCount } from "../../utils/pageStatics";
+import "./index.css";
 
 export default class ThumbsUp extends Component {
-    constructor() {
-        super();
-        this.state = {
-            showLikeIcon: true,
-            enableLike: true,   // 若是在一天内已赞过，则此次不能再赞了
-            likeCount: 0,
-            spinning: true, // 数字加载状态
+  constructor() {
+    super();
+    this.state = {
+      showLikeIcon: true,
+      enableLike: true, // 若是在一天内已赞过，则此次不能再赞了
+      likeCount: 0,
+      spinning: true, // 数字加载状态
+    };
+    this.throttle_resizeEvent = _.throttle(this.onWindowResize, 100);
+  }
+
+  updatePageLikePos = () => {
+    const tableOfContents =
+      document.getElementsByClassName("table-of-contents")[0];
+    const pageLike = document.getElementsByClassName("page-like")[0];
+    if (this.state.showLikeIcon) {
+      let top, left;
+      //  有的文章中没有标题列表，所以会为空，这时候使用 markdown 来计算位置
+      if (tableOfContents) {
+        // if (!tableOfContents.getElementsByClassName('page-like').length) {
+        //     tableOfContents.appendChild(pageLike);
+        // }
+        const bound = tableOfContents.getBoundingClientRect();
+        top = bound.top + bound.height + 20;
+        left = bound.left + 16;
+      } else {
+        let referDom = document.querySelector(".markdown > p"); //  文章中的第一行文字，如果没有的话就选择除标题外的第一个元素作为参照
+
+        if (!referDom) {
+          referDom = document.getElementsByClassName("markdown")[0].children[1];
         }
-        this.throttle_resizeEvent = _.throttle(this.onWindowResize, 100);
+
+        const bound = referDom.getBoundingClientRect();
+
+        top = bound.top - 16;
+        left = bound.left + bound.width + 40;
+      }
+
+      pageLike.style.top = `${top}px`;
+      pageLike.style.left = `${left}px`;
+    }
+  };
+
+  // 检查是否已为某篇文章点过赞，若点过赞，则返回 false
+  checkStorage = () => {
+    const pageId = this.pageId;
+
+    if (localStorage.hasOwnProperty("dateCache")) {
+      const dateCache = JSON.parse(localStorage.getItem("dateCache"));
+      if (dateCache[pageId]) {
+        const maxAge = parseInt(dateCache[pageId].maxAge);
+        const date = parseInt(dateCache[pageId].date);
+
+        // 若超时了，那么清空日期缓存
+        if (+new Date() - date >= maxAge) {
+          delete dateCache[pageId];
+          localStorage.setItem("dateCache", JSON.stringify(dateCache));
+          console.log("date cache 超时");
+          return true;
+        }
+        // console.log('未超时')
+        // 存在相应记录且未超时
+        return false;
+      }
     }
 
-    updatePageLikePos = () => {
-        const tableOfContents = document.getElementsByClassName('table-of-contents')[0];
-        const pageLike = document.getElementsByClassName('page-like')[0];
-        if (this.state.showLikeIcon) {
-            let top, left;
-            //  有的文章中没有标题列表，所以会为空，这时候使用 markdown 来计算位置
-            if (tableOfContents) {
-                // if (!tableOfContents.getElementsByClassName('page-like').length) {
-                //     tableOfContents.appendChild(pageLike);
-                // }
-                const bound = tableOfContents.getBoundingClientRect();
-                top = bound.top + bound.height + 20;
-                left = bound.left + 16;
-            } else {
-                let referDom = document.querySelector('.markdown > p'); //  文章中的第一行文字，如果没有的话就选择除标题外的第一个元素作为参照
+    return true;
+  };
 
-                if (!referDom) {
-                    referDom = document.getElementsByClassName('markdown')[0].children[1];
-                }
+  setStorage = () => {
+    const pageId = this.pageId;
+    const date = new Date();
+    const maxAge =
+      (23 - date.getHours()) * 60 * 60 * 1000 +
+      (59 - date.getMinutes()) * 60 * 1000 +
+      (59 - date.getSeconds()) * 1000 +
+      date.getMilliseconds();
 
-                const bound = referDom.getBoundingClientRect();
+    let dateCache = {};
 
-                top = bound.top - 16;
-                left = bound.left + bound.width + 40;
-            }
+    if (localStorage.hasOwnProperty("dateCache")) {
+      dateCache = JSON.parse(localStorage.getItem("dateCache"));
+    }
 
-            pageLike.style.top = `${top}px`;
-            pageLike.style.left = `${left}px`;
-        }
-    };
-    
-    // 检查是否已为某篇文章点过赞，若点过赞，则返回 false
-    checkStorage = () => {
-        const pageId = this.pageId;
-
-        if (localStorage.hasOwnProperty('dateCache')) {
-            const dateCache = JSON.parse(localStorage.getItem('dateCache'));
-            if (dateCache[pageId]) {
-                const maxAge = parseInt(dateCache[pageId].maxAge);
-                const date = parseInt(dateCache[pageId].date);
-                
-                // 若超时了，那么清空日期缓存
-                if (+new Date() - date >= maxAge) {
-                    delete dateCache[pageId];
-                    localStorage.setItem('dateCache', JSON.stringify(dateCache));
-                    console.log('date cache 超时')
-                    return true;
-                }
-                // console.log('未超时')
-                // 存在相应记录且未超时
-                return false;
-            }
-        }
-
-        return true;
+    dateCache[pageId] = {
+      date: +date,
+      maxAge,
     };
 
-    setStorage = () => {
-        const pageId = this.pageId;
-        const date = new Date();
-        const maxAge = (23 - date.getHours()) * 60 * 60 * 1000 +
-            (59 - date.getMinutes()) * 60 * 1000 +
-            (59 - date.getSeconds()) * 1000 + 
-            date.getMilliseconds();
+    localStorage.setItem("dateCache", JSON.stringify(dateCache));
+  };
 
-        let dateCache = {};
+  initIconColor = () => {
+    // 初始化点赞按钮的颜色与是否能点击
+    const enableLike = this.checkStorage();
+    // 首先初始化按钮样式
+    const pageLike = document.getElementsByClassName("page-like")[0];
+    const likeIcon = document.getElementsByClassName("like-icon")[0];
 
-        if (localStorage.hasOwnProperty('dateCache')) {
-            dateCache = JSON.parse(localStorage.getItem('dateCache'));
-        }
+    // 若已被点击，则替换点击按钮颜色为已点击颜色
+    if (!enableLike) {
+      this.state.enableLike = false;
+      pageLike.style.color = "#00d0ff";
+      likeIcon.classList.add("active-page-like");
+      likeIcon.classList.remove("like-icon-hover");
+    }
+  };
 
-        dateCache[pageId] = {
-            date: +date,
-            maxAge
-        };
+  componentDidMount() {
+    let pathname = location.pathname;
 
-        localStorage.setItem('dateCache', JSON.stringify(dateCache));
+    if (pathname.endsWith("/")) {
+      console.log("end with /", pathname);
+      pathname = pathname.slice(0, -1);
+    }
+    this.pageId = md5(pathname);
+
+    this.updatePageLikePos();
+
+    this.initIconColor();
+
+    const p = getPageLikeCount();
+
+    p &&
+      p.then((data) => {
+        const { pageLikeCount } = data;
+        this.setState({
+          likeCount: pageLikeCount,
+          spinning: false,
+        });
+      });
+
+    message.config({
+      maxCount: 3,
+      top: 60,
+    });
+
+    this.messageConfig = {
+      content: "谢谢你~不过你今天已经为这篇文章点过赞啦！",
+      icon: <SmileTwoTone />,
     };
 
-    initIconColor = () => {
-        // 初始化点赞按钮的颜色与是否能点击
-        const enableLike = this.checkStorage();
-        // 首先初始化按钮样式
-        const pageLike = document.getElementsByClassName('page-like')[0];
+    window.addEventListener("resize", this.throttle_resizeEvent);
+  }
 
-        // 若已被点击，则替换点击按钮颜色为已点击颜色
-        if (!enableLike) {
-            this.state.enableLike = false;
-            pageLike.style.color = '#00d0ff';
-        }
-    };
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.throttle_resizeEvent);
+  }
 
-    componentDidMount() {
-        let pathname = location.pathname;
+  onWindowResize = (e) => {
+    // 根据页面中的小列表位置来判断页面是否被挤压成了小区域
+    const menuButton = document.getElementsByClassName("clean-btn")[0];
+    const show = menuButton && menuButton.getBoundingClientRect().top === 0;
 
-        if (pathname.endsWith('/')) {
-            console.log('end with /', pathname);
-            pathname = pathname.slice(0, -1);
-        }
-        this.pageId = md5(pathname);
-
-        this.updatePageLikePos();
-
+    this.updatePageLikePos();
+    if (!show) {
+      this.setState({
+        showLikeIcon: false,
+      });
+    } else if (!this.state.showLikeIcon) {
+      setTimeout(() => {
         this.initIconColor();
+      }, 0);
 
-        const p = getPageLikeCount();
-        
-        p && p.then(data => {
-            const { pageLikeCount } = data;
-            this.setState({
-                likeCount: pageLikeCount,
-                spinning: false
-            });
+      this.setState({
+        showLikeIcon: true,
+      });
+    }
+  };
+
+  onLikeClick = (e) => {
+    if (this.state.enableLike) {
+      e.target.classList.add("active-page-like");
+      e.target.classList.remove("like-icon-hover");
+      setTimeout(() => {
+        const pageLike = document.getElementsByClassName("page-like")[0];
+        pageLike.style.color = "#00d0ff";
+        this.state.enableLike = false;
+
+        this.setState((state) => {
+          return {
+            likeCount: state.likeCount + 1,
+          };
         });
-        
-        message.config({
-            maxCount: 3,
-            top: 60,
-        });
+      }, 900);
 
-        this.messageConfig = {
-            content: '谢谢你~不过你今天已经为这篇文章点过赞啦！',
-            icon: <SmileTwoTone />
-        };
-
-        window.addEventListener('resize', this.throttle_resizeEvent);
+      setPageLikeCount();
+      this.setStorage();
+    } else {
+      message.success(this.messageConfig);
     }
+  };
 
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.throttle_resizeEvent);
-    }
-
-    onWindowResize = e => {
-        // 根据页面中的小列表位置来判断页面是否被挤压成了小区域
-        const menuButton = document.getElementsByClassName('clean-btn')[0];
-        const show = menuButton && menuButton.getBoundingClientRect().top === 0;
-
-        this.updatePageLikePos();
-        if (!show) {
-            this.setState({
-                showLikeIcon: false
-            });
-        } else if (!this.state.showLikeIcon) {
-            setTimeout(() => {
-                this.initIconColor();
-            }, 0);
-            
-            this.setState({
-                showLikeIcon: true
-            });
-        }
-    };
-
-    onLikeClick = e => {
-        if (this.state.enableLike) {
-            e.target.classList.add('active-page-like');
-
-            setTimeout(() => {
-                e.target.classList.remove('active-page-like');
-                const pageLike = document.getElementsByClassName('page-like')[0];
-                pageLike.style.color = '#00d0ff';
-                this.state.enableLike = false;
-
-                this.setState(state => {
-                    return {
-                        likeCount: state.likeCount + 1
-                    };
-                });
-            }, 900);
-
-            setPageLikeCount();
-            this.setStorage();
-        } else {
-            message.success(this.messageConfig);
-        }
-    };
-
-    render() {
-        return (
-            <>
-                {
-                    this.state.showLikeIcon ?
-                        <div className="page-like">
-                            <i className="iconfont iconicon" onClick={this.onLikeClick}></i>
-                            {
-                                this.state.spinning ?
-                                    <i className="fa fa-spinner fa-spin" style={{fontSize: '1.5rem'}}></i> :
-                                    <span className="page-like-count">
-                                        {this.state.likeCount}
-                                    </span>
-                            }
-                        </div>
-                        : null
-                }
-            </>
-        );
-    }
+  render() {
+    return (
+      <>
+        {this.state.showLikeIcon ? (
+          <div className="page-like">
+            <span className="like-icon like-icon-hover" onClick={this.onLikeClick}></span>
+            {this.state.spinning ? (
+              <i
+                className="fa fa-spinner fa-spin page-like-count"
+                style={{ fontSize: "1.5rem" }}
+              ></i>
+            ) : (
+              <span className="page-like-count">{this.state.likeCount}</span>
+            )}
+          </div>
+        ) : null}
+      </>
+    );
+  }
 }

@@ -7,29 +7,44 @@
     font-size: 2rem;
 }
 
-.iconicon:hover {
+.like-icon-hover:hover {
     cursor: pointer;
+    animation: icon-hover ease-out 1s infinite;
+    transform-origin: left bottom;
 }
 
-.active-page-like {
-    position: relative;
-    display: inline-block;
-    animation: active 0.8s ease-in-out;
-}
-
-@keyframes active {
+@keyframes icon-hover {
     0% {
-        transform: translateY(0);
-        opacity: 0.8;
+        transform: rotate(0deg);
     }
 
     50% {
-        transform: translateY(-70%);
-        opacity: 0.4;
+        transform: rotate(-15deg);
     }
 
     100% {
-        transform: translateY(0);
-        opacity: 0.8;
+        transform: rotate(0deg);
     }
+}
+
+.like-icon {
+    width: 80px;
+    height: 80px;
+    background: url(https://gw.alipayobjects.com/mdn/prod_resource/afts/img/A*eDsBTKcm1IcAAAAAAAAAAAAAARQnAQ) no-repeat 0 0;
+    background-size: auto 80px;
+    display: inline-block;
+    position: relative;
+    left: -30px;
+    top: -30px;
+}
+
+.page-like-count {
+    left: -47px;
+    position: relative;
+    top: -42px;
+}
+
+.active-page-like {
+    transition: background-position 1s steps(27);
+    background-position: -2160px 0;
 }

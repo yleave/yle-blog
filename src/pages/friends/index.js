@@ -238,7 +238,8 @@ export default class Friends extends Component {
     };
 
     initHouse = () => {
-        gltfAndDracoLoader.load('https://cdn.jsdelivr.net/gh/yleave/models/LittlestTokyo.glb', gltf => {
+        // gltfAndDracoLoader.load('https://cdn.jsdelivr.net/gh/yleave/models/LittlestTokyo.glb', gltf => {
+        gltfAndDracoLoader.load('../../../static/models/LittlestTokyo.glb', gltf => {
             const model = gltf.scene;
             model.scale.set( 5, 5, 5);
             model.position.y = 750;
@@ -522,7 +523,8 @@ class Robot {
     }
 
     init = () => {
-        gltfLoader.load('https://cdn.jsdelivr.net/gh/yleave/models/RobotExpressive.glb', gltf => {
+        // gltfLoader.load('https://cdn.jsdelivr.net/gh/yleave/models/RobotExpressive.glb', gltf => {
+        gltfLoader.load('../../../static/models/RobotExpressive.glb', gltf => {
             const model = gltf.scene;
             model.scale.set(60, 60, 60);
             model.position.y = -250;

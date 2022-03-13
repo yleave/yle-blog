@@ -72,7 +72,7 @@ import MarkdownInCollapse from '@site/src/components/MarkdownInCollapse';
   
   使用 css 绘制图形如下所示：
 
-  ![圆](https://gitee.com/ylea/imagehost1/raw/master/img/image-20210831123316935.png)
+  ![圆](https://gitee.com/yleave/imagehost1/raw/master/img/image-20210831123316935.png)
 
   <MarkdownInCollapse markdown={`
     ~~~css

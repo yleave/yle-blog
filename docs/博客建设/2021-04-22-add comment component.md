@@ -27,7 +27,7 @@ import Comment from '@site/src/components/Comment';
 
 效果如下：
 
-<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210422181444302.png" alt="image-20210422181444302" style={{zoom:"80%"}} />
+<img src="https://gitee.com/yleave/imagehost1/raw/master/img/image-20210422181444302.png" alt="image-20210422181444302" style={{zoom:"80%"}} />
 
 ### 2. [Valine](https://valine.js.org/)
 
@@ -37,7 +37,7 @@ import Comment from '@site/src/components/Comment';
 
 效果图：
 
-<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210422194646955.png" alt="image-20210422194646955" style={{zoom:"80%"}} />
+<img src="https://gitee.com/yleave/imagehost1/raw/master/img/image-20210422194646955.png" alt="image-20210422194646955" style={{zoom:"80%"}} />
 
 
 ### 3. [Gitalk](https://gitalk.github.io/)
@@ -49,7 +49,7 @@ import Comment from '@site/src/components/Comment';
 
 效果图：
 
-<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210422200414066.png" alt="image-20210422200414066" style={{zoom:"80%"}} />
+<img src="https://gitee.com/yleave/imagehost1/raw/master/img/image-20210422200414066.png" alt="image-20210422200414066" style={{zoom:"80%"}} />
 
 
 &emsp;&emsp;其实我是比较偏向使用 Valine 的，可以自定义表情包，还能不用登陆就能进行评论，方便了大家的使用，不过尝试了一番无果，就先使用 Gitalk 了，至少先把评论功能加上去再说。
@@ -64,7 +64,7 @@ import Comment from '@site/src/components/Comment';
 
 &emsp;&emsp;而这次更新的主要动力来源于友链小伙伴 [三水非冰](https://www.sanshuifeibing.com/) 的催更：
 
-![催更](https://gitee.com/ylea/imagehost1/raw/master/img/%E5%82%AC%E6%9B%B4.png)
+![催更](https://gitee.com/yleave/imagehost1/raw/master/img/%E5%82%AC%E6%9B%B4.png)
 
 &emsp;&emsp;平时博客评论区一直比较惨淡，因此更换评论系统影响也不大，迟早要换的，长痛不如短痛，刚好就趁这个机会改动一波。
 
@@ -90,12 +90,12 @@ git
 > 还可以通过点击头像 -> setting -> Developer settings -> OAuth Apps -> New OAuth App 来找到新建页面
 
 
-<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210422201226610.png" alt="image-20210422201226610" style={{zoom:"80%"}} />
+<img src="https://gitee.com/yleave/imagehost1/raw/master/img/image-20210422201226610.png" alt="image-20210422201226610" style={{zoom:"80%"}} />
 
 
 &emsp;&emsp;创建完之后就能看到 Client ID 了，Client secrets 需要新生成一个，这两个值用于后面的 gitalk 配置
 
-<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210422201812992.png" alt="image-20210422201812992" style={{zoom:"80%"}} />
+<img src="https://gitee.com/yleave/imagehost1/raw/master/img/image-20210422201812992.png" alt="image-20210422201812992" style={{zoom:"80%"}} />
 
 &emsp;&emsp;然后再新建一个仓库，用于存储评论数据，这个不用做什么配置，后面直接将仓库名作为配置值就好了
 
@@ -150,7 +150,7 @@ import 'gitalk/dist/gitalk.css';  // 样式别忘了导入，我前面忘了然�
 
 &emsp;&emsp;解决完第一个坑点，评论功能在本地上跑得风生水起，然而一部署到线上的时候就出现了问题：
 
-<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210422212055958.png" alt="image-20210422212055958" style={{zoom:"80%"}} />
+<img src="https://gitee.com/yleave/imagehost1/raw/master/img/image-20210422212055958.png" alt="image-20210422212055958" style={{zoom:"80%"}} />
 
 &emsp;&emsp;很难受，自信 deploy 然而一盆冷水就浇上来了🙃
 
@@ -214,7 +214,7 @@ export default class Comment extends React.Component {
 
 &emsp;&emsp;看了下评论存放的 Issue，确实出现了两个，而且 `id` 值还不同：
 
-<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210422225432818.png" alt="image-20210422225432818" style={{zoom:"80%"}} />
+<img src="https://gitee.com/yleave/imagehost1/raw/master/img/image-20210422225432818.png" alt="image-20210422225432818" style={{zoom:"80%"}} />
 
 
 &emsp;&emsp; `md5` 算法对相同的字符串进行加密得到的结果肯定是唯一的，那么就只可能是路径问题了。
@@ -231,7 +231,7 @@ export default class Comment extends React.Component {
 > &emsp;&emsp;也就是若当前路径是表示一个文件夹地址且未加斜杆，那么访问其默认资源会多了一个步骤，中间会多了一个重定向（301）的过程。
 > 
 > &emsp;&emsp;比如刷新本页面（末尾无斜杆），可以看到浏览器实际上发起了两个请求，第一个请求（url 末尾无斜杆）返回状态码 301，第二个请求（url 末尾带斜杆）返回状态码 200：
-> <img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210612165535050.png" style={{zoom:"80%"}} />
+> <img src="https://gitee.com/yleave/imagehost1/raw/master/img/image-20210612165535050.png" style={{zoom:"80%"}} />
 
 &emsp;&emsp;既然不同操作 `pathname` 最后的字符是不一样的（有的多了一个 `/`)，那么我们就对这个末尾字符进行处理就好了：
 

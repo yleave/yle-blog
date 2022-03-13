@@ -181,13 +181,13 @@ jsonp({
 &emsp;&emsp;首先，用一幅图解释浏览器的宽高：
 
 
-![Dimensions-client](https://gitee.com/ylea/imagehost/raw/master/img/Dimensions-client.png)
+![Dimensions-client](https://gitee.com/yleave/imagehost/raw/master/img/Dimensions-client.png)
 
 ### 3.2 方法1：clientHeight、scrollTop 和 offsetTop
 
 &emsp;&emsp;首先，简单介绍一下这三个属性：
 
-<img src="https://gitee.com/ylea/imagehost/raw/master/img/image-20210224181307061.png" alt="image-20210224181307061" style={{zoom: "60%"}} />
+<img src="https://gitee.com/yleave/imagehost/raw/master/img/image-20210224181307061.png" alt="image-20210224181307061" style={{zoom: "60%"}} />
 
 :::info
 
@@ -248,7 +248,7 @@ function lazyLoad(imgs) {
 > 
 > 返回的结果是包含完整元素的最小矩形，并且拥有`left`, `top`, `right`, `bottom`, `x`, `y`, `width`, 和 `height`这几个以像素为单位的只读属性用于描述整个边框。除了`width` 和 `height` 以外的属性是相对于**视图窗口的左上角**来计算的。
 
-<img src="https://gitee.com/ylea/imagehost/raw/master/img/rect.png" alt="rect" style={{zoom: "50%"}} />
+<img src="https://gitee.com/yleave/imagehost/raw/master/img/rect.png" alt="rect" style={{zoom: "50%"}} />
 
 &emsp;&emsp;因此使用 DOM 元素的 `getBoundingClientReact().top` 属性就能直接判断图片是否出现在了当前视口中。
 

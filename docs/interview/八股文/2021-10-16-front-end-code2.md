@@ -149,7 +149,7 @@ const c = new Child();
 
 &emsp;&emsp;上面代码中，实例 `c` 打印结果如下，可以看到有两个 `a` 属性，因此存在冗余。
 
-![组合继承](https://gitee.com/ylea/imagehost1/raw/master/img/%E7%BB%84%E5%90%88%E5%AF%84%E7%94%9F%E7%BB%A7%E6%89%BF.png)
+![组合继承](https://gitee.com/yleave/imagehost1/raw/master/img/%E7%BB%84%E5%90%88%E5%AF%84%E7%94%9F%E7%BB%A7%E6%89%BF.png)
 
 ### 4. 寄生继承
 
@@ -240,11 +240,11 @@ Object.setPrototypeOf(Child, Parent);
 
 &emsp;&emsp;常见的排序算法可分为以下几类，其中比较类排序是常考的排序算法。
 
-<img src="https://gitee.com/ylea/imagehost/raw/master/img/849589-20190306165258970-1789860540.png" style={{zoom: "40%"}} />
+<img src="https://gitee.com/yleave/imagehost/raw/master/img/849589-20190306165258970-1789860540.png" style={{zoom: "40%"}} />
 
 &emsp;&emsp;各个排序的时间和空间复杂度为：
 
-<img src="https://gitee.com/ylea/imagehost/raw/master/img/sort.png" style={{zoom: "60%"}} />
+<img src="https://gitee.com/yleave/imagehost/raw/master/img/sort.png" style={{zoom: "60%"}} />
 
 ### 1. 冒泡排序
 

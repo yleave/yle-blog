@@ -189,7 +189,7 @@ window.addEventListener("resize", throttle(print, 1500));
 
 &emsp;&emsp;浅拷贝和深拷贝都只针对于引用数据类型，它们的区别用一张图来说就是：
 
-<img src="https://gitee.com/ylea/imagehost/raw/master/img/13263206-c651dc07788bf561.png" style={{zoom: "33%"}} />
+<img src="https://gitee.com/yleave/imagehost/raw/master/img/13263206-c651dc07788bf561.png" style={{zoom: "33%"}} />
 
 &emsp;&emsp;图中的每个节点相当于对象的嵌套层次，浅拷贝只会复制对象的第一层元素，若其有嵌套的对象，那么这些嵌套对象的引用都是相同的；而深拷贝的复制会包括这些嵌套的对象，因此复制出的对象会是两个完全不同的对象。
 

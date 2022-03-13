@@ -475,12 +475,12 @@ export default class Friends extends Component {
                             
 
                             <p style={{marginTop: "2rem", fontSize: "17px"}}>不需要图片链接，下面的是本博客的头像链接，欢迎自取信息互加友链</p>
-                            <p>头像链接：https://gitee.com/ylea/imagehost1/raw/master/img/zzm3.jpg</p>
+                            <p>头像链接：https://gitee.com/yleave/imagehost1/raw/master/img/zzm3.jpg</p>
 
                             <p style={{marginTop: "2rem", fontSize: "17px", color: '#c4c4c4'}}>目前暂不支持自定义人物模型，后续会考虑加上</p>
                         </div>
                         <div className="friends-description-right">
-                            <img src="https://gitee.com/ylea/imagehost1/raw/master/img/friends.png"></img>
+                            <img src="https://gitee.com/yleave/imagehost1/raw/master/img/friends.png"></img>
                         </div>
                     </div>
                 </Card>

@@ -13,7 +13,7 @@ import { BlogComponent } from '@site/src/components/CustomComponent';
 
 &emsp;&emsp;添加头部样式前：
 
-<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210413211853704.png"  style={{zoom: '60%'}}/>
+<img src="https://gitee.com/yleave/imagehost1/raw/master/img/image-20210413211853704.png"  style={{zoom: '60%'}}/>
 
 &emsp;&emsp;光秃秃的，太丑了，标题到正文之间没有过渡，正文显得有点突兀。抛开美观性不说，一篇文章需要提供关于它的一些信息，比如发布日期、文章标签，这些信息定义在文章头部，也能让读者在阅读之前对文章能有一个大致的了解。
 
@@ -59,7 +59,7 @@ import { BlogComponent } from '@site/src/components/CustomComponent';
 
 &emsp;&emsp;头部样式添加后（好看多了~）：
 
-<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210413214239848.png" alt="image-20210413214239848" style={{zoom: '60%'}} />
+<img src="https://gitee.com/yleave/imagehost1/raw/master/img/image-20210413214239848.png" alt="image-20210413214239848" style={{zoom: '60%'}} />
 
 
 
@@ -166,17 +166,17 @@ export default Header;
 
 &emsp;&emsp;基本的头部组件是写好了，但是在使用的时候**出现了问题**：不蒜子的 PV  计数器在进入博客的时候并没有显示出当前页面的 PV 值，页面是这样的:
 
-<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210413215052035.png" style={{zoom: '80%'}} />
+<img src="https://gitee.com/yleave/imagehost1/raw/master/img/image-20210413215052035.png" style={{zoom: '80%'}} />
 
 &emsp;&emsp;不断尝试后发现， 只有在页面刷新之后，当前页面的 PV 值才会获取到，看了不蒜子的文档也没发现哪出了问题，于是打开浏览器控制台查看，发现了问题：
 
 &emsp;&emsp;**首先**，当我们在刷新页面时，观察到不蒜子发送了一个 JSONP 请求：
 
-<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210413215520731.png" alt="image-20210413215520731" style={{zoom: '80%'}} />
+<img src="https://gitee.com/yleave/imagehost1/raw/master/img/image-20210413215520731.png" alt="image-20210413215520731" style={{zoom: '80%'}} />
 
 &emsp;&emsp;再看看取回的数据，正是我们要获取的 PV 值！：
 
-<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210413215606429.png" alt="image-20210413215606429" style={{zoom: '80%'}} />
+<img src="https://gitee.com/yleave/imagehost1/raw/master/img/image-20210413215606429.png" alt="image-20210413215606429" style={{zoom: '80%'}} />
 
 &emsp;&emsp;**其次**，Docusaurus 是一个单页面应用，它自己实现了路由功能来完成当前页面的切换，而在路由过程中没有触发这个 JSONP 请求，那么也就拿不到这个 PV 值了，真相大白了！
 
@@ -232,7 +232,7 @@ useEffect(() => {
 
 &emsp;&emsp;上面有说到，我们使用了 JSONP 来获取当前页面的 PV 值，不过 JSONP 是异步操作，那么在获取到 PV 值之前页面上对应位置还会是空的，所以在获取到数据前，我们给它加上一个一直在旋转的小圈圈来优化显示效果：
 
-<img src="https://gitee.com/ylea/imagehost1/raw/master/img/circle-4-13.gif" alt="circle-4-13" style={{zoom:'80%'}} />
+<img src="https://gitee.com/yleave/imagehost1/raw/master/img/circle-4-13.gif" alt="circle-4-13" style={{zoom:'80%'}} />
 
 &emsp;&emsp;方法也很简单：
 

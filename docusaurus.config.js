@@ -6,7 +6,7 @@ module.exports = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'https://gitee.com/ylea/imagehost/raw/master/img/logo1.png',
+  favicon: 'https://gitee.com/yleave/imagehost/raw/master/img/logo1.png',
   organizationName: 'yleave',
   projectName: 'yle-blog',
   themeConfig: {

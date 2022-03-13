@@ -161,7 +161,7 @@ function HTMLDragContainer() {
                 <div className="html-drag-box" draggable="true"></div>
             </div>
             <div id="html-drag-img-container">
-                <img className="html-drag-img" src="https://gitee.com/ylea/imagehost1/raw/master/img/cat.png"></img>
+                <img className="html-drag-img" src="https://gitee.com/yleave/imagehost1/raw/master/img/cat.png"></img>
             </div>
             
             <div className="html-drop-box"></div>

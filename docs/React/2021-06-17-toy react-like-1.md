@@ -145,7 +145,7 @@ const element = (
 
 &emsp;&emsp;根据我们实现的 createElement 函数，生成的对象就会是：
 
-<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210529222721917.png" alt="image-20210529222721917" style={{zoom:"75%"}} />
+<img src="https://gitee.com/yleave/imagehost1/raw/master/img/image-20210529222721917.png" alt="image-20210529222721917" style={{zoom:"75%"}} />
 
 
 
@@ -257,7 +257,7 @@ Didact.render(
 
 &emsp;&emsp;对应的 fiber tree（每个节点有指向其**第一个**孩子节点的指针、指向其兄弟节点的指针，以及指向其父节点（或者说 uncle 节点）的指针）：
 
-<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210611202822125.png" alt="image-20210611202822125" style={{zoom:"70%"}} />
+<img src="https://gitee.com/yleave/imagehost1/raw/master/img/image-20210611202822125.png" alt="image-20210611202822125" style={{zoom:"70%"}} />
 
 &emsp;&emsp;在 `render` 函数中，我们传入的元素会作为 fiber tree 的根结点，也就是初始的 work：nextUnitOfWork，然后通过 `performUnitOfWork `来获取下一个 work，即下一个遍历的 fiber 节点。
 

@@ -11,7 +11,7 @@ import Comment from '@site/src/components/Comment';
 
 &emsp;&emsp;JS 中有一个奇怪的现象：
 
-<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210703205356945.png" alt="image-20210703205356945" style={{zoom:"80%"}} />
+<img src="https://gitee.com/yleave/imagehost1/raw/master/img/image-20210703205356945.png" alt="image-20210703205356945" style={{zoom:"80%"}} />
 
 &emsp;&emsp;我们知道，**`instanceof` 关键字是用于判断左值的原型链上是否存在右值**，那按照这样的话不就是说 `Object` 和 `Function` 存在循环继承了吗？
 
@@ -21,7 +21,7 @@ import Comment from '@site/src/components/Comment';
 
 &emsp;&emsp;其实对于所有构造函数/类，其 `__proto__` 属性都是指向了一个函数：`ƒ () { [native code] }`，而 `Function` 的 `prototype` 属性也指向了这个函数：
 
-<img src="https://gitee.com/ylea/imagehost1/raw/master/img/image-20210222154938304.png" alt="image-20210222154938304" style={{zoom:"80%"}} />
+<img src="https://gitee.com/yleave/imagehost1/raw/master/img/image-20210222154938304.png" alt="image-20210222154938304" style={{zoom:"80%"}} />
 
 &emsp;&emsp;而这个 `[naitve code]` 函数的 `__proto__` 指向了 `Object.prototype`，因此可以说函数也是对象，所以 JS 中的所有对象都是由 `Object.prototype` 衍生出来的。
 
@@ -49,7 +49,7 @@ import Comment from '@site/src/components/Comment';
 
 &emsp;&emsp;再上一张网上广为流传的 JS 继承图帮助理解：
 
-<img src="https://gitee.com/ylea/imagehost1/raw/master/img/prototype.jpg" style={{zoom:"80%"}} />
+<img src="https://gitee.com/yleave/imagehost1/raw/master/img/prototype.jpg" style={{zoom:"80%"}} />
 
 &emsp;&emsp;从这张图中可以清楚的看到：所有对象的源头都是 `Object.prototype`
 

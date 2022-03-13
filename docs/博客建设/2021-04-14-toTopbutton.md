@@ -11,7 +11,7 @@ import { BlogComponent } from '@site/src/components/CustomComponent';
 
 &emsp;&emsp;为博客中的内容页面加上置顶按钮，即：
 
-<img src="https://gitee.com/ylea/imagehost/raw/master/img/backtotop1.gif" alt="backtotop1" style={{zoom: '80%'}} />
+<img src="https://gitee.com/yleave/imagehost/raw/master/img/backtotop1.gif" alt="backtotop1" style={{zoom: '80%'}} />
 
 
 

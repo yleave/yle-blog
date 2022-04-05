@@ -48,7 +48,6 @@ const eventListDoms = Array.from(YYMM).map((yymm, idx) => {
                     <p>
                         <span>
                             <a href={item.link} 
-                                target="_blank"
                                 style={{lineHeight: item.update ? '30.8px' : 'initial'}}
                             >
                                 {item.title}

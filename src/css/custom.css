@@ -32,8 +32,8 @@
 }
 
 html[data-theme='dark'] {
-  --ifm-color-primary: #4e89e8;
-  --ifm-color-primary-dark: #5a91ea;
+  --ifm-color-primary: #383938;
+  --ifm-color-primary-dark: #383938;
   /* 任何你要覆盖的其它颜色 */
 }
 

@@ -185,16 +185,6 @@ module.exports = {
         <div><img src="https://cdn.jsdelivr.net/gh/volfclub/travellings@12.0/assets/logo.svg" width="100"><div>
         `,
     },
-    gtag: {
-      trackingID: 'G-B66H1HYDXT',
-      // Optional fields.
-      anonymizeIP: true, // Should IPs be anonymized?
-    },
-    googleAnalytics: {
-      trackingID: 'G-B66H1HYDXT',
-      // Optional fields.
-      anonymizeIP: true, // Should IPs be anonymized?
-    },
   },
   // plugins: [ 安装了 calssic 就不用再安装这两个插件了
   //   ['@docusaurus/plugin-google-gtag'],
@@ -236,6 +226,16 @@ module.exports = {
         sitemap: {
           changefreq: "daily",
           priority: 0.5,
+        },
+        gtag: {
+          trackingID: 'G-B66H1HYDXT',
+          // Optional fields.
+          anonymizeIP: true, // Should IPs be anonymized?
+        },
+        googleAnalytics: {
+          trackingID: 'G-B66H1HYDXT',
+          // Optional fields.
+          anonymizeIP: true, // Should IPs be anonymized?
         },
       },
     ],

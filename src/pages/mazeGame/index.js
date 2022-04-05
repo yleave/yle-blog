@@ -7,7 +7,7 @@ import { DynamicBarChart } from 'react-dynamic-charts';
 import 'react-dynamic-charts/dist/index.css';
 
 import { notification, Modal, Button } from 'antd';
-import 'antd/dist/antd.min.css';    // 存在对话框无法关闭的问题，导入 css 样式后才恢复正常
+// import 'antd/dist/antd.min.css';    // 存在对话框无法关闭的问题，导入 css 样式后才恢复正常
 import Draggable from 'react-draggable';
 
 import { initPage } from '../../utils/pageStatics';
